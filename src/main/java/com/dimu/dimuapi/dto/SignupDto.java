@@ -4,6 +4,8 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 
+import java.util.List;
+
 public record SignupDto(
         @NotEmpty(message = "Email cannot be empty ")
         @Email(message = "Email should be valid")
@@ -11,6 +13,8 @@ public record SignupDto(
 
         @NotEmpty(message="Password cannot be empty")
         @Pattern(regexp = "")
-        String password
+        String password,
+
+        List<String> roleId
 ) {
 }

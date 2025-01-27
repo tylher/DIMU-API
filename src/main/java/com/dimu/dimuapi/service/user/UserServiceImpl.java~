@@ -29,11 +29,10 @@ public class UserServiceImpl implements UserService {
             }
             else{
                 String encodedPassword = passwordEncoder.encode(createUserDto.password());
-                List<Role> roles = createUserDto.roleId().stream().map(this::getRoleById).toList();
                 User user= new User();
                 user.setEmail(createUserDto.email());
                 user.setPassword(encodedPassword);
-                user.setRoles(roles);
+                user.setRoles(List.of(createUserDto.roleIds().));
                 userRepository.save(user);
                 return "User registered successfully.";
             }
@@ -50,6 +49,5 @@ public class UserServiceImpl implements UserService {
     private Role getRoleById(String roleId) {
         Role role= roleRepository.findById(roleId).orElseThrow(
                 () -> new ResourceNotFoundException("Role", "id", roleId));
-        return role;
     }
 }

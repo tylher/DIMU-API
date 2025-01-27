@@ -1,0 +1,4 @@
+package com.dimu.dimuapi.repository;
+
+public interface RoleRepository {
+}
