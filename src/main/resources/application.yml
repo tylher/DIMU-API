@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: dimuapi
+  config:
+    import:
+      - optional:classpath:env.properties
+      - optional:classpath:application_prod.yml
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+  jpa:
+    properties:
+      hibernate:
+        dialect:  org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+
+

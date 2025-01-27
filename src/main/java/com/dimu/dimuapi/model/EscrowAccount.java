@@ -1,0 +1,26 @@
+package com.dimu.dimuapi.model;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+import java.time.LocalDateTime;
+
+@Entity
+@Data
+@AllArgsConstructor
+public class EscrowAccount extends BaseEntity{
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String escrowId;
+
+    private double escrowBalance;
+
+    private boolean isReleased;
+
+    private LocalDateTime releasedAt;
+
+    @OneToOne
+    @JoinColumn(name = "transactionId")
+    private Transaction transaction;
+}
