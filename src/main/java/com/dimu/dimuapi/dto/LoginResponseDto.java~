@@ -1,4 +1,0 @@
-package com.dimu.dimuapi.dto;
-
-public record LoginResponseDto() {
-}

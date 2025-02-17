@@ -1,6 +1,0 @@
-package com.dimu.dimuapi.constant;
-
-public final class ApplicationConstants {
-    public static final String JWT_SECRET_DEFAULT_VAL="hbjywuvud6uvjebdlknsiidt";
-    public static final String JWT_HEADER = "Authorization";
-}
