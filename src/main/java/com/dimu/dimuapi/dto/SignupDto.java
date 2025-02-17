@@ -12,7 +12,7 @@ public record SignupDto(
         String email,
 
         @NotEmpty(message="Password cannot be empty")
-        @Pattern(regexp = "")
+//        @Pattern(regexp = "")
         String password,
 
         List<String> roleId

@@ -10,7 +10,7 @@ public record LoginDto(
         String email,
 
         @NotEmpty(message="Password cannot be empty")
-        @Pattern(regexp = "")
+//        @Pattern(regexp = "")
         String password
 ) {
 }

@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -33,11 +34,16 @@ public class User extends BaseEntity{
 
     private String phoneNumber;
 
+    private String gender;
+
+    private LocalDateTime dateOfBirth;
+
     private String countryCode;
 
     private String fullName;
 
-    private String gender;
-
     private String profileImageUrl;
+
+    @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT true")
+    private boolean isVerified = false;
 }

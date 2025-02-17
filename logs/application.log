@@ -1,0 +1,80 @@
+2025-02-17T00:29:45.154+01:00  INFO 18396 --- [dimuapi] [main] c.dimu.dimuapi.DimuapiApplicationTests   : Starting DimuapiApplicationTests using Java 21.0.2 with PID 18396 (started by hp in C:\Users\hp\Documents\DIMU-API)
+2025-02-17T00:29:45.178+01:00  INFO 18396 --- [dimuapi] [main] c.dimu.dimuapi.DimuapiApplicationTests   : No active profile set, falling back to 1 default profile: "default"
+2025-02-17T00:29:47.484+01:00  INFO 18396 --- [dimuapi] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-02-17T00:29:47.631+01:00  INFO 18396 --- [dimuapi] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 136 ms. Found 3 JPA repository interfaces.
+2025-02-17T00:29:48.998+01:00  INFO 18396 --- [dimuapi] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-02-17T00:29:52.736+01:00  INFO 18396 --- [dimuapi] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@605c7a9e
+2025-02-17T00:29:52.740+01:00  INFO 18396 --- [dimuapi] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-02-17T00:29:53.303+01:00  INFO 18396 --- [dimuapi] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-02-17T00:29:53.475+01:00  INFO 18396 --- [dimuapi] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.3.Final
+2025-02-17T00:29:53.552+01:00  INFO 18396 --- [dimuapi] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-02-17T00:29:54.251+01:00  INFO 18396 --- [dimuapi] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-02-17T00:29:54.874+01:00  WARN 18396 --- [dimuapi] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-02-17T00:29:57.949+01:00  INFO 18396 --- [dimuapi] [main] o.h.m.i.EntityInstantiatorPojoStandard   : HHH000182: No default (no-argument) constructor for class: com.dimu.dimuapi.model.EscrowAccount (class must be instantiated by Interceptor)
+2025-02-17T00:29:58.063+01:00  INFO 18396 --- [dimuapi] [main] o.h.m.i.EntityInstantiatorPojoStandard   : HHH000182: No default (no-argument) constructor for class: com.dimu.dimuapi.model.Transaction (class must be instantiated by Interceptor)
+2025-02-17T00:29:58.404+01:00  INFO 18396 --- [dimuapi] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-02-17T00:30:05.109+01:00  INFO 18396 --- [dimuapi] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-02-17T00:30:06.548+01:00  WARN 18396 --- [dimuapi] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-02-17T00:30:06.595+01:00 TRACE 18396 --- [dimuapi] [main] eGlobalAuthenticationAutowiredConfigurer : Eagerly initializing {dimuapiApplication=com.dimu.dimuapi.DimuapiApplication$$SpringCGLIB$$0@6f09cb98}
+2025-02-17T00:30:06.602+01:00  INFO 18396 --- [dimuapi] [main] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name diimuAuthenticationProvider
+2025-02-17T00:30:06.604+01:00  WARN 18396 --- [dimuapi] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used for username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider.
+2025-02-17T00:30:08.318+01:00 DEBUG 18396 --- [dimuapi] [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, LogoutFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, JwtValidationFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2025-02-17T00:30:08.818+01:00  WARN 18396 --- [dimuapi] [main] o.s.s.c.a.web.builders.WebSecurity       : 
+
+********************************************************************
+**********        Security debugging is enabled.       *************
+**********    This may include sensitive information.  *************
+**********      Do not use in a production system!     *************
+********************************************************************
+
+
+2025-02-17T00:30:09.853+01:00  INFO 18396 --- [dimuapi] [main] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2025-02-17T00:30:09.855+01:00  INFO 18396 --- [dimuapi] [main] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@67d6b0a6]]
+2025-02-17T00:30:09.857+01:00  INFO 18396 --- [dimuapi] [main] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2025-02-17T00:30:09.874+01:00  INFO 18396 --- [dimuapi] [main] c.dimu.dimuapi.DimuapiApplicationTests   : Started DimuapiApplicationTests in 25.513 seconds (process running for 27.604)
+2025-02-17T00:30:11.080+01:00  INFO 18396 --- [dimuapi] [SpringApplicationShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
+2025-02-17T00:30:11.081+01:00  INFO 18396 --- [dimuapi] [SpringApplicationShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@67d6b0a6]]
+2025-02-17T00:30:11.081+01:00  INFO 18396 --- [dimuapi] [SpringApplicationShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
+2025-02-17T00:30:11.085+01:00  INFO 18396 --- [dimuapi] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-02-17T00:30:11.087+01:00  INFO 18396 --- [dimuapi] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-02-17T00:30:13.397+01:00  INFO 18396 --- [dimuapi] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-02-17T01:05:58.513+01:00  INFO 4940 --- [dimuapi] [main] c.dimu.dimuapi.DimuapiApplicationTests   : Starting DimuapiApplicationTests using Java 21.0.6 with PID 4940 (started by damola in /mnt/c/Users/hp/Documents/dimu-api)
+2025-02-17T01:05:58.556+01:00  INFO 4940 --- [dimuapi] [main] c.dimu.dimuapi.DimuapiApplicationTests   : No active profile set, falling back to 1 default profile: "default"
+2025-02-17T01:06:49.790+01:00  INFO 4940 --- [dimuapi] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-02-17T01:06:56.544+01:00  INFO 4940 --- [dimuapi] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 6407 ms. Found 3 JPA repository interfaces.
+2025-02-17T01:07:21.073+01:00  INFO 4940 --- [dimuapi] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-02-17T01:07:34.049+01:00  INFO 4940 --- [dimuapi] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@286866cb
+2025-02-17T01:07:34.183+01:00  INFO 4940 --- [dimuapi] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-02-17T01:07:39.844+01:00  INFO 4940 --- [dimuapi] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-02-17T01:07:44.545+01:00  INFO 4940 --- [dimuapi] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.3.Final
+2025-02-17T01:07:46.959+01:00  INFO 4940 --- [dimuapi] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-02-17T01:08:07.729+01:00  INFO 4940 --- [dimuapi] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-02-17T01:08:13.626+01:00  WARN 4940 --- [dimuapi] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-02-17T01:09:02.239+01:00  INFO 4940 --- [dimuapi] [main] o.h.m.i.EntityInstantiatorPojoStandard   : HHH000182: No default (no-argument) constructor for class: com.dimu.dimuapi.model.EscrowAccount (class must be instantiated by Interceptor)
+2025-02-17T01:09:03.250+01:00  INFO 4940 --- [dimuapi] [main] o.h.m.i.EntityInstantiatorPojoStandard   : HHH000182: No default (no-argument) constructor for class: com.dimu.dimuapi.model.Transaction (class must be instantiated by Interceptor)
+2025-02-17T01:09:15.221+01:00  INFO 4940 --- [dimuapi] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-02-17T01:09:25.489+01:00  INFO 4940 --- [dimuapi] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-02-17T01:09:45.450+01:00  WARN 4940 --- [dimuapi] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-02-17T01:09:46.274+01:00 TRACE 4940 --- [dimuapi] [main] eGlobalAuthenticationAutowiredConfigurer : Eagerly initializing {dimuapiApplication=com.dimu.dimuapi.DimuapiApplication$$SpringCGLIB$$0@39f3285d}
+2025-02-17T01:09:46.343+01:00  INFO 4940 --- [dimuapi] [main] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name diimuAuthenticationProvider
+2025-02-17T01:09:46.375+01:00  WARN 4940 --- [dimuapi] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used for username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider.
+2025-02-17T01:10:13.261+01:00 DEBUG 4940 --- [dimuapi] [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, LogoutFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, JwtValidationFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2025-02-17T01:10:18.371+01:00  WARN 4940 --- [dimuapi] [main] o.s.s.c.a.web.builders.WebSecurity       : 
+
+********************************************************************
+**********        Security debugging is enabled.       *************
+**********    This may include sensitive information.  *************
+**********      Do not use in a production system!     *************
+********************************************************************
+
+
+2025-02-17T01:10:29.909+01:00  INFO 4940 --- [dimuapi] [main] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2025-02-17T01:10:29.923+01:00  INFO 4940 --- [dimuapi] [main] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@64934acd]]
+2025-02-17T01:10:29.951+01:00  INFO 4940 --- [dimuapi] [main] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2025-02-17T01:10:30.132+01:00  INFO 4940 --- [dimuapi] [main] c.dimu.dimuapi.DimuapiApplicationTests   : Started DimuapiApplicationTests in 295.029 seconds (process running for 354.038)
+2025-02-17T01:10:50.432+01:00  INFO 4940 --- [dimuapi] [SpringApplicationShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
+2025-02-17T01:10:50.446+01:00  INFO 4940 --- [dimuapi] [SpringApplicationShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@64934acd]]
+2025-02-17T01:10:50.452+01:00  INFO 4940 --- [dimuapi] [SpringApplicationShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
+2025-02-17T01:10:50.543+01:00  INFO 4940 --- [dimuapi] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-02-17T01:10:50.587+01:00  INFO 4940 --- [dimuapi] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-02-17T01:10:53.607+01:00  INFO 4940 --- [dimuapi] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

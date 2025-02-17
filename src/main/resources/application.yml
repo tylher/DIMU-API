@@ -16,5 +16,33 @@ spring:
         dialect:  org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       ddl-auto: update
+  sql:
+    init:
+      mode: always
+  mail:
+    host: ${SMTP_HOST}
+    port: ${SMTP_PORT}
+    username: ${EMAIL_USERNAME}
+    password: ${EMAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+          ssl:
+            enable: true
+            required: true
+        transport:
+          protocol: smtp
 
+logging:
+  level:
+    org.springframework.security: TRACE
+  pattern:
+    console: "%green(%d{yyyy-MM-dd HH:mm:ss}) %blue(%-5level) %red([%thread]) %yellow(%logger{36}) - %msg%n"
+  file:
+    name: logs/application.log
 
+jwtScret: ${JWT_SECRET_KEY}

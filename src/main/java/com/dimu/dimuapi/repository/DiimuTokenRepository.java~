@@ -1,0 +1,7 @@
+package com.dimu.dimuapi.repository;
+
+import com.dimu.dimuapi.model.DiimuToken;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface DiimuTokenRepository extends JpaRepository<DiimuToken, String> {
+}
