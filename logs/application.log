@@ -392,3 +392,653 @@ You may need to update both your build tool settings as well as your IDE.
 2025-02-18T01:38:38.994+01:00  INFO 17584 --- [dimuapi] [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
 2025-02-18T01:38:39.028+01:00  INFO 17584 --- [dimuapi] [restartedMain] com.dimu.dimuapi.DimuapiApplication      : Started DimuapiApplication in 35.142 seconds (process running for 36.718)
 2025-02-18T01:39:38.947+01:00  INFO 17584 --- [dimuapi] [MessageBroker-1] o.s.w.s.c.WebSocketMessageBrokerStats    : WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
+2025-02-18T02:09:38.952+01:00  INFO 17584 --- [dimuapi] [MessageBroker-1] o.s.w.s.c.WebSocketMessageBrokerStats    : WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 2, active threads = 1, queued tasks = 0, completed tasks = 1]
+2025-02-18T10:55:35.389+01:00  WARN 17584 --- [dimuapi] [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=8h28m22s648ms801µs600ns).
+2025-02-18T11:07:25.898+01:00  INFO 17584 --- [dimuapi] [MessageBroker-2] o.s.w.s.c.WebSocketMessageBrokerStats    : WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 3, active threads = 1, queued tasks = 0, completed tasks = 2]
+2025-02-18T11:37:25.953+01:00  INFO 17584 --- [dimuapi] [MessageBroker-1] o.s.w.s.c.WebSocketMessageBrokerStats    : WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 4, active threads = 1, queued tasks = 0, completed tasks = 3]
+2025-02-18T12:07:26.049+01:00  INFO 17584 --- [dimuapi] [MessageBroker-1] o.s.w.s.c.WebSocketMessageBrokerStats    : WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 4, active threads = 1, queued tasks = 0, completed tasks = 4]
+2025-02-18T12:16:42.303+01:00  INFO 17584 --- [dimuapi] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-02-18T12:16:42.307+01:00  INFO 17584 --- [dimuapi] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-02-18T12:16:42.336+01:00  INFO 17584 --- [dimuapi] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 26 ms
+2025-02-18T12:16:42.433+01:00  INFO 17584 --- [dimuapi] [http-nio-8080-exec-1] Spring Security Debugger                 : 
+
+************************************************************
+
+Request received for GET '/swagger-ui/index.html':
+
+org.apache.catalina.connector.RequestFacade@365b0097
+
+servletPath:/swagger-ui/index.html
+pathInfo:null
+headers: 
+host: localhost:8080
+connection: keep-alive
+sec-ch-ua: "Not(A:Brand";v="99", "Google Chrome";v="133", "Chromium";v="133"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+upgrade-insecure-requests: 1
+user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36
+accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+sec-fetch-site: none
+sec-fetch-mode: navigate
+sec-fetch-user: ?1
+sec-fetch-dest: document
+accept-encoding: gzip, deflate, br, zstd
+accept-language: en-US,en;q=0.9
+
+
+Security filter chain: [
+  DisableEncodeUrlFilter
+  WebAsyncManagerIntegrationFilter
+  SecurityContextHolderFilter
+  HeaderWriterFilter
+  LogoutFilter
+  RequestCacheAwareFilter
+  SecurityContextHolderAwareRequestFilter
+  JwtValidationFilter
+  AnonymousAuthenticationFilter
+  SessionManagementFilter
+  ExceptionTranslationFilter
+  AuthorizationFilter
+]
+
+
+************************************************************
+
+
+2025-02-18T12:16:42.450+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Trying to match request against DefaultSecurityFilterChain [RequestMatcher=any request, Filters=[org.springframework.security.web.session.DisableEncodeUrlFilter@41e57e2a, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4173dba3, org.springframework.security.web.context.SecurityContextHolderFilter@6a9be022, org.springframework.security.web.header.HeaderWriterFilter@7c871899, org.springframework.security.web.authentication.logout.LogoutFilter@df0d360, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3cd31a19, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@593cfe76, com.dimu.dimuapi.filter.JwtValidationFilter@3457ccd8, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3127cb5b, org.springframework.security.web.session.SessionManagementFilter@78a4286c, org.springframework.security.web.access.ExceptionTranslationFilter@14a62113, org.springframework.security.web.access.intercept.AuthorizationFilter@6319f9e9]] (1/1)
+2025-02-18T12:16:42.454+01:00 DEBUG 17584 --- [dimuapi] [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /swagger-ui/index.html
+2025-02-18T12:16:42.456+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Invoking DisableEncodeUrlFilter (1/12)
+2025-02-18T12:16:42.458+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Invoking WebAsyncManagerIntegrationFilter (2/12)
+2025-02-18T12:16:42.471+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Invoking SecurityContextHolderFilter (3/12)
+2025-02-18T12:16:42.474+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Invoking HeaderWriterFilter (4/12)
+2025-02-18T12:16:42.480+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Invoking LogoutFilter (5/12)
+2025-02-18T12:16:42.480+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-1] o.s.s.w.a.logout.LogoutFilter            : Did not match request to Or [Ant [pattern='/logout', GET], Ant [pattern='/logout', POST], Ant [pattern='/logout', PUT], Ant [pattern='/logout', DELETE]]
+2025-02-18T12:16:42.481+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Invoking RequestCacheAwareFilter (6/12)
+2025-02-18T12:16:42.481+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Invoking SecurityContextHolderAwareRequestFilter (7/12)
+2025-02-18T12:16:42.484+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Invoking JwtValidationFilter (8/12)
+2025-02-18T12:16:42.486+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Invoking AnonymousAuthenticationFilter (9/12)
+2025-02-18T12:16:42.492+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Invoking SessionManagementFilter (10/12)
+2025-02-18T12:16:42.493+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-1] .s.s.w.c.SupplierDeferredSecurityContext : Created SecurityContextImpl [Null authentication]
+2025-02-18T12:16:42.500+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to AnonymousAuthenticationToken [Principal=anonymousUser, Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null], Granted Authorities=[ROLE_ANONYMOUS]]
+2025-02-18T12:16:42.501+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Invoking ExceptionTranslationFilter (11/12)
+2025-02-18T12:16:42.502+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Invoking AuthorizationFilter (12/12)
+2025-02-18T12:16:42.507+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-1] estMatcherDelegatingAuthorizationManager : Authorizing GET /swagger-ui/index.html
+2025-02-18T12:16:42.515+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-1] estMatcherDelegatingAuthorizationManager : Checking authorization on GET /swagger-ui/index.html using org.springframework.security.config.annotation.web.configurers.AuthorizeHttpRequestsConfigurer$$Lambda/0x00000208b89e8208@7a015bf2
+2025-02-18T12:16:42.519+01:00 DEBUG 17584 --- [dimuapi] [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /swagger-ui/index.html
+2025-02-18T12:16:42.776+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-1] o.s.s.w.header.writers.HstsHeaderWriter  : Not injecting HSTS header since it did not match request to [Is Secure]
+2025-02-18T12:16:42.930+01:00  INFO 17584 --- [dimuapi] [http-nio-8080-exec-2] Spring Security Debugger                 : 
+
+************************************************************
+
+Request received for GET '/swagger-ui/index.css':
+
+org.apache.catalina.connector.RequestFacade@6d4eee9a
+
+servletPath:/swagger-ui/index.css
+pathInfo:null
+headers: 
+host: localhost:8080
+connection: keep-alive
+sec-ch-ua-platform: "Windows"
+user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="99", "Google Chrome";v="133", "Chromium";v="133"
+sec-ch-ua-mobile: ?0
+accept: text/css,*/*;q=0.1
+sec-fetch-site: same-origin
+sec-fetch-mode: no-cors
+sec-fetch-dest: style
+referer: http://localhost:8080/swagger-ui/index.html
+accept-encoding: gzip, deflate, br, zstd
+accept-language: en-US,en;q=0.9
+
+
+Security filter chain: [
+  DisableEncodeUrlFilter
+  WebAsyncManagerIntegrationFilter
+  SecurityContextHolderFilter
+  HeaderWriterFilter
+  LogoutFilter
+  RequestCacheAwareFilter
+  SecurityContextHolderAwareRequestFilter
+  JwtValidationFilter
+  AnonymousAuthenticationFilter
+  SessionManagementFilter
+  ExceptionTranslationFilter
+  AuthorizationFilter
+]
+
+
+************************************************************
+
+
+2025-02-18T12:16:42.933+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Trying to match request against DefaultSecurityFilterChain [RequestMatcher=any request, Filters=[org.springframework.security.web.session.DisableEncodeUrlFilter@41e57e2a, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4173dba3, org.springframework.security.web.context.SecurityContextHolderFilter@6a9be022, org.springframework.security.web.header.HeaderWriterFilter@7c871899, org.springframework.security.web.authentication.logout.LogoutFilter@df0d360, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3cd31a19, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@593cfe76, com.dimu.dimuapi.filter.JwtValidationFilter@3457ccd8, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3127cb5b, org.springframework.security.web.session.SessionManagementFilter@78a4286c, org.springframework.security.web.access.ExceptionTranslationFilter@14a62113, org.springframework.security.web.access.intercept.AuthorizationFilter@6319f9e9]] (1/1)
+2025-02-18T12:16:42.935+01:00 DEBUG 17584 --- [dimuapi] [http-nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /swagger-ui/index.css
+2025-02-18T12:16:42.935+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Invoking DisableEncodeUrlFilter (1/12)
+2025-02-18T12:16:42.935+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Invoking WebAsyncManagerIntegrationFilter (2/12)
+2025-02-18T12:16:42.935+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Invoking SecurityContextHolderFilter (3/12)
+2025-02-18T12:16:42.936+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Invoking HeaderWriterFilter (4/12)
+2025-02-18T12:16:42.936+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Invoking LogoutFilter (5/12)
+2025-02-18T12:16:42.936+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-2] o.s.s.w.a.logout.LogoutFilter            : Did not match request to Or [Ant [pattern='/logout', GET], Ant [pattern='/logout', POST], Ant [pattern='/logout', PUT], Ant [pattern='/logout', DELETE]]
+2025-02-18T12:16:42.936+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Invoking RequestCacheAwareFilter (6/12)
+2025-02-18T12:16:42.937+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Invoking SecurityContextHolderAwareRequestFilter (7/12)
+2025-02-18T12:16:42.937+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Invoking JwtValidationFilter (8/12)
+2025-02-18T12:16:42.938+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Invoking AnonymousAuthenticationFilter (9/12)
+2025-02-18T12:16:42.938+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Invoking SessionManagementFilter (10/12)
+2025-02-18T12:16:42.939+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-2] .s.s.w.c.SupplierDeferredSecurityContext : Created SecurityContextImpl [Null authentication]
+2025-02-18T12:16:42.940+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to AnonymousAuthenticationToken [Principal=anonymousUser, Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null], Granted Authorities=[ROLE_ANONYMOUS]]
+2025-02-18T12:16:42.941+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Invoking ExceptionTranslationFilter (11/12)
+2025-02-18T12:16:42.953+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Invoking AuthorizationFilter (12/12)
+2025-02-18T12:16:42.954+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-2] estMatcherDelegatingAuthorizationManager : Authorizing GET /swagger-ui/index.css
+2025-02-18T12:16:42.955+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-2] estMatcherDelegatingAuthorizationManager : Checking authorization on GET /swagger-ui/index.css using org.springframework.security.config.annotation.web.configurers.AuthorizeHttpRequestsConfigurer$$Lambda/0x00000208b89e8208@7a015bf2
+2025-02-18T12:16:42.955+01:00 DEBUG 17584 --- [dimuapi] [http-nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /swagger-ui/index.css
+2025-02-18T12:16:42.975+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-2] o.s.s.w.header.writers.HstsHeaderWriter  : Not injecting HSTS header since it did not match request to [Is Secure]
+2025-02-18T12:16:42.997+01:00  INFO 17584 --- [dimuapi] [http-nio-8080-exec-4] Spring Security Debugger                 : 
+
+************************************************************
+
+Request received for GET '/swagger-ui/swagger-ui-standalone-preset.js':
+
+org.apache.catalina.connector.RequestFacade@333a6213
+
+servletPath:/swagger-ui/swagger-ui-standalone-preset.js
+pathInfo:null
+headers: 
+host: localhost:8080
+connection: keep-alive
+sec-ch-ua-platform: "Windows"
+user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="99", "Google Chrome";v="133", "Chromium";v="133"
+sec-ch-ua-mobile: ?0
+accept: */*
+sec-fetch-site: same-origin
+sec-fetch-mode: no-cors
+sec-fetch-dest: script
+referer: http://localhost:8080/swagger-ui/index.html
+accept-encoding: gzip, deflate, br, zstd
+accept-language: en-US,en;q=0.9
+
+
+Security filter chain: [
+  DisableEncodeUrlFilter
+  WebAsyncManagerIntegrationFilter
+  SecurityContextHolderFilter
+  HeaderWriterFilter
+  LogoutFilter
+  RequestCacheAwareFilter
+  SecurityContextHolderAwareRequestFilter
+  JwtValidationFilter
+  AnonymousAuthenticationFilter
+  SessionManagementFilter
+  ExceptionTranslationFilter
+  AuthorizationFilter
+]
+
+
+************************************************************
+
+
+2025-02-18T12:16:42.949+01:00  INFO 17584 --- [dimuapi] [http-nio-8080-exec-3] Spring Security Debugger                 : 
+
+************************************************************
+
+Request received for GET '/swagger-ui/swagger-ui-bundle.js':
+
+org.apache.catalina.connector.RequestFacade@cdc98a6
+
+servletPath:/swagger-ui/swagger-ui-bundle.js
+pathInfo:null
+headers: 
+host: localhost:8080
+connection: keep-alive
+sec-ch-ua-platform: "Windows"
+user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="99", "Google Chrome";v="133", "Chromium";v="133"
+sec-ch-ua-mobile: ?0
+accept: */*
+sec-fetch-site: same-origin
+sec-fetch-mode: no-cors
+sec-fetch-dest: script
+referer: http://localhost:8080/swagger-ui/index.html
+accept-encoding: gzip, deflate, br, zstd
+accept-language: en-US,en;q=0.9
+
+
+Security filter chain: [
+  DisableEncodeUrlFilter
+  WebAsyncManagerIntegrationFilter
+  SecurityContextHolderFilter
+  HeaderWriterFilter
+  LogoutFilter
+  RequestCacheAwareFilter
+  SecurityContextHolderAwareRequestFilter
+  JwtValidationFilter
+  AnonymousAuthenticationFilter
+  SessionManagementFilter
+  ExceptionTranslationFilter
+  AuthorizationFilter
+]
+
+
+************************************************************
+
+
+2025-02-18T12:16:43.000+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Trying to match request against DefaultSecurityFilterChain [RequestMatcher=any request, Filters=[org.springframework.security.web.session.DisableEncodeUrlFilter@41e57e2a, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4173dba3, org.springframework.security.web.context.SecurityContextHolderFilter@6a9be022, org.springframework.security.web.header.HeaderWriterFilter@7c871899, org.springframework.security.web.authentication.logout.LogoutFilter@df0d360, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3cd31a19, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@593cfe76, com.dimu.dimuapi.filter.JwtValidationFilter@3457ccd8, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3127cb5b, org.springframework.security.web.session.SessionManagementFilter@78a4286c, org.springframework.security.web.access.ExceptionTranslationFilter@14a62113, org.springframework.security.web.access.intercept.AuthorizationFilter@6319f9e9]] (1/1)
+2025-02-18T12:16:43.000+01:00 DEBUG 17584 --- [dimuapi] [http-nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /swagger-ui/swagger-ui-bundle.js
+2025-02-18T12:16:43.011+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Trying to match request against DefaultSecurityFilterChain [RequestMatcher=any request, Filters=[org.springframework.security.web.session.DisableEncodeUrlFilter@41e57e2a, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4173dba3, org.springframework.security.web.context.SecurityContextHolderFilter@6a9be022, org.springframework.security.web.header.HeaderWriterFilter@7c871899, org.springframework.security.web.authentication.logout.LogoutFilter@df0d360, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3cd31a19, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@593cfe76, com.dimu.dimuapi.filter.JwtValidationFilter@3457ccd8, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3127cb5b, org.springframework.security.web.session.SessionManagementFilter@78a4286c, org.springframework.security.web.access.ExceptionTranslationFilter@14a62113, org.springframework.security.web.access.intercept.AuthorizationFilter@6319f9e9]] (1/1)
+2025-02-18T12:16:43.007+01:00  INFO 17584 --- [dimuapi] [http-nio-8080-exec-5] Spring Security Debugger                 : 
+
+************************************************************
+
+Request received for GET '/swagger-ui/swagger-initializer.js':
+
+org.apache.catalina.connector.RequestFacade@7af7e93
+
+servletPath:/swagger-ui/swagger-initializer.js
+pathInfo:null
+headers: 
+host: localhost:8080
+connection: keep-alive
+sec-ch-ua-platform: "Windows"
+user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="99", "Google Chrome";v="133", "Chromium";v="133"
+sec-ch-ua-mobile: ?0
+accept: */*
+sec-fetch-site: same-origin
+sec-fetch-mode: no-cors
+sec-fetch-dest: script
+referer: http://localhost:8080/swagger-ui/index.html
+accept-encoding: gzip, deflate, br, zstd
+accept-language: en-US,en;q=0.9
+
+
+Security filter chain: [
+  DisableEncodeUrlFilter
+  WebAsyncManagerIntegrationFilter
+  SecurityContextHolderFilter
+  HeaderWriterFilter
+  LogoutFilter
+  RequestCacheAwareFilter
+  SecurityContextHolderAwareRequestFilter
+  JwtValidationFilter
+  AnonymousAuthenticationFilter
+  SessionManagementFilter
+  ExceptionTranslationFilter
+  AuthorizationFilter
+]
+
+
+************************************************************
+
+
+2025-02-18T12:16:43.352+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Trying to match request against DefaultSecurityFilterChain [RequestMatcher=any request, Filters=[org.springframework.security.web.session.DisableEncodeUrlFilter@41e57e2a, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4173dba3, org.springframework.security.web.context.SecurityContextHolderFilter@6a9be022, org.springframework.security.web.header.HeaderWriterFilter@7c871899, org.springframework.security.web.authentication.logout.LogoutFilter@df0d360, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3cd31a19, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@593cfe76, com.dimu.dimuapi.filter.JwtValidationFilter@3457ccd8, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3127cb5b, org.springframework.security.web.session.SessionManagementFilter@78a4286c, org.springframework.security.web.access.ExceptionTranslationFilter@14a62113, org.springframework.security.web.access.intercept.AuthorizationFilter@6319f9e9]] (1/1)
+2025-02-18T12:16:43.024+01:00  INFO 17584 --- [dimuapi] [http-nio-8080-exec-1] Spring Security Debugger                 : 
+
+************************************************************
+
+Request received for GET '/swagger-ui/swagger-ui.css':
+
+org.apache.catalina.connector.RequestFacade@346e03f1
+
+servletPath:/swagger-ui/swagger-ui.css
+pathInfo:null
+headers: 
+host: localhost:8080
+connection: keep-alive
+sec-ch-ua-platform: "Windows"
+user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="99", "Google Chrome";v="133", "Chromium";v="133"
+sec-ch-ua-mobile: ?0
+accept: text/css,*/*;q=0.1
+sec-fetch-site: same-origin
+sec-fetch-mode: no-cors
+sec-fetch-dest: style
+referer: http://localhost:8080/swagger-ui/index.html
+accept-encoding: gzip, deflate, br, zstd
+accept-language: en-US,en;q=0.9
+
+
+Security filter chain: [
+  DisableEncodeUrlFilter
+  WebAsyncManagerIntegrationFilter
+  SecurityContextHolderFilter
+  HeaderWriterFilter
+  LogoutFilter
+  RequestCacheAwareFilter
+  SecurityContextHolderAwareRequestFilter
+  JwtValidationFilter
+  AnonymousAuthenticationFilter
+  SessionManagementFilter
+  ExceptionTranslationFilter
+  AuthorizationFilter
+]
+
+
+************************************************************
+
+
+2025-02-18T12:16:43.360+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Trying to match request against DefaultSecurityFilterChain [RequestMatcher=any request, Filters=[org.springframework.security.web.session.DisableEncodeUrlFilter@41e57e2a, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4173dba3, org.springframework.security.web.context.SecurityContextHolderFilter@6a9be022, org.springframework.security.web.header.HeaderWriterFilter@7c871899, org.springframework.security.web.authentication.logout.LogoutFilter@df0d360, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3cd31a19, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@593cfe76, com.dimu.dimuapi.filter.JwtValidationFilter@3457ccd8, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3127cb5b, org.springframework.security.web.session.SessionManagementFilter@78a4286c, org.springframework.security.web.access.ExceptionTranslationFilter@14a62113, org.springframework.security.web.access.intercept.AuthorizationFilter@6319f9e9]] (1/1)
+2025-02-18T12:16:43.363+01:00 DEBUG 17584 --- [dimuapi] [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /swagger-ui/swagger-ui.css
+2025-02-18T12:16:43.366+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Invoking DisableEncodeUrlFilter (1/12)
+2025-02-18T12:16:43.367+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Invoking WebAsyncManagerIntegrationFilter (2/12)
+2025-02-18T12:16:43.367+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Invoking SecurityContextHolderFilter (3/12)
+2025-02-18T12:16:43.367+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Invoking HeaderWriterFilter (4/12)
+2025-02-18T12:16:43.367+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Invoking LogoutFilter (5/12)
+2025-02-18T12:16:43.368+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-1] o.s.s.w.a.logout.LogoutFilter            : Did not match request to Or [Ant [pattern='/logout', GET], Ant [pattern='/logout', POST], Ant [pattern='/logout', PUT], Ant [pattern='/logout', DELETE]]
+2025-02-18T12:16:43.368+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Invoking RequestCacheAwareFilter (6/12)
+2025-02-18T12:16:43.368+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Invoking SecurityContextHolderAwareRequestFilter (7/12)
+2025-02-18T12:16:43.368+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Invoking JwtValidationFilter (8/12)
+2025-02-18T12:16:43.368+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Invoking AnonymousAuthenticationFilter (9/12)
+2025-02-18T12:16:43.368+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Invoking SessionManagementFilter (10/12)
+2025-02-18T12:16:43.369+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-1] .s.s.w.c.SupplierDeferredSecurityContext : Created SecurityContextImpl [Null authentication]
+2025-02-18T12:16:43.370+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to AnonymousAuthenticationToken [Principal=anonymousUser, Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null], Granted Authorities=[ROLE_ANONYMOUS]]
+2025-02-18T12:16:43.371+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Invoking ExceptionTranslationFilter (11/12)
+2025-02-18T12:16:43.373+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Invoking AuthorizationFilter (12/12)
+2025-02-18T12:16:43.374+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-1] estMatcherDelegatingAuthorizationManager : Authorizing GET /swagger-ui/swagger-ui.css
+2025-02-18T12:16:43.374+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-1] estMatcherDelegatingAuthorizationManager : Checking authorization on GET /swagger-ui/swagger-ui.css using org.springframework.security.config.annotation.web.configurers.AuthorizeHttpRequestsConfigurer$$Lambda/0x00000208b89e8208@7a015bf2
+2025-02-18T12:16:43.374+01:00 DEBUG 17584 --- [dimuapi] [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /swagger-ui/swagger-ui.css
+2025-02-18T12:16:43.353+01:00 DEBUG 17584 --- [dimuapi] [http-nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /swagger-ui/swagger-initializer.js
+2025-02-18T12:16:43.400+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Invoking DisableEncodeUrlFilter (1/12)
+2025-02-18T12:16:43.405+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Invoking WebAsyncManagerIntegrationFilter (2/12)
+2025-02-18T12:16:43.397+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-1] o.s.s.w.header.writers.HstsHeaderWriter  : Not injecting HSTS header since it did not match request to [Is Secure]
+2025-02-18T12:16:43.409+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Invoking SecurityContextHolderFilter (3/12)
+2025-02-18T12:16:43.410+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Invoking HeaderWriterFilter (4/12)
+2025-02-18T12:16:43.422+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Invoking LogoutFilter (5/12)
+2025-02-18T12:16:43.352+01:00 DEBUG 17584 --- [dimuapi] [http-nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /swagger-ui/swagger-ui-standalone-preset.js
+2025-02-18T12:16:43.423+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-5] o.s.s.w.a.logout.LogoutFilter            : Did not match request to Or [Ant [pattern='/logout', GET], Ant [pattern='/logout', POST], Ant [pattern='/logout', PUT], Ant [pattern='/logout', DELETE]]
+2025-02-18T12:16:43.425+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Invoking DisableEncodeUrlFilter (1/12)
+2025-02-18T12:16:43.425+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Invoking RequestCacheAwareFilter (6/12)
+2025-02-18T12:16:43.439+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Invoking SecurityContextHolderAwareRequestFilter (7/12)
+2025-02-18T12:16:43.475+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Invoking JwtValidationFilter (8/12)
+2025-02-18T12:16:43.354+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Invoking DisableEncodeUrlFilter (1/12)
+2025-02-18T12:16:43.478+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Invoking WebAsyncManagerIntegrationFilter (2/12)
+2025-02-18T12:16:43.477+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Invoking AnonymousAuthenticationFilter (9/12)
+2025-02-18T12:16:43.486+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Invoking SessionManagementFilter (10/12)
+2025-02-18T12:16:43.486+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Invoking SecurityContextHolderFilter (3/12)
+2025-02-18T12:16:43.434+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Invoking WebAsyncManagerIntegrationFilter (2/12)
+2025-02-18T12:16:43.607+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Invoking SecurityContextHolderFilter (3/12)
+2025-02-18T12:16:43.607+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Invoking HeaderWriterFilter (4/12)
+2025-02-18T12:16:43.608+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Invoking LogoutFilter (5/12)
+2025-02-18T12:16:43.608+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-3] o.s.s.w.a.logout.LogoutFilter            : Did not match request to Or [Ant [pattern='/logout', GET], Ant [pattern='/logout', POST], Ant [pattern='/logout', PUT], Ant [pattern='/logout', DELETE]]
+2025-02-18T12:16:43.608+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Invoking HeaderWriterFilter (4/12)
+2025-02-18T12:16:43.608+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Invoking RequestCacheAwareFilter (6/12)
+2025-02-18T12:16:43.608+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Invoking LogoutFilter (5/12)
+2025-02-18T12:16:43.608+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Invoking SecurityContextHolderAwareRequestFilter (7/12)
+2025-02-18T12:16:43.608+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Invoking JwtValidationFilter (8/12)
+2025-02-18T12:16:43.608+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Invoking AnonymousAuthenticationFilter (9/12)
+2025-02-18T12:16:43.609+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Invoking SessionManagementFilter (10/12)
+2025-02-18T12:16:43.609+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-4] o.s.s.w.a.logout.LogoutFilter            : Did not match request to Or [Ant [pattern='/logout', GET], Ant [pattern='/logout', POST], Ant [pattern='/logout', PUT], Ant [pattern='/logout', DELETE]]
+2025-02-18T12:16:43.609+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-3] .s.s.w.c.SupplierDeferredSecurityContext : Created SecurityContextImpl [Null authentication]
+2025-02-18T12:16:43.609+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to AnonymousAuthenticationToken [Principal=anonymousUser, Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null], Granted Authorities=[ROLE_ANONYMOUS]]
+2025-02-18T12:16:43.609+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Invoking ExceptionTranslationFilter (11/12)
+2025-02-18T12:16:43.609+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Invoking AuthorizationFilter (12/12)
+2025-02-18T12:16:43.609+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-3] estMatcherDelegatingAuthorizationManager : Authorizing GET /swagger-ui/swagger-ui-bundle.js
+2025-02-18T12:16:43.492+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-5] .s.s.w.c.SupplierDeferredSecurityContext : Created SecurityContextImpl [Null authentication]
+2025-02-18T12:16:43.610+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-3] estMatcherDelegatingAuthorizationManager : Checking authorization on GET /swagger-ui/swagger-ui-bundle.js using org.springframework.security.config.annotation.web.configurers.AuthorizeHttpRequestsConfigurer$$Lambda/0x00000208b89e8208@7a015bf2
+2025-02-18T12:16:43.617+01:00 DEBUG 17584 --- [dimuapi] [http-nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /swagger-ui/swagger-ui-bundle.js
+2025-02-18T12:16:43.610+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Invoking RequestCacheAwareFilter (6/12)
+2025-02-18T12:16:43.638+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Invoking SecurityContextHolderAwareRequestFilter (7/12)
+2025-02-18T12:16:43.655+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-3] o.s.s.w.header.writers.HstsHeaderWriter  : Not injecting HSTS header since it did not match request to [Is Secure]
+2025-02-18T12:16:43.642+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Invoking JwtValidationFilter (8/12)
+2025-02-18T12:16:43.673+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Invoking AnonymousAuthenticationFilter (9/12)
+2025-02-18T12:16:43.674+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Invoking SessionManagementFilter (10/12)
+2025-02-18T12:16:43.675+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-4] .s.s.w.c.SupplierDeferredSecurityContext : Created SecurityContextImpl [Null authentication]
+2025-02-18T12:16:43.684+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to AnonymousAuthenticationToken [Principal=anonymousUser, Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null], Granted Authorities=[ROLE_ANONYMOUS]]
+2025-02-18T12:16:43.684+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Invoking ExceptionTranslationFilter (11/12)
+2025-02-18T12:16:43.685+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Invoking AuthorizationFilter (12/12)
+2025-02-18T12:16:43.685+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-4] estMatcherDelegatingAuthorizationManager : Authorizing GET /swagger-ui/swagger-ui-standalone-preset.js
+2025-02-18T12:16:43.686+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-4] estMatcherDelegatingAuthorizationManager : Checking authorization on GET /swagger-ui/swagger-ui-standalone-preset.js using org.springframework.security.config.annotation.web.configurers.AuthorizeHttpRequestsConfigurer$$Lambda/0x00000208b89e8208@7a015bf2
+2025-02-18T12:16:43.686+01:00 DEBUG 17584 --- [dimuapi] [http-nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /swagger-ui/swagger-ui-standalone-preset.js
+2025-02-18T12:16:43.693+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-4] o.s.s.w.header.writers.HstsHeaderWriter  : Not injecting HSTS header since it did not match request to [Is Secure]
+2025-02-18T12:16:43.610+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to AnonymousAuthenticationToken [Principal=anonymousUser, Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null], Granted Authorities=[ROLE_ANONYMOUS]]
+2025-02-18T12:16:43.784+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Invoking ExceptionTranslationFilter (11/12)
+2025-02-18T12:16:43.786+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Invoking AuthorizationFilter (12/12)
+2025-02-18T12:16:43.787+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-5] estMatcherDelegatingAuthorizationManager : Authorizing GET /swagger-ui/swagger-initializer.js
+2025-02-18T12:16:43.788+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-5] estMatcherDelegatingAuthorizationManager : Checking authorization on GET /swagger-ui/swagger-initializer.js using org.springframework.security.config.annotation.web.configurers.AuthorizeHttpRequestsConfigurer$$Lambda/0x00000208b89e8208@7a015bf2
+2025-02-18T12:16:43.788+01:00 DEBUG 17584 --- [dimuapi] [http-nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /swagger-ui/swagger-initializer.js
+2025-02-18T12:16:43.922+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-5] o.s.s.w.header.writers.HstsHeaderWriter  : Not injecting HSTS header since it did not match request to [Is Secure]
+2025-02-18T12:16:44.153+01:00  INFO 17584 --- [dimuapi] [http-nio-8080-exec-7] Spring Security Debugger                 : 
+
+************************************************************
+
+Request received for GET '/swagger-ui/favicon-32x32.png':
+
+org.apache.catalina.connector.RequestFacade@2cbe5aee
+
+servletPath:/swagger-ui/favicon-32x32.png
+pathInfo:null
+headers: 
+host: localhost:8080
+connection: keep-alive
+sec-ch-ua-platform: "Windows"
+user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="99", "Google Chrome";v="133", "Chromium";v="133"
+sec-ch-ua-mobile: ?0
+accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+sec-fetch-site: same-origin
+sec-fetch-mode: no-cors
+sec-fetch-dest: image
+referer: http://localhost:8080/swagger-ui/index.html
+accept-encoding: gzip, deflate, br, zstd
+accept-language: en-US,en;q=0.9
+
+
+Security filter chain: [
+  DisableEncodeUrlFilter
+  WebAsyncManagerIntegrationFilter
+  SecurityContextHolderFilter
+  HeaderWriterFilter
+  LogoutFilter
+  RequestCacheAwareFilter
+  SecurityContextHolderAwareRequestFilter
+  JwtValidationFilter
+  AnonymousAuthenticationFilter
+  SessionManagementFilter
+  ExceptionTranslationFilter
+  AuthorizationFilter
+]
+
+
+************************************************************
+
+
+2025-02-18T12:16:44.170+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Trying to match request against DefaultSecurityFilterChain [RequestMatcher=any request, Filters=[org.springframework.security.web.session.DisableEncodeUrlFilter@41e57e2a, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4173dba3, org.springframework.security.web.context.SecurityContextHolderFilter@6a9be022, org.springframework.security.web.header.HeaderWriterFilter@7c871899, org.springframework.security.web.authentication.logout.LogoutFilter@df0d360, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3cd31a19, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@593cfe76, com.dimu.dimuapi.filter.JwtValidationFilter@3457ccd8, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3127cb5b, org.springframework.security.web.session.SessionManagementFilter@78a4286c, org.springframework.security.web.access.ExceptionTranslationFilter@14a62113, org.springframework.security.web.access.intercept.AuthorizationFilter@6319f9e9]] (1/1)
+2025-02-18T12:16:44.171+01:00 DEBUG 17584 --- [dimuapi] [http-nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /swagger-ui/favicon-32x32.png
+2025-02-18T12:16:44.171+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Invoking DisableEncodeUrlFilter (1/12)
+2025-02-18T12:16:44.171+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Invoking WebAsyncManagerIntegrationFilter (2/12)
+2025-02-18T12:16:44.172+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Invoking SecurityContextHolderFilter (3/12)
+2025-02-18T12:16:44.172+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Invoking HeaderWriterFilter (4/12)
+2025-02-18T12:16:44.173+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Invoking LogoutFilter (5/12)
+2025-02-18T12:16:44.173+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-7] o.s.s.w.a.logout.LogoutFilter            : Did not match request to Or [Ant [pattern='/logout', GET], Ant [pattern='/logout', POST], Ant [pattern='/logout', PUT], Ant [pattern='/logout', DELETE]]
+2025-02-18T12:16:44.173+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Invoking RequestCacheAwareFilter (6/12)
+2025-02-18T12:16:44.174+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Invoking SecurityContextHolderAwareRequestFilter (7/12)
+2025-02-18T12:16:44.176+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Invoking JwtValidationFilter (8/12)
+2025-02-18T12:16:44.178+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Invoking AnonymousAuthenticationFilter (9/12)
+2025-02-18T12:16:44.178+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Invoking SessionManagementFilter (10/12)
+2025-02-18T12:16:44.179+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-7] .s.s.w.c.SupplierDeferredSecurityContext : Created SecurityContextImpl [Null authentication]
+2025-02-18T12:16:44.179+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to AnonymousAuthenticationToken [Principal=anonymousUser, Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null], Granted Authorities=[ROLE_ANONYMOUS]]
+2025-02-18T12:16:44.178+01:00  INFO 17584 --- [dimuapi] [http-nio-8080-exec-6] Spring Security Debugger                 : 
+
+************************************************************
+
+Request received for GET '/v3/api-docs/swagger-config':
+
+org.apache.catalina.connector.RequestFacade@36fc7713
+
+servletPath:/v3/api-docs/swagger-config
+pathInfo:null
+headers: 
+host: localhost:8080
+connection: keep-alive
+sec-ch-ua-platform: "Windows"
+user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="99", "Google Chrome";v="133", "Chromium";v="133"
+sec-ch-ua-mobile: ?0
+accept: */*
+sec-fetch-site: same-origin
+sec-fetch-mode: cors
+sec-fetch-dest: empty
+referer: http://localhost:8080/swagger-ui/index.html
+accept-encoding: gzip, deflate, br, zstd
+accept-language: en-US,en;q=0.9
+
+
+Security filter chain: [
+  DisableEncodeUrlFilter
+  WebAsyncManagerIntegrationFilter
+  SecurityContextHolderFilter
+  HeaderWriterFilter
+  LogoutFilter
+  RequestCacheAwareFilter
+  SecurityContextHolderAwareRequestFilter
+  JwtValidationFilter
+  AnonymousAuthenticationFilter
+  SessionManagementFilter
+  ExceptionTranslationFilter
+  AuthorizationFilter
+]
+
+
+************************************************************
+
+
+2025-02-18T12:16:44.179+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Invoking ExceptionTranslationFilter (11/12)
+2025-02-18T12:16:44.181+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Invoking AuthorizationFilter (12/12)
+2025-02-18T12:16:44.182+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-7] estMatcherDelegatingAuthorizationManager : Authorizing GET /swagger-ui/favicon-32x32.png
+2025-02-18T12:16:44.183+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-7] estMatcherDelegatingAuthorizationManager : Checking authorization on GET /swagger-ui/favicon-32x32.png using org.springframework.security.config.annotation.web.configurers.AuthorizeHttpRequestsConfigurer$$Lambda/0x00000208b89e8208@7a015bf2
+2025-02-18T12:16:44.183+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Trying to match request against DefaultSecurityFilterChain [RequestMatcher=any request, Filters=[org.springframework.security.web.session.DisableEncodeUrlFilter@41e57e2a, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4173dba3, org.springframework.security.web.context.SecurityContextHolderFilter@6a9be022, org.springframework.security.web.header.HeaderWriterFilter@7c871899, org.springframework.security.web.authentication.logout.LogoutFilter@df0d360, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3cd31a19, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@593cfe76, com.dimu.dimuapi.filter.JwtValidationFilter@3457ccd8, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3127cb5b, org.springframework.security.web.session.SessionManagementFilter@78a4286c, org.springframework.security.web.access.ExceptionTranslationFilter@14a62113, org.springframework.security.web.access.intercept.AuthorizationFilter@6319f9e9]] (1/1)
+2025-02-18T12:16:44.184+01:00 DEBUG 17584 --- [dimuapi] [http-nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /swagger-ui/favicon-32x32.png
+2025-02-18T12:16:44.208+01:00 DEBUG 17584 --- [dimuapi] [http-nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /v3/api-docs/swagger-config
+2025-02-18T12:16:44.208+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Invoking DisableEncodeUrlFilter (1/12)
+2025-02-18T12:16:44.208+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Invoking WebAsyncManagerIntegrationFilter (2/12)
+2025-02-18T12:16:44.208+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Invoking SecurityContextHolderFilter (3/12)
+2025-02-18T12:16:44.208+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Invoking HeaderWriterFilter (4/12)
+2025-02-18T12:16:44.208+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Invoking LogoutFilter (5/12)
+2025-02-18T12:16:44.209+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-6] o.s.s.w.a.logout.LogoutFilter            : Did not match request to Or [Ant [pattern='/logout', GET], Ant [pattern='/logout', POST], Ant [pattern='/logout', PUT], Ant [pattern='/logout', DELETE]]
+2025-02-18T12:16:44.209+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Invoking RequestCacheAwareFilter (6/12)
+2025-02-18T12:16:44.209+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Invoking SecurityContextHolderAwareRequestFilter (7/12)
+2025-02-18T12:16:44.209+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Invoking JwtValidationFilter (8/12)
+2025-02-18T12:16:44.209+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Invoking AnonymousAuthenticationFilter (9/12)
+2025-02-18T12:16:44.209+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Invoking SessionManagementFilter (10/12)
+2025-02-18T12:16:44.209+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-6] .s.s.w.c.SupplierDeferredSecurityContext : Created SecurityContextImpl [Null authentication]
+2025-02-18T12:16:44.210+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to AnonymousAuthenticationToken [Principal=anonymousUser, Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null], Granted Authorities=[ROLE_ANONYMOUS]]
+2025-02-18T12:16:44.210+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Invoking ExceptionTranslationFilter (11/12)
+2025-02-18T12:16:44.210+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Invoking AuthorizationFilter (12/12)
+2025-02-18T12:16:44.210+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-6] estMatcherDelegatingAuthorizationManager : Authorizing GET /v3/api-docs/swagger-config
+2025-02-18T12:16:44.210+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-6] estMatcherDelegatingAuthorizationManager : Checking authorization on GET /v3/api-docs/swagger-config using org.springframework.security.config.annotation.web.configurers.AuthorizeHttpRequestsConfigurer$$Lambda/0x00000208b89e8208@7a015bf2
+2025-02-18T12:16:44.211+01:00 DEBUG 17584 --- [dimuapi] [http-nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /v3/api-docs/swagger-config
+2025-02-18T12:16:44.226+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-7] o.s.s.w.header.writers.HstsHeaderWriter  : Not injecting HSTS header since it did not match request to [Is Secure]
+2025-02-18T12:16:44.466+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-6] o.s.s.w.header.writers.HstsHeaderWriter  : Not injecting HSTS header since it did not match request to [Is Secure]
+2025-02-18T12:16:44.517+01:00  INFO 17584 --- [dimuapi] [http-nio-8080-exec-8] Spring Security Debugger                 : 
+
+************************************************************
+
+Request received for GET '/v3/api-docs':
+
+org.apache.catalina.connector.RequestFacade@157929ec
+
+servletPath:/v3/api-docs
+pathInfo:null
+headers: 
+host: localhost:8080
+connection: keep-alive
+sec-ch-ua-platform: "Windows"
+user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36
+accept: application/json,*/*
+sec-ch-ua: "Not(A:Brand";v="99", "Google Chrome";v="133", "Chromium";v="133"
+sec-ch-ua-mobile: ?0
+sec-fetch-site: same-origin
+sec-fetch-mode: cors
+sec-fetch-dest: empty
+referer: http://localhost:8080/swagger-ui/index.html
+accept-encoding: gzip, deflate, br, zstd
+accept-language: en-US,en;q=0.9
+
+
+Security filter chain: [
+  DisableEncodeUrlFilter
+  WebAsyncManagerIntegrationFilter
+  SecurityContextHolderFilter
+  HeaderWriterFilter
+  LogoutFilter
+  RequestCacheAwareFilter
+  SecurityContextHolderAwareRequestFilter
+  JwtValidationFilter
+  AnonymousAuthenticationFilter
+  SessionManagementFilter
+  ExceptionTranslationFilter
+  AuthorizationFilter
+]
+
+
+************************************************************
+
+
+2025-02-18T12:16:44.517+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Trying to match request against DefaultSecurityFilterChain [RequestMatcher=any request, Filters=[org.springframework.security.web.session.DisableEncodeUrlFilter@41e57e2a, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4173dba3, org.springframework.security.web.context.SecurityContextHolderFilter@6a9be022, org.springframework.security.web.header.HeaderWriterFilter@7c871899, org.springframework.security.web.authentication.logout.LogoutFilter@df0d360, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3cd31a19, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@593cfe76, com.dimu.dimuapi.filter.JwtValidationFilter@3457ccd8, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3127cb5b, org.springframework.security.web.session.SessionManagementFilter@78a4286c, org.springframework.security.web.access.ExceptionTranslationFilter@14a62113, org.springframework.security.web.access.intercept.AuthorizationFilter@6319f9e9]] (1/1)
+2025-02-18T12:16:44.519+01:00 DEBUG 17584 --- [dimuapi] [http-nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /v3/api-docs
+2025-02-18T12:16:44.520+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Invoking DisableEncodeUrlFilter (1/12)
+2025-02-18T12:16:44.521+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Invoking WebAsyncManagerIntegrationFilter (2/12)
+2025-02-18T12:16:44.521+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Invoking SecurityContextHolderFilter (3/12)
+2025-02-18T12:16:44.521+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Invoking HeaderWriterFilter (4/12)
+2025-02-18T12:16:44.522+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Invoking LogoutFilter (5/12)
+2025-02-18T12:16:44.522+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-8] o.s.s.w.a.logout.LogoutFilter            : Did not match request to Or [Ant [pattern='/logout', GET], Ant [pattern='/logout', POST], Ant [pattern='/logout', PUT], Ant [pattern='/logout', DELETE]]
+2025-02-18T12:16:44.522+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Invoking RequestCacheAwareFilter (6/12)
+2025-02-18T12:16:44.522+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Invoking SecurityContextHolderAwareRequestFilter (7/12)
+2025-02-18T12:16:44.522+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Invoking JwtValidationFilter (8/12)
+2025-02-18T12:16:44.522+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Invoking AnonymousAuthenticationFilter (9/12)
+2025-02-18T12:16:44.523+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Invoking SessionManagementFilter (10/12)
+2025-02-18T12:16:44.523+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-8] .s.s.w.c.SupplierDeferredSecurityContext : Created SecurityContextImpl [Null authentication]
+2025-02-18T12:16:44.524+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to AnonymousAuthenticationToken [Principal=anonymousUser, Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null], Granted Authorities=[ROLE_ANONYMOUS]]
+2025-02-18T12:16:44.524+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Invoking ExceptionTranslationFilter (11/12)
+2025-02-18T12:16:44.524+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Invoking AuthorizationFilter (12/12)
+2025-02-18T12:16:44.524+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-8] estMatcherDelegatingAuthorizationManager : Authorizing GET /v3/api-docs
+2025-02-18T12:16:44.524+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-8] estMatcherDelegatingAuthorizationManager : Checking authorization on GET /v3/api-docs using org.springframework.security.config.annotation.web.configurers.AuthorizeHttpRequestsConfigurer$$Lambda/0x00000208b89e8208@7a015bf2
+2025-02-18T12:16:44.524+01:00 DEBUG 17584 --- [dimuapi] [http-nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /v3/api-docs
+2025-02-18T12:16:46.226+01:00  INFO 17584 --- [dimuapi] [http-nio-8080-exec-8] o.springdoc.api.AbstractOpenApiResource  : Init duration for springdoc-openapi is: 1395 ms
+2025-02-18T12:16:46.307+01:00 TRACE 17584 --- [dimuapi] [http-nio-8080-exec-8] o.s.s.w.header.writers.HstsHeaderWriter  : Not injecting HSTS header since it did not match request to [Is Secure]
+2025-02-18T12:22:44.368+01:00  INFO 17584 --- [dimuapi] [SpringApplicationShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
+2025-02-18T12:22:44.368+01:00  INFO 17584 --- [dimuapi] [SpringApplicationShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@4ae27c58]]
+2025-02-18T12:22:44.369+01:00  INFO 17584 --- [dimuapi] [SpringApplicationShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
+2025-02-18T12:22:44.407+01:00  INFO 17584 --- [dimuapi] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-02-18T12:22:44.419+01:00  INFO 17584 --- [dimuapi] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-02-18T12:22:47.269+01:00  INFO 17584 --- [dimuapi] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-02-18T12:23:25.560+01:00  INFO 10484 --- [dimuapi] [main] c.dimu.dimuapi.DimuapiApplicationTests   : Starting DimuapiApplicationTests using Java 21.0.2 with PID 10484 (started by hp in C:\Users\hp\Documents\DIMU-API)
+2025-02-18T12:23:25.563+01:00  INFO 10484 --- [dimuapi] [main] c.dimu.dimuapi.DimuapiApplicationTests   : No active profile set, falling back to 1 default profile: "default"
+2025-02-18T12:23:27.988+01:00  INFO 10484 --- [dimuapi] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-02-18T12:23:28.135+01:00  INFO 10484 --- [dimuapi] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 131 ms. Found 3 JPA repository interfaces.
+2025-02-18T12:23:29.481+01:00  INFO 10484 --- [dimuapi] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-02-18T12:23:32.937+01:00  INFO 10484 --- [dimuapi] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@7afbf2a0
+2025-02-18T12:23:32.941+01:00  INFO 10484 --- [dimuapi] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-02-18T12:23:33.387+01:00  INFO 10484 --- [dimuapi] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-02-18T12:23:33.554+01:00  INFO 10484 --- [dimuapi] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.3.Final
+2025-02-18T12:23:33.639+01:00  INFO 10484 --- [dimuapi] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-02-18T12:23:34.283+01:00  INFO 10484 --- [dimuapi] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-02-18T12:23:34.975+01:00  WARN 10484 --- [dimuapi] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-02-18T12:23:37.405+01:00  INFO 10484 --- [dimuapi] [main] o.h.m.i.EntityInstantiatorPojoStandard   : HHH000182: No default (no-argument) constructor for class: com.dimu.dimuapi.model.EscrowAccount (class must be instantiated by Interceptor)
+2025-02-18T12:23:37.501+01:00  INFO 10484 --- [dimuapi] [main] o.h.m.i.EntityInstantiatorPojoStandard   : HHH000182: No default (no-argument) constructor for class: com.dimu.dimuapi.model.Transaction (class must be instantiated by Interceptor)
+2025-02-18T12:23:37.893+01:00  INFO 10484 --- [dimuapi] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-02-18T12:23:44.413+01:00  INFO 10484 --- [dimuapi] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-02-18T12:23:45.696+01:00  WARN 10484 --- [dimuapi] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-02-18T12:23:45.757+01:00 TRACE 10484 --- [dimuapi] [main] eGlobalAuthenticationAutowiredConfigurer : Eagerly initializing {dimuapiApplication=com.dimu.dimuapi.DimuapiApplication$$SpringCGLIB$$0@54faa040}
+2025-02-18T12:23:45.761+01:00  INFO 10484 --- [dimuapi] [main] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name diimuAuthenticationProvider
+2025-02-18T12:23:45.762+01:00  WARN 10484 --- [dimuapi] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used for username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider.
+2025-02-18T12:23:46.641+01:00 DEBUG 10484 --- [dimuapi] [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, LogoutFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, JwtValidationFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2025-02-18T12:23:47.062+01:00  WARN 10484 --- [dimuapi] [main] o.s.s.c.a.web.builders.WebSecurity       : 
+
+********************************************************************
+**********        Security debugging is enabled.       *************
+**********    This may include sensitive information.  *************
+**********      Do not use in a production system!     *************
+********************************************************************
+
+
+2025-02-18T12:23:48.049+01:00  INFO 10484 --- [dimuapi] [main] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2025-02-18T12:23:48.050+01:00  INFO 10484 --- [dimuapi] [main] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@7e544223]]
+2025-02-18T12:23:48.053+01:00  INFO 10484 --- [dimuapi] [main] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2025-02-18T12:23:48.070+01:00  INFO 10484 --- [dimuapi] [main] c.dimu.dimuapi.DimuapiApplicationTests   : Started DimuapiApplicationTests in 23.242 seconds (process running for 25.978)
+2025-02-18T12:23:49.310+01:00  INFO 10484 --- [dimuapi] [SpringApplicationShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
+2025-02-18T12:23:49.311+01:00  INFO 10484 --- [dimuapi] [SpringApplicationShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@7e544223]]
+2025-02-18T12:23:49.312+01:00  INFO 10484 --- [dimuapi] [SpringApplicationShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
+2025-02-18T12:23:49.322+01:00  INFO 10484 --- [dimuapi] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-02-18T12:23:49.325+01:00  INFO 10484 --- [dimuapi] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-02-18T12:23:51.663+01:00  INFO 10484 --- [dimuapi] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

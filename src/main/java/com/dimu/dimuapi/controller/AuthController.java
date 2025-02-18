@@ -1,5 +1,6 @@
 package com.dimu.dimuapi.controller;
 
+import com.dimu.dimuapi.dto.ApiResponseDto;
 import com.dimu.dimuapi.dto.LoginDto;
 import com.dimu.dimuapi.dto.LoginResponseDto;
 import com.dimu.dimuapi.service.auth.AuthService;
@@ -21,8 +22,9 @@ public class AuthController {
 
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponseDto> login(@RequestBody @Valid LoginDto loginDto) throws Exception {
+    public ResponseEntity<ApiResponseDto> login(@RequestBody @Valid LoginDto loginDto) throws Exception {
         LoginResponseDto loginResponseDto = authService.login(loginDto.email(), loginDto.password());
-        return new ResponseEntity<>(loginResponseDto, HttpStatus.OK);
+        return new ResponseEntity<>(new ApiResponseDto(true, loginResponseDto, "Login successful")
+                , HttpStatus.OK);
     }
 }

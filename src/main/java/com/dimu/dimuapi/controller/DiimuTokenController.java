@@ -1,5 +1,6 @@
 package com.dimu.dimuapi.controller;
 
+import com.dimu.dimuapi.dto.ApiResponseDto;
 import com.dimu.dimuapi.model.User;
 import com.dimu.dimuapi.service.token.DiimuTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +21,8 @@ public class DiimuTokenController {
     DiimuTokenService diimuTokenService;
 
     @GetMapping("/verification-token/resend")
-    ResponseEntity<String> resendverificationToken(@AuthenticationPrincipal User user) throws Exception {
+    ResponseEntity<ApiResponseDto> resendverificationToken(@AuthenticationPrincipal User user) throws Exception {
         String response = diimuTokenService.resendToken(user.getEmail());
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        return new ResponseEntity<>(new ApiResponseDto(true, response), HttpStatus.OK);
     }
 }
