@@ -8,5 +8,5 @@ public interface DiimuTokenService {
 
    public String verifyToken(String email, String token);
 
-   public String resendVerificationToken(String email) throws Exception;
+   public String resendToken(String email) throws Exception;
 }

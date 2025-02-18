@@ -1,8 +1,6 @@
 package com.dimu.dimuapi.filter;
 
 import com.dimu.dimuapi.constant.ApplicationConstants;
-import com.dimu.dimuapi.model.User;
-import com.dimu.dimuapi.repository.UserRepository;
 import com.dimu.dimuapi.util.JwtUtils;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwt;
@@ -12,7 +10,6 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -29,9 +26,6 @@ public class JwtValidationFilter extends OncePerRequestFilter {
     @Value("${JWT_SECRET_KEY}")
     private String jwtSecret;
 
-    @Autowired
-    UserRepository userRepository;
-
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
     String jwt = request.getHeader(ApplicationConstants.JWT_HEADER).split(" ")[1];
@@ -41,10 +35,7 @@ public class JwtValidationFilter extends OncePerRequestFilter {
           String email = claims.get("email").toString();
           String roles = claims.get("roles").toString();
 
-          User user = userRepository.findByEmail(email).orElseThrow(()
-                  -> new BadCredentialsException("User not found"));
-
-            Authentication authentication = new UsernamePasswordAuthenticationToken(user,null, AuthorityUtils.commaSeparatedStringToAuthorityList(roles));
+            Authentication authentication = new UsernamePasswordAuthenticationToken(email,null, AuthorityUtils.commaSeparatedStringToAuthorityList(roles));
             SecurityContextHolder.getContext().setAuthentication(authentication);
         } catch (Exception e) {
             throw new BadCredentialsException(e.getMessage());

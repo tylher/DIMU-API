@@ -13,7 +13,6 @@ import com.dimu.dimuapi.service.email.EmailService;
 import com.dimu.dimuapi.service.token.DiimuTokenService;
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -34,7 +33,6 @@ public class UserServiceImpl implements UserService {
     EmailService emailService;
 
     @Autowired
-    @Qualifier("DiimuVerificationTokenService")
     DiimuTokenService diimuTokenService;
 
     @Override
