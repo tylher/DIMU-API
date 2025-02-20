@@ -27,7 +27,7 @@ public class DiimuAuthenticationProvider implements AuthenticationProvider {
                     pwd, userDetails.getAuthorities());
         }
         else {
-            throw new BadCredentialsException("Invalid Password");
+            throw new BadCredentialsException("Invalid Password or Username");
         }
     }
 

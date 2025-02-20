@@ -24,7 +24,7 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<ApiResponseDto> login(@RequestBody @Valid LoginDto loginDto) throws Exception {
         LoginResponseDto loginResponseDto = authService.login(loginDto.email(), loginDto.password());
-        return new ResponseEntity<>(new ApiResponseDto(true,"Login successful", loginResponseDto )
+        return new ResponseEntity<>(new ApiResponseDto(true, loginResponseDto, "Login successful")
                 , HttpStatus.OK);
     }
 }

@@ -10,5 +10,5 @@ public interface UserService {
 
     public ApiResponseDto onBoardUser(OnboardDto onBoardDto, User user) throws Exception;
 
-    String resetPassword(String email, String password);
+    String resetPassword(String email, String password,String code);
 }

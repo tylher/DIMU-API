@@ -1,6 +1,7 @@
 package com.dimu.dimuapi.exceptionshandling;
 
 import com.dimu.dimuapi.dto.ErrorResponseDto;
+import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -54,6 +55,22 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity(new ErrorResponseDto(exception.getMessage(), HttpStatus.NOT_FOUND
                 ,webRequest.getDescription(false), LocalDateTime.now())
                 ,HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<ErrorResponseDto> handleBadRequestException(BadRequestException exception
+            , WebRequest webRequest) {
+        return new ResponseEntity(new ErrorResponseDto(exception.getMessage(), HttpStatus.BAD_REQUEST
+                ,webRequest.getDescription(false), LocalDateTime.now())
+                ,HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(CustomException.class)
+    public ResponseEntity<ErrorResponseDto> handleBadRequestException(CustomException exception
+            , WebRequest webRequest) {
+        return new ResponseEntity(new ErrorResponseDto(exception.getMessage(), HttpStatus.BAD_REQUEST
+                ,webRequest.getDescription(false), LocalDateTime.now())
+                ,HttpStatus.BAD_REQUEST);
     }
 
 }

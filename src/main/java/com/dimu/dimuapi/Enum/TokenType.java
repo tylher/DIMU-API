@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 public enum TokenType {
     VERIFICATION(4,5),
-    RESET_PASSWORD(6,10);
+    RESET_PASSWORD(4,10);
 
     private final int length;
     private final int expiry;

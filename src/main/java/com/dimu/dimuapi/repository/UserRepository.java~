@@ -1,6 +1,5 @@
 package com.dimu.dimuapi.repository;
 
-import com.dimu.dimuapi.model.DiimuToken;
 import com.dimu.dimuapi.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -8,7 +7,8 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface DiimuTokenRepository extends JpaRepository<DiimuToken, String> {
+public interface UserRepository extends JpaRepository<User,String> {
+    Optional<User> findByEmail(String email);
 
-    Optional<DiimuToken> findByTokenAndUser(String token, User user);
+    boolean existsByEmail(String email);
 }

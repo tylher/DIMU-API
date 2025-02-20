@@ -1,6 +1,7 @@
 package com.dimu.dimuapi.controller;
 
 import com.dimu.dimuapi.dto.ApiResponseDto;
+import com.dimu.dimuapi.dto.PasswordResetDto;
 import com.dimu.dimuapi.model.User;
 import com.dimu.dimuapi.service.token.DiimuTokenService;
 import com.dimu.dimuapi.service.user.UserService;
@@ -12,7 +13,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("api/password")
+@RequestMapping("/password")
 public class PasswordController {
     @Autowired
     @Qualifier("DiimuPasswordTokenService")
@@ -21,31 +22,18 @@ public class PasswordController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/send-password-token")
-    public ResponseEntity<ApiResponseDto> sendPasswordToken( @RequestParam String email){
-        String response = diimuTokenService.createToken(email);
-        return new ResponseEntity<>(new ApiResponseDto(true,response), HttpStatus.OK);
-    }
-
-    @PostMapping("/verify-password-token")
-    public ResponseEntity<ApiResponseDto> verifyPasswordToken(@RequestParam String email
-            , @RequestParam String token){
-        String response = diimuTokenService.verifyToken(email,token);
-        return new ResponseEntity<>(new ApiResponseDto(true,response), HttpStatus.OK);
-    }
-
-    @PostMapping("/reset-password")
-    public ResponseEntity<ApiResponseDto> resetPassword(@RequestParam String email,
-             @RequestParam String password){
-        String response = userService.resetPassword(email,password);
+    @PutMapping("/reset-password")
+    public ResponseEntity<ApiResponseDto> resetPassword(@RequestBody PasswordResetDto passwordResetDto
+            ,@RequestParam String code){
+        String response = userService.resetPassword(passwordResetDto.email(), passwordResetDto.password(), code);
         ApiResponseDto apiResponseDto = new ApiResponseDto(true
                 ,response);
         return new ResponseEntity<>(apiResponseDto, HttpStatus.OK);
     }
 
-    @GetMapping("/password-token/resend")
-    ResponseEntity<ApiResponseDto> resendPasswordResetToken(@AuthenticationPrincipal User user) throws Exception {
-        String response = diimuTokenService.resendToken(user.getEmail());
+    @GetMapping("/password-token/send")
+    ResponseEntity<ApiResponseDto> resendPasswordResetToken(@RequestParam String email) throws Exception {
+        String response = diimuTokenService.sendToken(email);
         return new ResponseEntity<>(new ApiResponseDto(true, response), HttpStatus.OK);
     }
 }

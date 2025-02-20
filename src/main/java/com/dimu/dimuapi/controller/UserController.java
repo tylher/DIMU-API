@@ -56,10 +56,10 @@ public class UserController {
 
     }
 
-    @PostMapping("api/user/verify")
-    public  ResponseEntity<String> verifyToken(@RequestParam String code, @AuthenticationPrincipal User user){
-        String response = diimuTokenService.verifyToken(user.getEmail(),code);
-        return new ResponseEntity<>(response, HttpStatus.OK);
+    @PostMapping("/user/verify")
+    public  ResponseEntity<ApiResponseDto> verifyToken(@RequestParam String code,@RequestParam String email, @AuthenticationPrincipal User user){
+        String response = diimuTokenService.verifyToken(email,code);
+        return new ResponseEntity<>(new ApiResponseDto(true,response), HttpStatus.OK);
     }
 
     @PostMapping("api/user/onboard")

@@ -10,6 +10,7 @@ import com.dimu.dimuapi.model.User;
 import com.dimu.dimuapi.repository.DiimuTokenRepository;
 import com.dimu.dimuapi.repository.UserRepository;
 import com.dimu.dimuapi.service.email.EmailService;
+import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -62,9 +63,9 @@ public class DiimuVerificationTokenService implements DiimuTokenService{
             );
 
             if(diimuToken.isUsed()){
-                throw new CustomException("Token with code, "+token+ " has been used");
+                throw new BadRequestException("Token with code, "+token+ " has been used");
             }else if(diimuToken.getExpiresAt().isBefore(LocalDateTime.now())){
-                throw new CustomException("Token with code, "+token+ " has expired" +
+                throw new BadRequestException("Token with code, "+token+ " has expired" +
                         ", kindly request another");
             }else{
                 diimuToken.setUsed(true);
@@ -74,22 +75,27 @@ public class DiimuVerificationTokenService implements DiimuTokenService{
                 return "Verification code verified successfully";
             }
 
+        }catch (ResourceNotFoundException e){
+            throw e;
         }catch(Exception e){
             throw new CustomException("Unable to verify token: "+e.getMessage());
         }
     }
 
     @Override
-    public String resendToken(String email) throws Exception {
+    public String sendToken(String email) throws Exception {
         try{
-            String content = "Kindly reset your password using the code below\n "
+            String content = "Kindly verify your email using the code below\n "
                     +createToken(email);
             Mail mail = new Mail(new String[]{email},"ayo@diimu.net"
-                    ,"Reset Your Password");
+                    ,"verify your email");
             emailService.sendSimpleMail(mail,content);
             return "Verification code sent successfully";
-        }catch (Exception e){
-            throw new Exception("Unable to send mail: " + e.getMessage());
+        }catch (ResourceNotFoundException e){
+            throw e;
+        }
+        catch (Exception e){
+            throw new CustomException("Unable to send mail: " + e.getMessage());
         }
 
     }

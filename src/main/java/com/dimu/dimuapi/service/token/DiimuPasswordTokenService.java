@@ -73,13 +73,16 @@ public class DiimuPasswordTokenService implements DiimuTokenService{
                 return "Password reset code verified successfully";
             }
 
+        }catch (ResourceNotFoundException e){
+            throw e;
         }catch(Exception e){
             throw new CustomException("Unable to verify token: "+e.getMessage());
         }
     }
 
+
     @Override
-    public String resendToken(String email) throws Exception {
+    public String sendToken(String email) throws Exception {
         try{
             String content = "Kindly reset your password using the code below\n "
                     +createToken(email);

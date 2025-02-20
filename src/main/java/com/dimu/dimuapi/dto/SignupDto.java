@@ -15,6 +15,6 @@ public record SignupDto(
 //        @Pattern(regexp = "")
         String password,
 
-        List<String> roleId
+        List<Integer> roleId
 ) {
 }

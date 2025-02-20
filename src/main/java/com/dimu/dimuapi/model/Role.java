@@ -15,13 +15,10 @@ import java.util.List;
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames = "name")})
 public class Role extends BaseEntity{
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private String roleId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer roleId;
 
     @Column(unique = true, nullable = false)
     private String name;
 
-    @JsonIgnore
-    @ManyToMany(mappedBy = "roles")
-    private List<User> users;
 }

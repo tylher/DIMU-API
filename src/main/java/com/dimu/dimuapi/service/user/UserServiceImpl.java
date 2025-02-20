@@ -3,10 +3,13 @@ package com.dimu.dimuapi.service.user;
 import com.dimu.dimuapi.dto.ApiResponseDto;
 import com.dimu.dimuapi.dto.OnboardDto;
 import com.dimu.dimuapi.dto.SignupDto;
+import com.dimu.dimuapi.exceptionshandling.CustomException;
 import com.dimu.dimuapi.exceptionshandling.ResourceNotFoundException;
+import com.dimu.dimuapi.model.DiimuToken;
 import com.dimu.dimuapi.model.Mail;
 import com.dimu.dimuapi.model.Role;
 import com.dimu.dimuapi.model.User;
+import com.dimu.dimuapi.repository.DiimuTokenRepository;
 import com.dimu.dimuapi.repository.RoleRepository;
 import com.dimu.dimuapi.repository.UserRepository;
 import com.dimu.dimuapi.service.email.EmailService;
@@ -18,6 +21,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -32,6 +36,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     EmailService emailService;
+
+    @Autowired
+    DiimuTokenRepository diimuTokenRepository;
 
     @Autowired
     @Qualifier("DiimuVerificationTokenService")
@@ -80,30 +87,43 @@ public class UserServiceImpl implements UserService {
            user.setGender(onBoardDto.gender());
            user.setOnboarded(true);
            user.setState(onBoardDto.state());
-           return new ApiResponseDto(true,userRepository.save(user)
-                   ,"User onboarded successfully");
+           return new ApiResponseDto(true,"User onboarded successfully",userRepository.save(user)
+                   );
        }catch (Exception e){
            throw new Exception(e.getMessage());
        }
     }
 
     @Override
-    public String resetPassword(String email, String password) {
-        User user = userRepository.findByEmail(email).orElseThrow(
-                ()-> new ResourceNotFoundException("User","email",email)
-        );
+    public String resetPassword(String email, String password,String code) {
 
-        user.setPassword(passwordEncoder.encode(password));
-        userRepository.save(user);
+        try{
+            User user = userRepository.findByEmail(email).orElseThrow(
+                    ()-> new ResourceNotFoundException("User","email",email)
+            );
 
-        return "New password saved successfully";
+            DiimuToken passwordTokenOpt = diimuTokenRepository
+                    .findByTokenAndUser(code,user).orElseThrow(()->
+                            new ResourceNotFoundException("token","token",code));
+
+            user.setPassword(passwordEncoder.encode(password));
+            userRepository.save(user);
+
+            return "New password saved successfully";
+        }catch (ResourceNotFoundException e){
+            throw e;
+        }catch (Exception ex){
+            throw new CustomException(ex.getMessage());
+        }
+
+
     }
 
 
 
 
-    private Role getRoleById(String roleId) {
+    private Role getRoleById(Integer roleId) {
         return roleRepository.findById(roleId).orElseThrow(
-                () -> new ResourceNotFoundException("Role", "id", roleId));
+                () -> new ResourceNotFoundException("Role", "id", roleId.toString()));
     }
 }
