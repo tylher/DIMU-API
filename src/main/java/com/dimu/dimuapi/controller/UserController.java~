@@ -45,8 +45,8 @@ public class UserController {
     public ResponseEntity<String> sendMail(@RequestBody String content) throws Exception {
         try {
             Mail mail = new Mail();
-            mail.setFrom("jummy@diimu.net");
-            mail.setTo(new String[]{"tylher123@gmail.com"});
+            mail.setFrom("ayo@diimu.net");
+            mail.setTo(new String[]{"tylher123@gmail.com","ayoadediran96@gmail.com"});
             mail.setSubject("test mail");
             emailService.sendSimpleMail(mail, content);
             return new ResponseEntity<>("email sent successfully",HttpStatus.OK);

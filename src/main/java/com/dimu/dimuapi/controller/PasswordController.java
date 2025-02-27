@@ -2,14 +2,12 @@ package com.dimu.dimuapi.controller;
 
 import com.dimu.dimuapi.dto.ApiResponseDto;
 import com.dimu.dimuapi.dto.PasswordResetDto;
-import com.dimu.dimuapi.model.User;
 import com.dimu.dimuapi.service.token.DiimuTokenService;
 import com.dimu.dimuapi.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -29,6 +27,12 @@ public class PasswordController {
         ApiResponseDto apiResponseDto = new ApiResponseDto(true
                 ,response);
         return new ResponseEntity<>(apiResponseDto, HttpStatus.OK);
+    }
+
+    @PostMapping("/password-token/verify")
+    public  ResponseEntity<ApiResponseDto> verifyToken(@RequestParam String code,@RequestParam String email){
+        String response = diimuTokenService.verifyToken(email,code);
+        return new ResponseEntity<>(new ApiResponseDto(true,response), HttpStatus.OK);
     }
 
     @GetMapping("/password-token/send")
