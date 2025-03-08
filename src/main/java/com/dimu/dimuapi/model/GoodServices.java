@@ -1,15 +1,15 @@
 package com.dimu.dimuapi.model;
 
+import com.dimu.dimuapi.Enum.ItemCategory;
 import com.dimu.dimuapi.Enum.ItemType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 
 @Entity
 @AllArgsConstructor
+@NoArgsConstructor
 @Data
 public class GoodServices extends BaseEntity{
     @Id
@@ -18,13 +18,18 @@ public class GoodServices extends BaseEntity{
     private String itemName;
     private String description;
     @OneToOne
-    @JoinColumn(name = "transactionId", referencedColumnName = "transactionId")
-    private Transaction transaction;
+    @JoinColumn(name = "agreementId", referencedColumnName = "agreementId")
+    private Agreement agreement;
     @Column(nullable = false,columnDefinition = "int default 1")
     private  int quantity;
     @Enumerated(EnumType.STRING)
     private ItemType itemType;
     @Column(nullable = false)
     private double price = 0.0;
+    @Enumerated(EnumType.STRING)
+    private ItemCategory category;
+    private String deliveryAddress;
+    private String deliveryStatus;
+    private int inspectionPeriod;
 
 }

@@ -1,34 +1,41 @@
 package com.dimu.dimuapi.model;
 
-import com.dimu.dimuapi.Enum.TransactionStatus;
+import com.dimu.dimuapi.Enum.*;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
-@Data
+@NoArgsConstructor
 @AllArgsConstructor
-public class Transaction extends BaseEntity{
+@Data
+public class Transaction {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String transactionId;
-
-
-    @OneToOne
-    @JoinColumn(name = "buyerId", referencedColumnName = "userId")
-    private User buyer;
-
-    @OneToOne
-    @JoinColumn(name = "sellerId", referencedColumnName = "userId")
-    private User seller;
+    private String id;
 
     @Enumerated(EnumType.STRING)
-    private TransactionStatus status;
+    private TransactionStatus status = TransactionStatus.PENDING;
+
+    @Enumerated(EnumType.STRING)
+    private TransactionType transactionType;
 
     private double amount;
 
-    private LocalDateTime completedAt;
+    @Enumerated(EnumType.STRING)
+    private TransactionFlow transactionFlow;
 
+    @Enumerated(EnumType.STRING)
+    private PaymentType paymentType;
+
+    @OneToMany(mappedBy = "transaction",orphanRemoval = true)
+    private List<WalletLedger> walletLedgers;
+
+    @PrePersist
+    public void generateTransactionId(){
+        this.id = DiimuToken
+                .generateRandomToken(TokenType.TRANSACTION_ID,TokenFormat.ALPHANUMERIC);
+    }
 }

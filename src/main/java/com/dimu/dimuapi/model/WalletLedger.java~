@@ -15,8 +15,6 @@ public class WalletLedger extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.UUID)
     private String ledgerId;
 
-    @ManyToOne
-    @JoinColumn(name = "walletId")
     private DiimuWallet wallet;
 
     private double amount;

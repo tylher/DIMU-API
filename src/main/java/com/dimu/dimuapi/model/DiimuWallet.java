@@ -2,7 +2,16 @@ package com.dimu.dimuapi.model;
 
 import com.dimu.dimuapi.Enum.WalletType;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.util.List;
+
+@Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 public class DiimuWallet extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -11,6 +20,10 @@ public class DiimuWallet extends BaseEntity{
     @OneToOne
     @JoinColumn(name = "userId")
     private User user;
+
+    @OneToMany
+    @JoinColumn(name = "walletId")
+    private List<Transaction> transactions;
 
     private WalletType walletType;
 

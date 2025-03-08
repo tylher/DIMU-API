@@ -11,8 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 @EnableWebSecurity(debug = true)
 @EnableJpaAuditing
 public class DimuapiApplication{
-	@Value("${spring.datasource.url}")
-	private String url;
+
 	public static void main(String[] args) {
 
 		SpringApplication.run(DimuapiApplication.class, args);
