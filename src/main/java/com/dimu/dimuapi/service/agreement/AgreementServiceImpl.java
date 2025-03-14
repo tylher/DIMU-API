@@ -1,19 +1,19 @@
 package com.dimu.dimuapi.service.agreement;
 
+import ch.qos.logback.classic.net.SocketReceiver;
 import com.dimu.dimuapi.Enum.*;
 import com.dimu.dimuapi.dto.AgreementDto;
 import com.dimu.dimuapi.dto.ApiResponseDto;
 import com.dimu.dimuapi.exceptionshandling.CustomException;
 import com.dimu.dimuapi.exceptionshandling.ResourceNotFoundException;
-import com.dimu.dimuapi.model.Agreement;
-import com.dimu.dimuapi.model.GoodServices;
-import com.dimu.dimuapi.model.Transaction;
-import com.dimu.dimuapi.model.User;
+import com.dimu.dimuapi.model.*;
 import com.dimu.dimuapi.repository.AgreementRepository;
 import com.dimu.dimuapi.repository.GoodServicesRepository;
 import com.dimu.dimuapi.repository.TransactionRepository;
 import com.dimu.dimuapi.repository.UserRepository;
+import com.dimu.dimuapi.service.notification.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,6 +31,12 @@ public class AgreementServiceImpl implements AgreementService {
 
     @Autowired
     TransactionRepository transactionRepository;
+
+    @Autowired
+    SimpMessagingTemplate messagingTemplate;
+
+    @Autowired
+    NotificationService notificationService;
 
     @Override
     public ApiResponseDto createAgreementByBuyer(AgreementDto agreementDto, User user) {
@@ -63,8 +69,24 @@ public class AgreementServiceImpl implements AgreementService {
               agreement.setTransaction(transactionRepository.save(transaction));
 
 
+
+
               agreement.setGoodServices(goodServices);
-              return new ApiResponseDto(true,"New Agreement created successfully",agreementRepository.save(agreement));
+              Agreement savedAgreement = agreementRepository.save(agreement);
+
+              SocketMessage message = new SocketMessage();
+              message.setTo(savedAgreement.getBuyer().getUserId());
+              message.setFrom(savedAgreement.getSeller().getUserId());
+              message.setSubject("Agreement Created");
+              message.setContent("");
+
+              messagingTemplate.convertAndSendToUser(message.getTo(),"/queue/notifications",message);
+
+              notificationService.saveNotification(message.getSubject(),message.getContent(),user);
+              notificationService.saveNotification(message.getSubject(),message.getContent(),seller);
+
+
+              return new ApiResponseDto(true,"New Agreement created successfully",savedAgreement);
           }
           else {
               throw new CustomException("Phone number does not correlate with seller's phone number");
