@@ -17,7 +17,7 @@ public record OnboardDto(
             message = "Please enter a valid phone number"
     )
     String phoneNumber,
-    @NotEmpty(message = "date of birth should not be empty")
+
     LocalDate dateOfBirth,
     @NotEmpty(message = "country should not be empty")
     String country,

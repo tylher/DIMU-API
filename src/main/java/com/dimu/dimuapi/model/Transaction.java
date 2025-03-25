@@ -12,9 +12,9 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Transaction {
+public class Transaction extends BaseEntity{
     @Id
-    private String id;
+    private String transactionId;
 
     @Enumerated(EnumType.STRING)
     private TransactionStatus status = TransactionStatus.PENDING;
@@ -35,7 +35,7 @@ public class Transaction {
 
     @PrePersist
     public void generateTransactionId(){
-        this.id = DiimuToken
+        this.transactionId = DiimuToken
                 .generateRandomToken(TokenType.TRANSACTION_ID,TokenFormat.ALPHANUMERIC);
     }
 }

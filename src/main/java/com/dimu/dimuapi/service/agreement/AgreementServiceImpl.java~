@@ -89,8 +89,7 @@ public class AgreementServiceImpl implements AgreementService {
               message.setTo(savedAgreement.getBuyer().getUserId());
               message.setFrom(savedAgreement.getSeller().getUserId());
               message.setSubject("Agreement Created");
-              message.setContent("The agreement between " + savedAgreement.getBuyer().getFirstName() + " and "
-                      + savedAgreement.getSeller().getFirstName() + " has been created successfully");
+              message.setContent("");
 
               log.info("notification sent successfully");
 

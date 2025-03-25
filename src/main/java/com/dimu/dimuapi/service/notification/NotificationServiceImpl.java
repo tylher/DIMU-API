@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static com.dimu.dimuapi.constant.ApplicationConstants.createdAtSort;
+
 @Service
 public class NotificationServiceImpl implements NotificationService{
     @Autowired
@@ -34,12 +36,14 @@ public class NotificationServiceImpl implements NotificationService{
     @Override
     public ApiResponseDto getNotifications(User user) {
         try{
-            List<Notification> notifications =  notificationRepository.findNotificationsByUser(user);
+            List<Notification> notifications =  notificationRepository.findNotificationsByUser(user,createdAtSort);
             return new ApiResponseDto(true,"Notifications fetched successfully",notifications);
         }catch (Exception e){
             throw new CustomException("Error getting noifications for user: "+ e.getMessage());
         }
     }
+
+
 
 
 }
