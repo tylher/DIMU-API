@@ -1,5 +1,7 @@
 package com.dimu.dimuapi.service.notification;
 
+import com.dimu.dimuapi.Enum.MessageStatus;
+import com.dimu.dimuapi.Enum.NotificationType;
 import com.dimu.dimuapi.dto.ApiResponseDto;
 import com.dimu.dimuapi.exceptionshandling.CustomException;
 import com.dimu.dimuapi.model.Notification;
@@ -7,6 +9,7 @@ import com.dimu.dimuapi.model.User;
 import com.dimu.dimuapi.repository.NotificationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -26,6 +29,7 @@ public class NotificationServiceImpl implements NotificationService{
             notification.setSubject(subject);
             notification.setContent(content);
             notification.setUser(user);
+            notification.setType(NotificationType.TRANSACTION);
             notificationRepository.save(notification);
         }catch (Exception e){
             throw new CustomException(e.getMessage());
@@ -43,7 +47,16 @@ public class NotificationServiceImpl implements NotificationService{
         }
     }
 
-
+    @Override
+    @Transactional
+    public void markNotificationsAsRead(List<String> notificationIds) {
+        try{
+            notificationIds.forEach(notificationId -> notificationRepository.findById(notificationId)
+                    .ifPresent(notification -> notification.setStatus(MessageStatus.READ)));
+        }catch (Exception e){
+            throw new CustomException("Error marking notifications as read: "+ e.getMessage());
+        }
+    }
 
 
 }

@@ -11,4 +11,5 @@ import java.util.List;
 public interface NotificationService {
     void saveNotification(String subject, String content, User user);
     ApiResponseDto getNotifications(User user);
+    void markNotificationsAsRead(List<String> notificationIds);
 }
