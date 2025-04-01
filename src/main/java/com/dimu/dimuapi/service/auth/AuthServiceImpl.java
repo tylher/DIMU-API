@@ -1,8 +1,11 @@
 package com.dimu.dimuapi.service.auth;
 
+import com.dimu.dimuapi.Enum.WalletType;
 import com.dimu.dimuapi.dto.LoginResponseDto;
 import com.dimu.dimuapi.model.User;
 import com.dimu.dimuapi.repository.UserRepository;
+import com.dimu.dimuapi.repository.WalletRepository;
+import com.dimu.dimuapi.service.wallet.WalletService;
 import com.dimu.dimuapi.util.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -24,6 +27,12 @@ public class AuthServiceImpl implements AuthService{
     @Autowired
     UserRepository userRepostory;
 
+    @Autowired
+    WalletRepository walletRepository;
+
+    @Autowired
+    WalletService walletService;
+
 
     public LoginResponseDto login(String username, String password){
         Authentication authentication = authenticationManager.authenticate(UsernamePasswordAuthenticationToken
@@ -33,6 +42,10 @@ public class AuthServiceImpl implements AuthService{
             String jwt = JwtUtils.generateToken(username, authentication.getAuthorities().stream()
                     .map(GrantedAuthority::getAuthority).collect(Collectors.joining(",")));
             User user = userRepostory.findByEmail(username).get();
+            if(!walletRepository.existsByUserAndWalletType(user, WalletType.CUSTOMER)) {
+                walletService.createWallet(user, WalletType.CUSTOMER);
+            }
+
             return new LoginResponseDto(jwt, user);
         } else {
             throw new BadCredentialsException("Invalid username or password");

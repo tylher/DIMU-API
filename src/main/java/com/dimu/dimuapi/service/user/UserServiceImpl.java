@@ -1,5 +1,6 @@
 package com.dimu.dimuapi.service.user;
 
+import com.dimu.dimuapi.Enum.WalletType;
 import com.dimu.dimuapi.dto.ApiResponseDto;
 import com.dimu.dimuapi.dto.EditProfileDto;
 import com.dimu.dimuapi.dto.OnboardDto;
@@ -16,6 +17,7 @@ import com.dimu.dimuapi.repository.UserRepository;
 import com.dimu.dimuapi.service.S3Service;
 import com.dimu.dimuapi.service.email.EmailService;
 import com.dimu.dimuapi.service.token.DiimuTokenService;
+import com.dimu.dimuapi.service.wallet.WalletService;
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -44,6 +46,9 @@ public class UserServiceImpl implements UserService {
     S3Service s3Service;
 
     @Autowired
+    WalletService walletService;
+
+    @Autowired
     DiimuTokenRepository diimuTokenRepository;
 
     @Autowired
@@ -63,6 +68,7 @@ public class UserServiceImpl implements UserService {
                 user.setPassword(encodedPassword);
                 user.setRoles(roles);
                 userRepository.save(user);
+                walletService.createWallet(user, WalletType.CUSTOMER);
                 String content = "Kindly verify your account using the code below\n "
                         + diimuTokenService.createToken(user.getEmail());
                 Mail mail = new Mail(new String[]{user.getEmail()}, "ayo@diimu.net"

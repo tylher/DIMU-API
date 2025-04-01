@@ -25,6 +25,7 @@ public class DiimuWallet extends BaseEntity{
     @JoinColumn(name = "walletId")
     private List<Transaction> transactions;
 
+    @Enumerated(EnumType.STRING)
     private WalletType walletType;
 
     private double accessibleBalance = 0.0;
