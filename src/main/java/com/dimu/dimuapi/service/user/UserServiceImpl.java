@@ -13,6 +13,7 @@ import com.dimu.dimuapi.model.User;
 import com.dimu.dimuapi.repository.DiimuTokenRepository;
 import com.dimu.dimuapi.repository.RoleRepository;
 import com.dimu.dimuapi.repository.UserRepository;
+import com.dimu.dimuapi.service.S3Service;
 import com.dimu.dimuapi.service.email.EmailService;
 import com.dimu.dimuapi.service.token.DiimuTokenService;
 import org.apache.coyote.BadRequestException;
@@ -20,9 +21,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -37,6 +39,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     EmailService emailService;
+
+    @Autowired
+    S3Service s3Service;
 
     @Autowired
     DiimuTokenRepository diimuTokenRepository;
@@ -145,6 +150,8 @@ public class UserServiceImpl implements UserService {
             user.setPhoneNumber(editProfileDto.phoneNumber() != null ? editProfileDto.phoneNumber() : user.getPhoneNumber());
             user.setDateOfBirth(editProfileDto.dateOfBirth() != null ? editProfileDto.dateOfBirth() : user.getDateOfBirth());
             user.setGender(editProfileDto.gender() != null ? editProfileDto.gender() : user.getGender());
+            user.setCountry(editProfileDto.country()!=null? editProfileDto.country():user.getCountry());
+            user.setCountryCode(editProfileDto.countryCode()!=null? editProfileDto.countryCode():user.getCountryCode());
             user.setState(editProfileDto.state() != null ? editProfileDto.state() : user.getState());
             return new ApiResponseDto(true, "Profile updated successfully", userRepository.save(user));
         } catch (ResourceNotFoundException e) {
@@ -152,8 +159,27 @@ public class UserServiceImpl implements UserService {
         } catch (Exception ex) {
             throw new CustomException(ex.getMessage());
         }
+    }
 
+    @Override
+    public ApiResponseDto updateProfileImage(MultipartFile file, String userId){
+        try{
+            User savedUser  = userRepository.findById(userId).orElseThrow(
+                    () -> new ResourceNotFoundException("User", "id", userId));
+            if(savedUser.getProfileImageUrl()!=null){
+                s3Service.deleteFile(savedUser.getProfileImageUrl());
+            }
+            String publicImage = s3Service.uploadFile(file);
 
+            savedUser.setProfileImageUrl(publicImage);
+
+            return new ApiResponseDto(true,"Profile image updated successfully"
+                    ,userRepository.save(savedUser));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }catch (Exception ex){
+            throw new CustomException("Unable to update profile image: "+ex.getMessage());
+        }
     }
 
     private Role getRoleById(Integer roleId) {

@@ -27,7 +27,7 @@ public class DiimuWallet extends BaseEntity{
 
     private WalletType walletType;
 
-    private double accessibleBalance;
+    private double accessibleBalance = 0.0;
 
-    private double ledgerBalance;
+    private double ledgerBalance = 0.0;
 }

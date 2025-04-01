@@ -4,6 +4,7 @@ package com.dimu.dimuapi.controller;
 import com.dimu.dimuapi.dto.*;
 import com.dimu.dimuapi.model.Mail;
 import com.dimu.dimuapi.model.User;
+import com.dimu.dimuapi.service.S3Service;
 import com.dimu.dimuapi.service.email.EmailService;
 import com.dimu.dimuapi.service.token.DiimuTokenService;
 import com.dimu.dimuapi.service.user.UserService;
@@ -18,6 +19,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.annotation.RequestScope;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
 
 @RestController
 @RequiredArgsConstructor
@@ -26,6 +31,8 @@ public class UserController {
     private final EmailService emailService;
     @Autowired
     private SimpMessagingTemplate messagingTemplate;
+    @Autowired
+    private S3Service s3Service;
     @Autowired
     @Qualifier("DiimuVerificationTokenService")
    DiimuTokenService diimuTokenService;
@@ -84,8 +91,15 @@ public class UserController {
     }
 
     @PatchMapping("api/user/edit")
-    public  ResponseEntity<ApiResponseDto> editUser(@Valid@RequestBody EditProfileDto editProfileDto, @AuthenticationPrincipal User user) throws Exception {
+    public  ResponseEntity<ApiResponseDto> editUser(@Valid @RequestBody EditProfileDto editProfileDto, @AuthenticationPrincipal User user) throws Exception {
         ApiResponseDto response = userService.editProfile(editProfileDto,user.getUserId());
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PutMapping("api/user/upload-image")
+    public ResponseEntity<ApiResponseDto> uploadUserImage(@AuthenticationPrincipal User user, @RequestPart(name = "profileImage") MultipartFile imageByte) throws IOException {
+
+        ApiResponseDto responseDto = userService.updateProfileImage(imageByte,user.getUserId());
+        return  new ResponseEntity<>(responseDto,HttpStatus.OK);
     }
 }

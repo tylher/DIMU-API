@@ -51,6 +51,8 @@ public class User extends BaseEntity{
 
     private String state;
 
+    private String country;
+
     @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT false")
     private boolean onboarded = false;
 

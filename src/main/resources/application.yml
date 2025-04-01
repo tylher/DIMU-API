@@ -52,6 +52,11 @@ logging:
     name: logs/application.log
 
 
-
+aws:
+  accessKeyId: ${AWS_KEY}
+  secretKey: ${AWS_SECRET}
+  region: ${AWS_REGION}
+  s3:
+    bucket: ${AWS_BUCKET_NAME}
 
 jwtScret: ${JWT_SECRET_KEY}

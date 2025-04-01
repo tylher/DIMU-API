@@ -19,6 +19,7 @@ public record EditProfileDto(
         LocalDate dateOfBirth,
 
         String country,
+        String countryCode,
 
         String state
 
