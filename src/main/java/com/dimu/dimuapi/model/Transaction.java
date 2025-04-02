@@ -1,0 +1,34 @@
+package com.dimu.dimuapi.model;
+
+import com.dimu.dimuapi.Enum.TransactionStatus;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+import java.time.LocalDateTime;
+
+@Entity
+@Data
+@AllArgsConstructor
+public class Transaction extends BaseEntity{
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String transactionId;
+
+
+    @OneToOne
+    @JoinColumn(name = "buyerId", referencedColumnName = "userId")
+    private User buyer;
+
+    @OneToOne
+    @JoinColumn(name = "sellerId", referencedColumnName = "userId")
+    private User seller;
+
+    @Enumerated(EnumType.STRING)
+    private TransactionStatus status;
+
+    private double amount;
+
+    private LocalDateTime completedAt;
+
+}
