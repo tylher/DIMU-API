@@ -45,7 +45,8 @@ public class DiimuToken {
         switch (tokenFormat){
             case NUMERIC -> characters=NUMERIC_CHARS;
             case ALPHABETIC -> characters = ALPHABET_CHARS;
-            default -> characters = ALPHANUMERIC_CHARS;
+            case ALPHANUMERIC -> characters = ALPHANUMERIC_CHARS;
+            default -> characters = "";
         }
 
         for (int i = 0; i < tokenType.getLength(); i++) {
