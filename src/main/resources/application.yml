@@ -39,10 +39,24 @@ spring:
 
 logging:
   level:
-    org.springframework.security: TRACE
+#    org.springframework.security: TRACE
+    org:
+      springframework:
+        security: TRACE
+        messaging: DEBUG
+        web:
+          socket: DEBUG
   pattern:
     console: "%green(%d{yyyy-MM-dd HH:mm:ss}) %blue(%-5level) %red([%thread]) %yellow(%logger{36}) - %msg%n"
   file:
     name: logs/application.log
+
+
+aws:
+  accessKeyId: ${AWS_KEY}
+  secretKey: ${AWS_SECRET}
+  region: ${AWS_REGION}
+  s3:
+    bucket: ${AWS_BUCKET_NAME}
 
 jwtScret: ${JWT_SECRET_KEY}

@@ -1,0 +1,16 @@
+package com.dimu.dimuapi.repository;
+
+import com.dimu.dimuapi.model.Agreement;
+import com.dimu.dimuapi.model.User;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
+import java.util.Optional;
+
+public interface AgreementRepository extends JpaRepository<Agreement,String> {
+    List<Agreement> findAgreementsByBuyer(User user, Sort sort);
+
+
+    Optional<Agreement> findByAgreementIdAndBuyer(String agreementId, User user);
+}

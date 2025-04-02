@@ -1,5 +1,6 @@
 package com.dimu.dimuapi.model;
 
+import com.dimu.dimuapi.Enum.EscrowStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,6 +16,10 @@ public class EscrowAccount extends BaseEntity{
     private String escrowId;
 
     private double escrowBalance;
+
+    @Enumerated(EnumType.STRING)
+    private EscrowStatus escrowStatus;
+
 
     private boolean isReleased;
 
