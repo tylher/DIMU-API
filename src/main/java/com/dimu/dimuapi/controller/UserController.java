@@ -1,11 +1,10 @@
 package com.dimu.dimuapi.controller;
 
 
-import com.dimu.dimuapi.dto.ApiResponseDto;
-import com.dimu.dimuapi.dto.OnboardDto;
-import com.dimu.dimuapi.dto.SignupDto;
+import com.dimu.dimuapi.dto.*;
 import com.dimu.dimuapi.model.Mail;
 import com.dimu.dimuapi.model.User;
+import com.dimu.dimuapi.service.S3Service;
 import com.dimu.dimuapi.service.email.EmailService;
 import com.dimu.dimuapi.service.token.DiimuTokenService;
 import com.dimu.dimuapi.service.user.UserService;
@@ -15,16 +14,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.annotation.RequestScope;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
 
 @RestController
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
     private final EmailService emailService;
+    @Autowired
+    private SimpMessagingTemplate messagingTemplate;
+    @Autowired
+    private S3Service s3Service;
     @Autowired
     @Qualifier("DiimuVerificationTokenService")
    DiimuTokenService diimuTokenService;
@@ -63,11 +71,35 @@ public class UserController {
     }
 
     @PostMapping("api/user/onboard")
-    public  ResponseEntity<ApiResponseDto> onboardUser(@RequestBody OnboardDto onboardDto,
+    public  ResponseEntity<ApiResponseDto> onboardUser(@Valid@RequestBody OnboardDto onboardDto,
                                     @AuthenticationPrincipal User user) throws Exception {
         ApiResponseDto response = userService.onBoardUser(onboardDto,user);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @PutMapping("api/user/reset-password")
+    public  ResponseEntity<ApiResponseDto> resetPassword(@Valid@RequestBody PasswordResetDto passwordResetDto,
+                                                         @AuthenticationPrincipal User user) throws Exception {
+        ApiResponseDto response = userService.resetPasswordAfterLogin(passwordResetDto.email(),passwordResetDto.password());
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 
+    @GetMapping("api/test/send")
+    public ResponseEntity<String> sendTestMessage(@RequestParam String username, @AuthenticationPrincipal User user) throws Exception {
+        messagingTemplate.convertAndSendToUser( user.getUserId(),"/queue/notifications", "Test Notification");
+        return ResponseEntity.ok("Message Sent");
+    }
+
+    @PatchMapping("api/user/edit")
+    public  ResponseEntity<ApiResponseDto> editUser(@Valid @RequestBody EditProfileDto editProfileDto, @AuthenticationPrincipal User user) throws Exception {
+        ApiResponseDto response = userService.editProfile(editProfileDto,user.getUserId());
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PutMapping("api/user/upload-image")
+    public ResponseEntity<ApiResponseDto> uploadUserImage(@AuthenticationPrincipal User user, @RequestPart(name = "profileImage") MultipartFile imageByte) throws IOException {
+
+        ApiResponseDto responseDto = userService.updateProfileImage(imageByte,user.getUserId());
+        return  new ResponseEntity<>(responseDto,HttpStatus.OK);
+    }
 }
