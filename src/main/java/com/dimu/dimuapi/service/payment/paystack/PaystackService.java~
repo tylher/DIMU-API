@@ -1,4 +1,0 @@
-package com.dimu.dimuapi.service.payment.paystack;
-
-public class PaystackService {
-}

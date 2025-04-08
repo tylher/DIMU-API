@@ -1,0 +1,13 @@
+package com.dimu.dimuapi.dto;
+
+import jakarta.validation.constraints.NotEmpty;
+
+public record PaystackInitializeRequest(
+        @NotEmpty(message = "Email should not be empty")
+        String email,
+        @NotEmpty(message = "Amount should not be empty")
+        @
+        String amount,
+        String reference
+) {
+}

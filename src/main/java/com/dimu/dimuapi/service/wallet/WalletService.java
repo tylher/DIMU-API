@@ -1,6 +1,7 @@
 package com.dimu.dimuapi.service.wallet;
 
 import com.dimu.dimuapi.Enum.WalletType;
+import com.dimu.dimuapi.dto.ApiResponseDto;
 import com.dimu.dimuapi.model.DiimuWallet;
 import com.dimu.dimuapi.model.User;
 
@@ -10,4 +11,6 @@ public interface WalletService {
     public DiimuWallet createWallet(User user, WalletType type);
 
     public List<DiimuWallet> getWallets(User user);
+
+    public ApiResponseDto fundWallet(String walletId, String reference);
 }

@@ -27,10 +27,10 @@ public record AgreementDto(
         String sellerEmail,
 
         @NotEmpty(message = "seller's phone number should not be empty")
-        String sellerPhoneNumber
+        String sellerPhoneNumber,
 
-//        @NotEmpty(message = "payment type should not be empty")
-//        @Pattern(regexp = "(WALLET|PAY_ONLINE)", message = "payment type should be one of the following: WALLET, CARD")
-//        String paymentType
+        @NotEmpty(message = "payment type should not be empty")
+        @Pattern(regexp = "(WALLET|ONLINE)", message = "payment type should be one of the following: WALLET, ONLINE")
+        String paymentType
 ) {
 }

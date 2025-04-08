@@ -8,11 +8,9 @@ import com.dimu.dimuapi.dto.EditAgreementDto;
 import com.dimu.dimuapi.exceptionshandling.CustomException;
 import com.dimu.dimuapi.exceptionshandling.ResourceNotFoundException;
 import com.dimu.dimuapi.model.*;
-import com.dimu.dimuapi.repository.AgreementRepository;
-import com.dimu.dimuapi.repository.GoodServicesRepository;
-import com.dimu.dimuapi.repository.TransactionRepository;
-import com.dimu.dimuapi.repository.UserRepository;
+import com.dimu.dimuapi.repository.*;
 import com.dimu.dimuapi.service.notification.NotificationService;
+import com.dimu.dimuapi.service.payment.paystack.PaystackService;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.query.Order;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +41,12 @@ public class AgreementServiceImpl implements AgreementService {
     @Autowired
     NotificationService notificationService;
 
+    @Autowired
+    EscrowAccountRepository escrowAccountRepository;
+
+    @Autowired
+    PaystackService paystackService;
+
     public Sort sort = Sort.by(Sort.Direction.DESC,"createdAt");
 
     @Override
@@ -66,11 +70,10 @@ public class AgreementServiceImpl implements AgreementService {
               agreement.setAmount(agreementDto.price());
               agreement.setUpfrontPayment(agreementDto.upfrontPayment());
               agreement.setApproved(true);
-//              agreement.setPaymentType(PaymentType.valueOf(agreementDto.paymentType()));
 
               Transaction transaction = new Transaction();
               transaction.setAmount(agreement.getAmount());
-              transaction.setPaymentType(PaymentType.WALLET);
+              transaction.setPaymentType(PaymentType.valueOf(agreementDto.paymentType()));
               transaction.setTransactionFlow(TransactionFlow.OUTGOING);
               transaction.setTransactionType(TransactionType.ESCROW);
               transaction.setStatus(TransactionStatus.PENDING);
@@ -113,6 +116,7 @@ public class AgreementServiceImpl implements AgreementService {
         }
     }
 
+    @Override
     public String acceptOrDeclineAgreement(String agreementId, boolean isAccepted, User user) {
         try {
             Agreement agreement = agreementRepository.findById(agreementId)
@@ -235,6 +239,42 @@ public class AgreementServiceImpl implements AgreementService {
             log.error(e.getMessage());
             throw new CustomException("An unexpected error occurred" +
                     ", could not edit agreement with id: "+agreementId);
+        }
+    }
+
+    @Override
+    public ApiResponseDto payForAgreement( String transactionId) {
+        try{
+            PaystackVerifyTransactionResponse response = paystackService.verifyTransaction(transactionId);
+            Transaction transaction = transactionRepository.findByTransactionId(transactionId)
+                    .orElseThrow(() -> new ResourceNotFoundException("Transaction", "id", transactionId));
+            if ((double) response.getData().getAmount() /100==transaction.getAmount()){
+                if(response.getData().getStatus().equals("success")&&(transaction.getStatus().equals(TransactionStatus.IN_ESCROW)
+                        ||transaction.getStatus().equals(TransactionStatus.COMPLETED))){
+                    throw new CustomException("Transaction has already been paid for");
+                }else if(response.getData().getStatus().equals("success")&&transaction.getStatus().equals(TransactionStatus.PENDING)){
+                    EscrowAccount escrowAccount = new EscrowAccount();
+                    escrowAccount.setEscrowBalance(transaction.getAmount());
+                    escrowAccount.setEscrowStatus(EscrowStatus.HELD);
+                    escrowAccount.setReleased(false);
+                    escrowAccount.setTransaction(transaction);
+                    escrowAccountRepository.save(escrowAccount);
+                    transaction.setStatus(TransactionStatus.IN_ESCROW);
+                    transactionRepository.save(transaction);
+                    return new ApiResponseDto(true,"Transaction paid for successfully",transaction);
+                }else{
+                    throw new CustomException("Paystack transaction failed");
+                }
+            }else{
+                throw new CustomException("Transaction amount does not match paystack transaction amount");
+            }
+
+        }catch (ResourceNotFoundException | CustomException e){
+            throw e;
+        }catch(Exception e){
+            log.error(e.getMessage());
+            throw new CustomException("An unexpected error occurred" +
+                    ", could not pay for transaction with id: "+transactionId);
         }
     }
 }

@@ -105,6 +105,7 @@ public class UserController {
     }
 
     @PutMapping("api/user/create-recipient")
+    @Transactional
     public ResponseEntity<ApiResponseDto> createTransferRecipient(@Valid @RequestBody PaystackCreateTransferRecipientDto createTransferRecipientDto
             , @AuthenticationPrincipal User user) throws Exception {
 

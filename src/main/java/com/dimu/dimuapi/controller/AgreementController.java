@@ -43,4 +43,12 @@ public class AgreementController {
         ApiResponseDto result = agreementService.editAgreement(user,agreementId,editAgreementDto);
         return ResponseEntity.ok(result);
     }
+
+    @PostMapping("/pay/{transactionId}")
+    public ResponseEntity<ApiResponseDto> payForAgreement(@PathVariable String transactionId, @AuthenticationPrincipal User user){
+        ApiResponseDto result = agreementService.payForAgreement(transactionId);
+        return ResponseEntity.ok(result);
+    }
+
+
 }
