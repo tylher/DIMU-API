@@ -36,6 +36,9 @@ public class AgreementServiceImpl implements AgreementService {
     TransactionRepository transactionRepository;
 
     @Autowired
+    WalletRepository walletRepository;
+
+    @Autowired
     SimpMessagingTemplate messagingTemplate;
 
     @Autowired
@@ -243,38 +246,86 @@ public class AgreementServiceImpl implements AgreementService {
     }
 
     @Override
-    public ApiResponseDto payForAgreement( String transactionId) {
-        try{
-            PaystackVerifyTransactionResponse response = paystackService.verifyTransaction(transactionId);
+    public ApiResponseDto payForAgreement( String transactionId,String paymentType,String walletId,User user) {
+        try {
+            // Fetch transaction
             Transaction transaction = transactionRepository.findByTransactionId(transactionId)
                     .orElseThrow(() -> new ResourceNotFoundException("Transaction", "id", transactionId));
-            if ((double) response.getData().getAmount() /100==transaction.getAmount()){
-                if(response.getData().getStatus().equals("success")&&(transaction.getStatus().equals(TransactionStatus.IN_ESCROW)
-                        ||transaction.getStatus().equals(TransactionStatus.COMPLETED))){
-                    throw new CustomException("Transaction has already been paid for");
-                }else if(response.getData().getStatus().equals("success")&&transaction.getStatus().equals(TransactionStatus.PENDING)){
-                    EscrowAccount escrowAccount = new EscrowAccount();
-                    escrowAccount.setEscrowBalance(transaction.getAmount());
-                    escrowAccount.setEscrowStatus(EscrowStatus.HELD);
-                    escrowAccount.setReleased(false);
-                    escrowAccount.setTransaction(transaction);
-                    escrowAccountRepository.save(escrowAccount);
-                    transaction.setStatus(TransactionStatus.IN_ESCROW);
-                    transactionRepository.save(transaction);
-                    return new ApiResponseDto(true,"Transaction paid for successfully",transaction);
-                }else{
-                    throw new CustomException("Paystack transaction failed");
-                }
-            }else{
-                throw new CustomException("Transaction amount does not match paystack transaction amount");
+
+            // Check if already paid
+            if (isAlreadyPaid(transaction)) {
+                throw new CustomException("Transaction has already been paid for");
             }
 
-        }catch (ResourceNotFoundException | CustomException e){
+            // Handle wallet payment
+            if (PaymentType.valueOf(paymentType) == PaymentType.WALLET) {
+
+                if (walletId == null) {
+                    throw new CustomException("Wallet ID must be provided for wallet payment");
+                }
+
+                DiimuWallet wallet = walletRepository.findByWalletId(walletId)
+                        .orElseThrow(() -> new ResourceNotFoundException("Wallet", "wallet Id", walletId));
+
+                if(!wallet.getUser().equals(user)){
+                    throw new CustomException("invalid wallet used");
+                }
+
+                if (wallet.getAccessibleBalance() >= transaction.getAmount() &&
+                        transaction.getStatus() == TransactionStatus.PENDING) {
+                    wallet.setAccessibleBalance(wallet.getAccessibleBalance()
+                            - transaction.getAmount());
+                    walletRepository.save(wallet);
+                    holdInEscrow(transaction);
+                    return new ApiResponseDto(true, "Transaction paid for successfully", transaction);
+                } else {
+                    throw new CustomException("Insufficient wallet balance or invalid transaction status");
+                }
+            }
+
+            // Handle Paystack payment
+            if (PaymentType.valueOf(paymentType) == PaymentType.ONLINE) {
+                PaystackVerifyTransactionResponse response = paystackService.verifyTransaction(transactionId);
+                double paystackAmount = response.getData().getAmount() / 100.0;
+
+                if (Double.compare(paystackAmount, transaction.getAmount()) != 0) {
+                    throw new CustomException("Transaction amount does not match Paystack transaction amount");
+                }
+
+                if (response.getData().getStatus().equals("success") && transaction.getStatus() == TransactionStatus.PENDING) {
+                    holdInEscrow(transaction);
+                    return new ApiResponseDto(true, "Transaction paid for successfully", transaction);
+                } else {
+                    throw new CustomException("Paystack transaction failed or transaction already handled");
+                }
+            }
+
+            throw new CustomException("Invalid payment type passed");
+
+        } catch (ResourceNotFoundException | CustomException e) {
             throw e;
-        }catch(Exception e){
+        } catch (Exception e) {
             log.error(e.getMessage());
             throw new CustomException("An unexpected error occurred" +
-                    ", could not pay for transaction with id: "+transactionId);
+                    ", could not pay for transaction with id: " + transactionId);
         }
+    }
+
+
+    private boolean isAlreadyPaid(Transaction transaction) {
+        return transaction.getStatus() == TransactionStatus.IN_ESCROW ||
+                transaction.getStatus() == TransactionStatus.COMPLETED;
+    }
+
+    private void holdInEscrow(Transaction transaction) {
+        EscrowAccount escrowAccount = new EscrowAccount();
+        escrowAccount.setEscrowBalance(transaction.getAmount());
+        escrowAccount.setEscrowStatus(EscrowStatus.HELD);
+        escrowAccount.setReleased(false);
+        escrowAccount.setTransaction(transaction);
+        escrowAccountRepository.save(escrowAccount);
+
+        transaction.setStatus(TransactionStatus.IN_ESCROW);
+        transactionRepository.save(transaction);
     }
 }

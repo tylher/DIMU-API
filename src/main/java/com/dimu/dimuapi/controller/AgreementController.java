@@ -1,6 +1,7 @@
 package com.dimu.dimuapi.controller;
 
 import com.dimu.dimuapi.dto.AgreementDto;
+import com.dimu.dimuapi.dto.AgreementPaymentDto;
 import com.dimu.dimuapi.dto.ApiResponseDto;
 import com.dimu.dimuapi.dto.EditAgreementDto;
 import com.dimu.dimuapi.model.User;
@@ -45,8 +46,8 @@ public class AgreementController {
     }
 
     @PostMapping("/pay/{transactionId}")
-    public ResponseEntity<ApiResponseDto> payForAgreement(@PathVariable String transactionId, @AuthenticationPrincipal User user){
-        ApiResponseDto result = agreementService.payForAgreement(transactionId);
+    public ResponseEntity<ApiResponseDto> payForAgreement(@PathVariable String transactionId, @RequestBody @Valid AgreementPaymentDto paymentDto, @AuthenticationPrincipal User user){
+        ApiResponseDto result = agreementService.payForAgreement(transactionId,paymentDto.paymentType(), paymentDto.walletId(),user);
         return ResponseEntity.ok(result);
     }
 

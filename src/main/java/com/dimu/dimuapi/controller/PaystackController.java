@@ -1,10 +1,8 @@
 package com.dimu.dimuapi.controller;
 
+import com.dimu.dimuapi.dto.InitiateTransferDto;
 import com.dimu.dimuapi.dto.PaystackInitializeRequest;
-import com.dimu.dimuapi.model.PaystackBankList;
-import com.dimu.dimuapi.model.PaystackInitiateTransactionResponse;
-import com.dimu.dimuapi.model.PaystackVerifyAccount;
-import com.dimu.dimuapi.model.PaystackVerifyTransactionResponse;
+import com.dimu.dimuapi.model.*;
 import com.dimu.dimuapi.service.payment.paystack.PaystackService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,4 +39,11 @@ public class PaystackController {
         PaystackVerifyAccount response = paystackService.verifyAccount(account_number, code);
         return ResponseEntity.ok(response);
     }
+
+    @PostMapping("/transfer")
+    public ResponseEntity<PaystackInitiateTransferResponse>verifyAccount(@RequestBody @Valid InitiateTransferDto initiateTransferDto) throws Exception {
+        PaystackInitiateTransferResponse response = paystackService.initiateTransfer(initiateTransferDto);
+        return ResponseEntity.ok(response);
+    }
+
 }

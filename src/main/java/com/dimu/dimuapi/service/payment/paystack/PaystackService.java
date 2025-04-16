@@ -1,5 +1,6 @@
 package com.dimu.dimuapi.service.payment.paystack;
 
+import com.dimu.dimuapi.dto.InitiateTransferDto;
 import com.dimu.dimuapi.dto.PaystackCreateTransferRecipientDto;
 import com.dimu.dimuapi.dto.PaystackInitializeRequest;
 import com.dimu.dimuapi.exceptionshandling.CustomException;
@@ -109,6 +110,26 @@ public class PaystackService implements PaymentService {
                     .bodyValue(request)
                     .retrieve()
                     .bodyToMono(PaystackTransferRecipient.class).block();
+
+            return response;
+        } catch (Exception e) {
+            throw new CustomException(e.getMessage());
+        }
+    }
+
+    public PaystackInitiateTransferResponse initiateTransfer(InitiateTransferDto request) throws Exception{
+        try{
+            WebClient client = WebClient
+                    .builder()
+                    .defaultHeader("Authorization", "Bearer "+secretKey)
+                    .baseUrl("https://api.paystack.co")
+                    .build();
+
+            PaystackInitiateTransferResponse response =  client.post()
+                    .uri("/transfer")
+                    .bodyValue(request)
+                    .retrieve()
+                    .bodyToMono(PaystackInitiateTransferResponse.class).block();
 
             return response;
         } catch (Exception e) {

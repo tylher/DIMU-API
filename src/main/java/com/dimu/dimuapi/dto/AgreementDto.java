@@ -30,7 +30,7 @@ public record AgreementDto(
         String sellerPhoneNumber,
 
         @NotEmpty(message = "payment type should not be empty")
-        @Pattern(regexp = "(WALLET|ONLINE)", message = "payment type should be one of the following: WALLET, ONLINE")
+        @Pattern(regexp = "^(WALLET|ONLINE)$", message = "payment type should be one of the following: WALLET, ONLINE")
         String paymentType
 ) {
 }
