@@ -17,5 +17,7 @@ public interface UserService {
 
     ApiResponseDto updateProfileImage(MultipartFile file, String userId);
 
+    ApiResponseDto addSecurePin(User user,SecurePinDto securePinDto);
+
     ApiResponseDto createUserTransferRecipient(User user, PaystackCreateTransferRecipientDto createTransferRecipientDto);
 }

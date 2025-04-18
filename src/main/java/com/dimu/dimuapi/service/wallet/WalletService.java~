@@ -6,7 +6,6 @@ import com.dimu.dimuapi.dto.MakeWithdrawalDto;
 import com.dimu.dimuapi.model.DiimuWallet;
 import com.dimu.dimuapi.model.PaystackInitiateTransferResponse;
 import com.dimu.dimuapi.model.User;
-import org.apache.coyote.BadRequestException;
 
 import java.util.List;
 
@@ -17,6 +16,6 @@ public interface WalletService {
 
     public ApiResponseDto fundWallet(String walletId, String reference);
 
-    ApiResponseDto makeWithdrawal(User user, MakeWithdrawalDto makeWithdrawalDto) throws BadRequestException;
+    ApiResponseDto makeWithdrawal(User user, MakeWithdrawalDto makeWithdrawalDto);
 
 }

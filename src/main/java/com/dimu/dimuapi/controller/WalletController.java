@@ -2,6 +2,7 @@ package com.dimu.dimuapi.controller;
 
 import com.dimu.dimuapi.dto.ApiResponseDto;
 import com.dimu.dimuapi.dto.FundWalletDto;
+import com.dimu.dimuapi.dto.MakeWithdrawalDto;
 import com.dimu.dimuapi.model.DiimuWallet;
 import com.dimu.dimuapi.model.User;
 import com.dimu.dimuapi.service.wallet.WalletService;
@@ -30,6 +31,12 @@ public class WalletController {
     public ResponseEntity<ApiResponseDto> fundWallet(@Valid @RequestBody FundWalletDto fundWalletDto){
         ApiResponseDto responseDto = walletService.fundWallet(fundWalletDto.walletId()
                 , fundWalletDto.reference());
+        return ResponseEntity.ok(responseDto);
+    }
+
+    @PostMapping("/make-withdrawal")
+    public ResponseEntity<ApiResponseDto> makeWithdrawal(@AuthenticationPrincipal User user, @Valid @RequestBody MakeWithdrawalDto makeWithdrawalDto) throws Exception {
+        ApiResponseDto responseDto = walletService.makeWithdrawal(user, makeWithdrawalDto);
         return ResponseEntity.ok(responseDto);
     }
 }

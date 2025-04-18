@@ -5,10 +5,7 @@ import com.dimu.dimuapi.dto.*;
 import com.dimu.dimuapi.exceptionshandling.CustomException;
 import com.dimu.dimuapi.exceptionshandling.ResourceNotFoundException;
 import com.dimu.dimuapi.model.*;
-import com.dimu.dimuapi.repository.DiimuTokenRepository;
-import com.dimu.dimuapi.repository.RoleRepository;
-import com.dimu.dimuapi.repository.UserBankAccountInfoRepository;
-import com.dimu.dimuapi.repository.UserRepository;
+import com.dimu.dimuapi.repository.*;
 import com.dimu.dimuapi.service.S3Service;
 import com.dimu.dimuapi.service.email.EmailService;
 import com.dimu.dimuapi.service.payment.paystack.PaystackService;
@@ -51,6 +48,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     WalletService walletService;
+
+    @Autowired
+    WalletRepository walletRepository;
 
     @Autowired
     DiimuTokenRepository diimuTokenRepository;
@@ -198,6 +198,9 @@ public class UserServiceImpl implements UserService {
         try {
             PaystackTransferRecipient recipient = paystackService.createTransferRecipient( createTransferRecipientDto);
             if(recipient!=null){
+                if(userBankAccountInfoRepository.existsByTransferRecipientCode(recipient.getData().getRecipient_code())){
+                    throw new CustomException("Transfer recipient already exists");
+                }
                 UserBankAccountInfo info = getBankAccountInfo(user,recipient);
                 userBankAccountInfoRepository.save(info);
 
@@ -215,6 +218,16 @@ public class UserServiceImpl implements UserService {
             throw e;
         }
         catch (Exception e) {
+            throw new CustomException(e.getMessage());
+        }
+    }
+
+    public ApiResponseDto addSecurePin(User user,SecurePinDto securePinDto){
+        try {
+            user.setSecurePin(passwordEncoder.encode(securePinDto.securePin()));
+            userRepository.save(user);
+            return new ApiResponseDto(true,"Secure pin added successfully");
+        } catch (Exception e) {
             throw new CustomException(e.getMessage());
         }
     }

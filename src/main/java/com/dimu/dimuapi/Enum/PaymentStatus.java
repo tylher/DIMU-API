@@ -8,6 +8,9 @@ public enum PaymentStatus {
         INITIATED("pending"),
         ABANDONED("abandoned"),
         COMPLETED("success"),
+        REVERSED("reversed"),
+        REJECTED("rejected"),
+        RECEIVED("received"),
         FAILED("failed");
 
         private final String status;

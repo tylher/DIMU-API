@@ -136,4 +136,25 @@ public class PaystackService implements PaymentService {
             throw new CustomException(e.getMessage());
         }
     }
+
+    public PaystackFetchTransferResponse fetchTransfer(String transferCode) throws Exception{
+        try{
+            WebClient client = WebClient
+                    .builder()
+                    .defaultHeader("Authorization", "Bearer "+secretKey)
+                    .baseUrl("https://api.paystack.co")
+                    .build();
+
+            PaystackFetchTransferResponse response =  client.get()
+                    .uri("/transfer/"+transferCode)
+                    .retrieve()
+                    .bodyToMono(PaystackFetchTransferResponse.class).block();
+
+            return response;
+        } catch (Exception e) {
+            throw new CustomException(e.getMessage());
+        }
+    }
+
+
 }

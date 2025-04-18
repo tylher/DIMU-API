@@ -112,4 +112,12 @@ public class UserController {
         return new ResponseEntity<>(response,HttpStatus.OK);
 
     }
+
+    @PutMapping("api/user/add-secure-pin")
+    public ResponseEntity<ApiResponseDto> addSecurePin(@Valid @RequestBody SecurePinDto securePinDto
+            , @AuthenticationPrincipal User user) throws Exception {
+
+        ApiResponseDto response = userService.addSecurePin(user,securePinDto);
+        return new ResponseEntity<>(response,HttpStatus.OK);
+    }
 }

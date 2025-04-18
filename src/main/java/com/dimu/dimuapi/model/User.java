@@ -58,6 +58,9 @@ public class User extends BaseEntity{
 
     private String country;
 
+    @JsonIgnore
+    private String securePin;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL
             , orphanRemoval = true, fetch = FetchType.EAGER)
     @ToString.Exclude

@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserBankAccountInfoRepository extends JpaRepository<UserBankAccountInfo, String> {
+    Boolean existsByTransferRecipientCode(String transferRecipientCode);
 }
