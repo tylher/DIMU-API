@@ -11,41 +11,38 @@ import com.dimu.dimuapi.repository.DiimuTokenRepository;
 import com.dimu.dimuapi.repository.UserRepository;
 import com.dimu.dimuapi.service.email.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
-@Service("DiimuPasswordTokenService")
-public class DiimuPasswordTokenService implements DiimuTokenService{
-    @Autowired
-    UserRepository userRepository;
 
+@Service("DiimuSecurePinTokenService")
+public class DiimuSecurePinTokenService implements DiimuTokenService{
     @Autowired
     DiimuTokenRepository diimuTokenRepository;
 
     @Autowired
-    EmailService emailService;
+    UserRepository userRepository;
 
     @Autowired
-    PasswordEncoder passwordEncoder;
+    EmailService emailService;
 
     @Override
     public String createToken(String email) {
         try{
             User user = getUserByEmail(email);
-                String tokenStr = DiimuToken.generateRandomToken(TokenType.RESET_PASSWORD
-                        , TokenFormat.NUMERIC);
-                DiimuToken token = DiimuToken.builder()
-                        .user(user)
-                        .tokenType(TokenType.RESET_PASSWORD)
-                        .token(tokenStr)
-                        .used(false)
-                        .createdAt(LocalDateTime.now())
-                        .expiresAt(LocalDateTime.now().plusMinutes(TokenType.RESET_PASSWORD.getExpiry()))
-                        .build();
+            String tokenStr = DiimuToken.generateRandomToken(TokenType.RESET_SECURE_PIN
+                    , TokenFormat.NUMERIC);
+            DiimuToken token = DiimuToken.builder()
+                    .user(user)
+                    .tokenType(TokenType.RESET_SECURE_PIN)
+                    .token(tokenStr)
+                    .used(false)
+                    .createdAt(LocalDateTime.now())
+                    .expiresAt(LocalDateTime.now().plusMinutes(TokenType.RESET_SECURE_PIN.getExpiry()))
+                    .build();
 
-                return diimuTokenRepository.save(token).getToken();
+            return diimuTokenRepository.save(token).getToken();
 
         }catch (Exception ex){
             throw new CustomException("Error creating token: "+ ex.getMessage());
@@ -84,12 +81,12 @@ public class DiimuPasswordTokenService implements DiimuTokenService{
     @Override
     public String sendToken(String email) throws Exception {
         try{
-            String content = "Kindly reset your password using the code below\n "
+            String content = "Kindly reset your secure pin using the code below\n "
                     +createToken(email);
             Mail mail = new Mail(new String[]{email},"jummy@diimu.net"
-                    ,"Reset Your Password");
+                    ,"Reset Your Secure pin");
             emailService.sendSimpleMail(mail,content);
-            return "Password reset code sent successfully";
+            return "Secure pin reset code sent successfully";
         }catch (Exception e){
             throw new Exception("Unable to send mail: " + e.getMessage());
         }

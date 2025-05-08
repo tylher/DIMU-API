@@ -19,15 +19,17 @@ public record AgreementDto(
 
         String deliveryAddress,
 
-        String paidBy,
-
         Integer inspectionPeriod,
 
-        @NotEmpty(message = "seller's email should not be empty")
         String sellerEmail,
 
-        @NotEmpty(message = "seller's phone number should not be empty")
         String sellerPhoneNumber,
+
+        String buyerEmail,
+
+        String buyerPhoneNumber,
+
+        String goodServiceId,
 
         @NotEmpty(message = "payment type should not be empty")
         @Pattern(regexp = "^(WALLET|ONLINE)$", message = "payment type should be one of the following: WALLET, ONLINE")

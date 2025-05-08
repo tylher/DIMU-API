@@ -1,5 +1,6 @@
 package com.dimu.dimuapi.service.user;
 
+import com.dimu.dimuapi.Enum.AWSBucketList;
 import com.dimu.dimuapi.Enum.WalletType;
 import com.dimu.dimuapi.dto.*;
 import com.dimu.dimuapi.exceptionshandling.CustomException;
@@ -75,7 +76,7 @@ public class UserServiceImpl implements UserService {
                 walletService.createWallet(user, WalletType.CUSTOMER);
                 String content = "Kindly verify your account using the code below\n "
                         + diimuTokenService.createToken(user.getEmail());
-                Mail mail = new Mail(new String[]{user.getEmail()}, "ayo@diimu.net"
+                Mail mail = new Mail(new String[]{user.getEmail()}, "jummy@diimu.net"
                         , "Welcome To Diimu");
                 emailService.sendSimpleMail(mail, content);
                 return new ApiResponseDto(true, "User registered successfully.");
@@ -179,7 +180,7 @@ public class UserServiceImpl implements UserService {
             if(savedUser.getProfileImageUrl()!=null){
                 s3Service.deleteFile(savedUser.getProfileImageUrl());
             }
-            String publicImage = s3Service.uploadFile(file);
+            String publicImage = s3Service.uploadFile(file, AWSBucketList.DIIMU_USER_BUCKET.getBucketName());
 
             savedUser.setProfileImageUrl(publicImage);
 
@@ -208,8 +209,7 @@ public class UserServiceImpl implements UserService {
                         ? user.getBankAccountInfoList() : new ArrayList<>();
                 accountInfos.add(info);
                 user.setBankAccountInfoList(accountInfos);
-                userRepository.save(user);
-                return new ApiResponseDto(true,"transfer recipient created successfully");
+                return new ApiResponseDto(true,"transfer recipient created successfully",userRepository.save(user));
             }
             else{
                 throw new CustomException("Unable to create transfer recipient");
@@ -224,9 +224,15 @@ public class UserServiceImpl implements UserService {
 
     public ApiResponseDto addSecurePin(User user,SecurePinDto securePinDto){
         try {
-            user.setSecurePin(passwordEncoder.encode(securePinDto.securePin()));
-            userRepository.save(user);
-            return new ApiResponseDto(true,"Secure pin added successfully");
+            return new ApiResponseDto(true,setSecurePin(user,securePinDto.securePin(),false));
+        } catch (Exception e) {
+            throw new CustomException(e.getMessage());
+        }
+    }
+
+    public ApiResponseDto resetSecurePin(User user,SecurePinDto securePinDto){
+        try {
+            return new ApiResponseDto(true,setSecurePin(user,securePinDto.securePin(),true));
         } catch (Exception e) {
             throw new CustomException(e.getMessage());
         }
@@ -246,5 +252,17 @@ public class UserServiceImpl implements UserService {
     private Role getRoleById(Integer roleId) {
         return roleRepository.findById(roleId).orElseThrow(
                 () -> new ResourceNotFoundException("Role", "id", roleId.toString()));
+    }
+
+    private String setSecurePin(User user,String pin, boolean reset) {
+        user.setSecurePin(passwordEncoder.encode(pin));
+        if(reset){
+            userRepository.save(user);
+            return "Secure pin reset successfully";
+        }else{
+            user.setSecurePinSet(true);
+            userRepository.save(user);
+            return "Secure pin added successfully";
+        }
     }
 }

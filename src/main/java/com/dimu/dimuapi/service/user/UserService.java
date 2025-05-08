@@ -19,5 +19,7 @@ public interface UserService {
 
     ApiResponseDto addSecurePin(User user,SecurePinDto securePinDto);
 
+    ApiResponseDto resetSecurePin(User user,SecurePinDto securePinDto);
+
     ApiResponseDto createUserTransferRecipient(User user, PaystackCreateTransferRecipientDto createTransferRecipientDto);
 }

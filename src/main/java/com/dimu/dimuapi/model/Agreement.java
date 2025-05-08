@@ -46,6 +46,8 @@ public class Agreement extends BaseEntity{
 
     private LocalDateTime completedAt;
 
+    private String initiatedBy;
+
 
 
     public void setGoodServices(GoodServices goodServices) {

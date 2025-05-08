@@ -23,13 +23,14 @@ public class NotificationServiceImpl implements NotificationService{
 
 
     @Override
-    public void saveNotification(String subject, String content, User user) {
+    public void saveNotification(String subject, String content, User user,String agreementId) {
         try{
             Notification notification = new Notification();
             notification.setSubject(subject);
             notification.setContent(content);
             notification.setUser(user);
             notification.setType(NotificationType.TRANSACTION);
+            notification.setAgreementId(agreementId);
             notificationRepository.save(notification);
         }catch (Exception e){
             throw new CustomException(e.getMessage());
