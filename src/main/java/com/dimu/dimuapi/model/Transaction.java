@@ -19,6 +19,8 @@ public class Transaction extends BaseEntity{
     @Enumerated(EnumType.STRING)
     private TransactionStatus status = TransactionStatus.PENDING;
 
+    private String reference;
+
     @Enumerated(EnumType.STRING)
     private TransactionType transactionType;
 

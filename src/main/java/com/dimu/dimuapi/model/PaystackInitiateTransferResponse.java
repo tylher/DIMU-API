@@ -6,7 +6,7 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public class PaystackTransferRecipient {
+public class PaystackInitiateTransferResponse {
     private boolean status;
     private String message;
     private PaystackData data;
@@ -15,28 +15,18 @@ public class PaystackTransferRecipient {
     public static class PaystackData {
         private int integration;
         private String domain;
+        private int amount;
         private String currency;
-        private String name;
-        private String recipient_code;
+        private String source;
+        private String reason;
+        private int recipient;
+        private String status;
+        private String transfer_code;
         private int id;
-        private boolean active;
-        private String type;
-        private boolean is_deleted;
         @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
         private Date createdAt;
 
         @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
         private Date updatedAt;
-
-        private Details details;
-    }
-
-    @Data
-    public static class Details {
-        private String authorization_code;
-        private String account_name;
-        private String account_number;
-        private String bank_code;
-        private String bank_name;
     }
 }

@@ -8,11 +8,9 @@ import com.dimu.dimuapi.dto.EditAgreementDto;
 import com.dimu.dimuapi.exceptionshandling.CustomException;
 import com.dimu.dimuapi.exceptionshandling.ResourceNotFoundException;
 import com.dimu.dimuapi.model.*;
-import com.dimu.dimuapi.repository.AgreementRepository;
-import com.dimu.dimuapi.repository.GoodServicesRepository;
-import com.dimu.dimuapi.repository.TransactionRepository;
-import com.dimu.dimuapi.repository.UserRepository;
+import com.dimu.dimuapi.repository.*;
 import com.dimu.dimuapi.service.notification.NotificationService;
+import com.dimu.dimuapi.service.payment.paystack.PaystackService;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.query.Order;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,10 +36,19 @@ public class AgreementServiceImpl implements AgreementService {
     TransactionRepository transactionRepository;
 
     @Autowired
+    WalletRepository walletRepository;
+
+    @Autowired
     SimpMessagingTemplate messagingTemplate;
 
     @Autowired
     NotificationService notificationService;
+
+    @Autowired
+    EscrowAccountRepository escrowAccountRepository;
+
+    @Autowired
+    PaystackService paystackService;
 
     public Sort sort = Sort.by(Sort.Direction.DESC,"createdAt");
 
@@ -66,11 +73,10 @@ public class AgreementServiceImpl implements AgreementService {
               agreement.setAmount(agreementDto.price());
               agreement.setUpfrontPayment(agreementDto.upfrontPayment());
               agreement.setApproved(true);
-//              agreement.setPaymentType(PaymentType.valueOf(agreementDto.paymentType()));
 
               Transaction transaction = new Transaction();
               transaction.setAmount(agreement.getAmount());
-              transaction.setPaymentType(PaymentType.WALLET);
+              transaction.setPaymentType(PaymentType.valueOf(agreementDto.paymentType()));
               transaction.setTransactionFlow(TransactionFlow.OUTGOING);
               transaction.setTransactionType(TransactionType.ESCROW);
               transaction.setStatus(TransactionStatus.PENDING);
@@ -113,6 +119,7 @@ public class AgreementServiceImpl implements AgreementService {
         }
     }
 
+    @Override
     public String acceptOrDeclineAgreement(String agreementId, boolean isAccepted, User user) {
         try {
             Agreement agreement = agreementRepository.findById(agreementId)
@@ -236,5 +243,89 @@ public class AgreementServiceImpl implements AgreementService {
             throw new CustomException("An unexpected error occurred" +
                     ", could not edit agreement with id: "+agreementId);
         }
+    }
+
+    @Override
+    public ApiResponseDto payForAgreement( String transactionId,String paymentType,String walletId,User user) {
+        try {
+            // Fetch transaction
+            Transaction transaction = transactionRepository.findByTransactionId(transactionId)
+                    .orElseThrow(() -> new ResourceNotFoundException("Transaction", "id", transactionId));
+
+            // Check if already paid
+            if (isAlreadyPaid(transaction)) {
+                throw new CustomException("Transaction has already been paid for");
+            }
+
+            // Handle wallet payment
+            if (PaymentType.valueOf(paymentType) == PaymentType.WALLET) {
+
+                if (walletId == null) {
+                    throw new CustomException("Wallet ID must be provided for wallet payment");
+                }
+
+                DiimuWallet wallet = walletRepository.findByWalletId(walletId)
+                        .orElseThrow(() -> new ResourceNotFoundException("Wallet", "wallet Id", walletId));
+
+                if(!wallet.getUser().equals(user)){
+                    throw new CustomException("invalid wallet used");
+                }
+
+                if (wallet.getAccessibleBalance() >= transaction.getAmount() &&
+                        transaction.getStatus() == TransactionStatus.PENDING) {
+                    wallet.setAccessibleBalance(wallet.getAccessibleBalance()
+                            - transaction.getAmount());
+                    walletRepository.save(wallet);
+                    holdInEscrow(transaction);
+                    return new ApiResponseDto(true, "Transaction paid for successfully", transaction);
+                } else {
+                    throw new CustomException("Insufficient wallet balance or invalid transaction status");
+                }
+            }
+
+            // Handle Paystack payment
+            if (PaymentType.valueOf(paymentType) == PaymentType.ONLINE) {
+                PaystackVerifyTransactionResponse response = paystackService.verifyTransaction(transactionId);
+                double paystackAmount = response.getData().getAmount() / 100.0;
+
+                if (Double.compare(paystackAmount, transaction.getAmount()) != 0) {
+                    throw new CustomException("Transaction amount does not match Paystack transaction amount");
+                }
+
+                if (response.getData().getStatus().equals("success") && transaction.getStatus() == TransactionStatus.PENDING) {
+                    holdInEscrow(transaction);
+                    return new ApiResponseDto(true, "Transaction paid for successfully", transaction);
+                } else {
+                    throw new CustomException("Paystack transaction failed or transaction already handled");
+                }
+            }
+
+            throw new CustomException("Invalid payment type passed");
+
+        } catch (ResourceNotFoundException | CustomException e) {
+            throw e;
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            throw new CustomException("An unexpected error occurred" +
+                    ", could not pay for transaction with id: " + transactionId);
+        }
+    }
+
+
+    private boolean isAlreadyPaid(Transaction transaction) {
+        return transaction.getStatus() == TransactionStatus.IN_ESCROW ||
+                transaction.getStatus() == TransactionStatus.COMPLETED;
+    }
+
+    private void holdInEscrow(Transaction transaction) {
+        EscrowAccount escrowAccount = new EscrowAccount();
+        escrowAccount.setEscrowBalance(transaction.getAmount());
+        escrowAccount.setEscrowStatus(EscrowStatus.HELD);
+        escrowAccount.setReleased(false);
+        escrowAccount.setTransaction(transaction);
+        escrowAccountRepository.save(escrowAccount);
+
+        transaction.setStatus(TransactionStatus.IN_ESCROW);
+        transactionRepository.save(transaction);
     }
 }

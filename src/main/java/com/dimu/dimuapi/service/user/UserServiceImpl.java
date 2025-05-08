@@ -1,21 +1,14 @@
 package com.dimu.dimuapi.service.user;
 
 import com.dimu.dimuapi.Enum.WalletType;
-import com.dimu.dimuapi.dto.ApiResponseDto;
-import com.dimu.dimuapi.dto.EditProfileDto;
-import com.dimu.dimuapi.dto.OnboardDto;
-import com.dimu.dimuapi.dto.SignupDto;
+import com.dimu.dimuapi.dto.*;
 import com.dimu.dimuapi.exceptionshandling.CustomException;
 import com.dimu.dimuapi.exceptionshandling.ResourceNotFoundException;
-import com.dimu.dimuapi.model.DiimuToken;
-import com.dimu.dimuapi.model.Mail;
-import com.dimu.dimuapi.model.Role;
-import com.dimu.dimuapi.model.User;
-import com.dimu.dimuapi.repository.DiimuTokenRepository;
-import com.dimu.dimuapi.repository.RoleRepository;
-import com.dimu.dimuapi.repository.UserRepository;
+import com.dimu.dimuapi.model.*;
+import com.dimu.dimuapi.repository.*;
 import com.dimu.dimuapi.service.S3Service;
 import com.dimu.dimuapi.service.email.EmailService;
+import com.dimu.dimuapi.service.payment.paystack.PaystackService;
 import com.dimu.dimuapi.service.token.DiimuTokenService;
 import com.dimu.dimuapi.service.wallet.WalletService;
 import org.apache.coyote.BadRequestException;
@@ -23,9 +16,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -43,10 +38,19 @@ public class UserServiceImpl implements UserService {
     EmailService emailService;
 
     @Autowired
+    UserBankAccountInfoRepository userBankAccountInfoRepository;
+
+    @Autowired
+    PaystackService paystackService;
+
+    @Autowired
     S3Service s3Service;
 
     @Autowired
     WalletService walletService;
+
+    @Autowired
+    WalletRepository walletRepository;
 
     @Autowired
     DiimuTokenRepository diimuTokenRepository;
@@ -186,6 +190,57 @@ public class UserServiceImpl implements UserService {
         }catch (Exception ex){
             throw new CustomException("Unable to update profile image: "+ex.getMessage());
         }
+    }
+
+    @Override
+    @Transactional
+    public ApiResponseDto createUserTransferRecipient(User user, PaystackCreateTransferRecipientDto createTransferRecipientDto) {
+        try {
+            PaystackTransferRecipient recipient = paystackService.createTransferRecipient( createTransferRecipientDto);
+            if(recipient!=null){
+                if(userBankAccountInfoRepository.existsByTransferRecipientCode(recipient.getData().getRecipient_code())){
+                    throw new CustomException("Transfer recipient already exists");
+                }
+                UserBankAccountInfo info = getBankAccountInfo(user,recipient);
+                userBankAccountInfoRepository.save(info);
+
+                List<UserBankAccountInfo> accountInfos = user.getBankAccountInfoList() != null
+                        ? user.getBankAccountInfoList() : new ArrayList<>();
+                accountInfos.add(info);
+                user.setBankAccountInfoList(accountInfos);
+                userRepository.save(user);
+                return new ApiResponseDto(true,"transfer recipient created successfully");
+            }
+            else{
+                throw new CustomException("Unable to create transfer recipient");
+            }
+        } catch (CustomException e) {
+            throw e;
+        }
+        catch (Exception e) {
+            throw new CustomException(e.getMessage());
+        }
+    }
+
+    public ApiResponseDto addSecurePin(User user,SecurePinDto securePinDto){
+        try {
+            user.setSecurePin(passwordEncoder.encode(securePinDto.securePin()));
+            userRepository.save(user);
+            return new ApiResponseDto(true,"Secure pin added successfully");
+        } catch (Exception e) {
+            throw new CustomException(e.getMessage());
+        }
+    }
+
+    private UserBankAccountInfo getBankAccountInfo(User user, PaystackTransferRecipient recipient) {
+        UserBankAccountInfo info =  new UserBankAccountInfo();
+        info.setAccountName(recipient.getData().getDetails().getAccount_name());
+        info.setBankName(recipient.getData().getDetails().getBank_name());
+        info.setAccountNumber(recipient.getData().getDetails().getAccount_number());
+        info.setTransferRecipientCode(recipient.getData().getRecipient_code());
+        info.setUser(user);
+
+        return  info;
     }
 
     private Role getRoleById(Integer roleId) {

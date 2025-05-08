@@ -1,0 +1,198 @@
+package com.dimu.dimuapi.model;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+
+@Data
+public class PaystackVerifyTransactionResponse {
+    private boolean status;
+    private String message;
+    private PaystackData data;
+
+
+    @Data
+
+    public static class PaystackData {
+        private long id;
+        private String domain;
+        private String status;
+        private String reference;
+        private Object metadata;
+        private int amount;
+        private String message;
+        private String gateway_response;
+
+        @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+        private Date paid_at;
+
+        @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+        private Date created_at;
+
+        private String channel;
+        private String currency;
+        private String ip_address;
+        private PaystackLog log;
+        private int fees;
+        private PaystackFeesSplit fees_split;
+        private PaystackAuthorization authorization;
+        private PaystackCustomer customer;
+        private String plan;
+        private int order_id;
+        private int requested_amount;
+        private String pos_transaction_data;
+        private String source;
+        private List<PaystackFeeBreakdown> fees_breakdown;
+        @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+        private Date transaction_date;
+        private PaystackSubAccount subaccount;
+        private PlanObject plan_object;
+        private PaystackSplit split;
+
+    }
+
+    @Data
+    @AllArgsConstructor
+    public static class PaystackLog {
+        private int start_time;
+        private int time_spent;
+        private int attempts;
+        private int errors;
+        private boolean success;
+        private boolean mobile;
+        private List<Object> input;
+        private List<PaystackHistory> history;
+    }
+
+    @Data
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public static class PaystackSplit {
+        private Double id;
+        private String name;
+        private String splitCode;
+        private Formula formula;
+        private Shares shares;
+    }
+    @Data
+    public static class Formula {
+        private String type;
+        private String bearerType;
+        private Double bearerSubaccount;
+        private List<Subaccount> subaccounts;
+        private Double integration;
+    }
+
+    @Data
+    public static class Subaccount {
+        private Double share;
+        private String subaccount_code;
+        private Double id;
+        private String name;
+        private String integration;
+    }
+
+    @Data
+    public static class Shares {
+        private Double paystack;
+        private List<SharesSubaccount> subaccounts;
+        private Double integration;
+    }
+
+    @Data
+    public static class SharesSubaccount {
+        private int amount;
+        private String subaccount_code;
+        private Double id;
+        private String integration;
+    }
+
+    @Data
+    public static class PaystackFeesSplit {
+        private int paystack;
+        private int integration;
+        private int subaccount;
+        private PaystackFeesSplitParams params;
+    }
+
+    @Data
+    public static class PayStackMetadata {
+        private String referrer;
+
+    }
+    @Data
+    public static class PaystackFeesSplitParams{
+        private String bearer;
+        private String transaction_charge;
+        private String percentage_charge;
+    }
+
+
+
+    @Data
+    public static class PlanObject {
+
+    }
+    @Data
+    @AllArgsConstructor
+    public static class PaystackHistory {
+        private String type;
+        private String message;
+        private int time;
+
+    }
+
+    @Data
+    @AllArgsConstructor
+    public static class PaystackAuthorization {
+        private String authorization_code;
+        private String bin;
+        private String last4;
+        private String exp_month;
+        private String exp_year;
+        private String channel;
+        private String card_type;
+        private String bank;
+        private String country_code;
+        private String brand;
+        private boolean reusable;
+        private String signature;
+        private String account_name;
+
+    }
+
+
+    @Data
+    @AllArgsConstructor
+    public static class PaystackCustomer {
+        private int id;
+        private String first_name;
+        private String last_name;
+        private String email;
+        private String customer_code;
+        private String phone;
+        private Map<String, Object> metadata;
+        private String risk_action;
+        private String international_format_phone;
+    }
+    @Data
+    @AllArgsConstructor
+    public static class PaystackSubAccount{
+        private String subaccount_code;
+        private int id;
+        private String business_name;
+    }
+    @Data
+    @AllArgsConstructor
+    public static class PaystackFeeBreakdown {
+        private int amount;
+        private String formula;
+        private String type;
+    }
+
+}
