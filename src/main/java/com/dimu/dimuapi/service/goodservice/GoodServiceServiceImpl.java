@@ -41,6 +41,7 @@ public class GoodServiceServiceImpl implements GoodServiceService{
             goodServices.setItemCondition(ItemCondition.valueOf(createGoodServiceDto.itemCondition()));
             goodServices.setCategory(ItemCategory.valueOf(createGoodServiceDto.category()));
             goodServices.setProofOfAuthenticationExists(createGoodServiceDto.proofOfAuthenticationExists() != null && Boolean.parseBoolean(createGoodServiceDto.proofOfAuthenticationExists()));
+            goodServices.setAdditionalItems(createGoodServiceDto.additionalItems());
             return new ApiResponseDto(true,"Good or service created successfully",goodServicesRepository.save(goodServices));
         }
         catch (Exception ex){

@@ -10,7 +10,7 @@ import java.util.List;
 
 
 public interface NotificationService {
-    void saveNotification(String subject, String content, User user, Agreement agreement, String party);
+    void saveNotification(String subject, String content, User user, Agreement agreement);
     ApiResponseDto getNotifications(User user);
     void markNotificationsAsRead(List<String> notificationIds);
 }

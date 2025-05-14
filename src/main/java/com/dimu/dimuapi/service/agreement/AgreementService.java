@@ -11,8 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface AgreementService {
-    public ApiResponseDto createNewAgreement(AgreementDto agreementDto, User user,String initiatedBy, Optional<MultipartFile> poaFile,
-                                                 List<MultipartFile> otherFiles);
+    public ApiResponseDto createNewAgreement(AgreementDto agreementDto, User user,String initiatedBy, Optional<MultipartFile> poaFile);
     public ApiResponseDto getAgreementsByUser(User user);
     public ApiResponseDto getAgreement(User user, String agreementId);
     public ApiResponseDto editAgreement(User user, String agreementId, EditAgreementDto agreementDto);

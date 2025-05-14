@@ -20,7 +20,9 @@ public record CreateGoodServiceDto(
         @NotEmpty(message = "Delivery method should not be empty")
         @Pattern(regexp = "^(PICK_UP|DOOR_DELIVERY)$",
                 message = "Delivery method should be one of the following: PICK_UP, DOOR_DELIVERY")
-        String deliveryMethod
+        String deliveryMethod,
+
+        boolean additionalItems
 
 ) {
 }

@@ -27,5 +27,5 @@ public class Notification extends BaseEntity{
     @Enumerated(EnumType.STRING)
     private MessageStatus status = MessageStatus.UNREAD;
     private String agreementId;
-    private  String party;
+    private  String initiatedBy;
 }

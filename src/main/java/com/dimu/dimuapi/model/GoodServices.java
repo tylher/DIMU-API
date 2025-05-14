@@ -52,29 +52,29 @@ public class GoodServices extends BaseEntity{
     @Enumerated(EnumType.STRING)
     private DeliveryMethod deliveryMethod;
     private String proofOfAutheticity;
-    @Column(columnDefinition = "TEXT")
-    private String additionalItems;
+    @Column(columnDefinition = "BOOLEAN DEFAULT FALSE")
+    private boolean additionalItems = false;
     @Column(columnDefinition = "BOOLEAN DEFAULT FALSE")
     private boolean proofOfAuthenticationExists;
 
 
 
-    public List<String> getAdditionalItems(){
-        try{
-            return new Gson().fromJson(additionalItems, new TypeToken<List<String>>() {
-            }.getType());
-        }catch (Exception ex){
-            log.error("JSON reading error {}", ex.getMessage());
-            throw new CustomException("JSON reading error "+ex.getMessage());
-        }
-    }
-
-    public void setAdditionalItems(List<String> items){
-        try{
-            additionalItems = new Gson().toJson(items);
-        } catch (Exception e) {
-            throw new CustomException("JSON reading error "+e.getMessage());
-        }
-    }
+//    public List<String> getAdditionalItems(){
+//        try{
+//            return new Gson().fromJson(additionalItems, new TypeToken<List<String>>() {
+//            }.getType());
+//        }catch (Exception ex){
+//            log.error("JSON reading error {}", ex.getMessage());
+//            throw new CustomException("JSON reading error "+ex.getMessage());
+//        }
+//    }
+//
+//    public void setAdditionalItems(List<String> items){
+//        try{
+//            additionalItems = new Gson().toJson(items);
+//        } catch (Exception e) {
+//            throw new CustomException("JSON reading error "+e.getMessage());
+//        }
+//    }
 
 }

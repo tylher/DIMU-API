@@ -60,8 +60,7 @@ public class AgreementServiceImpl implements AgreementService {
     public Sort sort = Sort.by(Sort.Direction.DESC,"createdAt");
 
     @Override
-    public ApiResponseDto createNewAgreement(AgreementDto agreementDto, User user,String initiatedBy, Optional<MultipartFile> poaFile,
-                                                 List<MultipartFile> otherFiles) {
+    public ApiResponseDto createNewAgreement(AgreementDto agreementDto, User user,String initiatedBy, Optional<MultipartFile> poaFile) {
         try {
 
             User counterparty = findCounterparty(agreementDto, initiatedBy);
@@ -72,13 +71,13 @@ public class AgreementServiceImpl implements AgreementService {
                     : updateExistingGoodService(agreementDto);
 
             if (!initiatedBy.equalsIgnoreCase("buyer")) {
-                handleFileUploads(goods, poaFile, otherFiles);
+                handleFileUploads(goods, poaFile);
             }
 
             Agreement agreement = createAgreement(
                     initiatedBy.equalsIgnoreCase("buyer") ? counterparty : user,
                     initiatedBy.equalsIgnoreCase("buyer") ? user : counterparty,
-                    goods, agreementDto
+                    goods, agreementDto, initiatedBy
             );
 
             notifyParties(agreement, initiatedBy);
@@ -354,14 +353,14 @@ public class AgreementServiceImpl implements AgreementService {
         return goodServicesRepository.save(goodServices);
     }
 
-    private Agreement createAgreement(User seller, User buyer, GoodServices goods, AgreementDto dto) {
+    private Agreement createAgreement(User seller, User buyer, GoodServices goods, AgreementDto dto,String initiatedBy) {
         Agreement agreement = new Agreement();
         agreement.setSeller(seller);
         agreement.setBuyer(buyer);
         agreement.setAmount(dto.price());
         agreement.setUpfrontPayment(dto.upfrontPayment());
         agreement.setApproved(false);
-        agreement.setInitiatedBy("Buyer");
+        agreement.setInitiatedBy(initiatedBy);
         agreement.setGoodServices(goods);
         return agreementRepository.save(agreement);
     }
@@ -398,29 +397,31 @@ public class AgreementServiceImpl implements AgreementService {
         messagingTemplate.convertAndSendToUser(sellerMsg.getFrom(), "/queue/notifications", sellerMsg);
         messagingTemplate.convertAndSendToUser(buyerMsg.getTo(), "/queue/notifications", buyerMsg);
 
-        notificationService.saveNotification(sellerMsg.getSubject(), sellerMsg.getContent(), agreement.getSeller(),agreement.getAgreementId());
-        notificationService.saveNotification(buyerMsg.getSubject(), buyerMsg.getContent(), agreement.getBuyer(),agreement.getAgreementId());
+        notificationService.saveNotification(sellerMsg.getSubject(), sellerMsg.getContent(), agreement.getSeller()
+                ,agreement,initiatedBy.equalsIgnoreCase("seller")?"initiator":"recipient");
+        notificationService.saveNotification(buyerMsg.getSubject(), buyerMsg.getContent(), agreement.getBuyer()
+                ,agreement,initiatedBy.equalsIgnoreCase("buyer")?"initiator":"recipient");
     }
 
-    private void handleFileUploads(GoodServices gs, Optional<MultipartFile> poaFile, List<MultipartFile> otherFiles) throws IOException {
+    private void handleFileUploads(GoodServices gs, Optional<MultipartFile> poaFile) throws IOException {
 
             if (gs.isProofOfAuthenticationExists() && poaFile.isPresent()) {
                 String poaUrl = s3Service.uploadFile(poaFile.get(), AWSBucketList.DIIMU_GOOD_SERVICE_BUCKET.getBucketName());
                 gs.setProofOfAutheticity(poaUrl);
             }
 
-            if (otherFiles != null && !otherFiles.isEmpty()) {
-                List<String> urls = otherFiles.stream()
-                        .map(file -> {
-                            try {
-                                return s3Service.uploadFile(file, AWSBucketList.DIIMU_GOOD_SERVICE_BUCKET.getBucketName());
-                            } catch (IOException e) {
-                                throw new CustomException(e.getMessage());
-                            }
-                        })
-                        .collect(Collectors.toList());
-                gs.setAdditionalItems(urls);
-            }
+//            if (otherFiles != null && !otherFiles.isEmpty()) {
+//                List<String> urls = otherFiles.stream()
+//                        .map(file -> {
+//                            try {
+//                                return s3Service.uploadFile(file, AWSBucketList.DIIMU_GOOD_SERVICE_BUCKET.getBucketName());
+//                            } catch (IOException e) {
+//                                throw new CustomException(e.getMessage());
+//                            }
+//                        })
+//                        .collect(Collectors.toList());
+//                gs.setAdditionalItems(urls);
+//            }
     }
 
     private static Map<String,SocketMessage> getSocketMessage(Agreement savedAgreement,String initiatedBy) {

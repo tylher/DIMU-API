@@ -23,7 +23,7 @@ public class AgreementController {
     @PostMapping("buyer/create")
     public ResponseEntity<ApiResponseDto> createAgreementByBuyer(@Valid @RequestBody AgreementDto agreementDto, @AuthenticationPrincipal User
                                                           user){
-        ApiResponseDto result = agreementService.createNewAgreement(agreementDto,user,"buyer",Optional.empty(),null);
+        ApiResponseDto result = agreementService.createNewAgreement(agreementDto,user,"buyer",Optional.empty());
         return ResponseEntity.ok(result);
     }
 
@@ -40,7 +40,6 @@ public class AgreementController {
             ,@RequestPart(value = "paymentType") String paymentType
             ,@RequestPart(value = "goodServiceId") String goodServiceId
             ,@RequestPart(value = "proofOfAuthenticity",required = false) Optional<MultipartFile> poaFile
-            ,@RequestPart(value = "additionalFiles",required = false) List<MultipartFile> additionalFiles
            ){
 
         AgreementDto agreementDto = new AgreementDto(itemName,Double.parseDouble(price)
@@ -49,7 +48,7 @@ public class AgreementController {
 
         DiimuUtils.validateInput(agreementDto);
 
-        ApiResponseDto result = agreementService.createNewAgreement(agreementDto,user,"seller",poaFile,additionalFiles);
+        ApiResponseDto result = agreementService.createNewAgreement(agreementDto,user,"seller",poaFile);
         return ResponseEntity.ok(result);
     }
 
