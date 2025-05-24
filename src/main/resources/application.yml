@@ -58,5 +58,8 @@ aws:
   region: ${AWS_REGION}
   s3:
     bucket: ${AWS_BUCKET_NAME}
+paystack:
+  publicKey: ${PAYSTACK_PUBLIC_KEY}
+  secretKey: ${PAYSTACK_SECRET_KEY}
 
 jwtScret: ${JWT_SECRET_KEY}

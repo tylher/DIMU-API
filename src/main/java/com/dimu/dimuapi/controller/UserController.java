@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.annotation.RequestScope;
 import org.springframework.web.multipart.MultipartFile;
@@ -102,4 +103,31 @@ public class UserController {
         ApiResponseDto responseDto = userService.updateProfileImage(imageByte,user.getUserId());
         return  new ResponseEntity<>(responseDto,HttpStatus.OK);
     }
+
+    @PutMapping("api/user/create-recipient")
+    public ResponseEntity<ApiResponseDto> createTransferRecipient(@Valid @RequestBody PaystackCreateTransferRecipientDto createTransferRecipientDto
+            , @AuthenticationPrincipal User user) throws Exception {
+
+        ApiResponseDto response = userService.createUserTransferRecipient(user,createTransferRecipientDto);
+        return new ResponseEntity<>(response,HttpStatus.OK);
+
+    }
+
+    @PutMapping("api/user/add-secure-pin")
+    public ResponseEntity<ApiResponseDto> addSecurePin(@Valid @RequestBody SecurePinDto securePinDto
+            , @AuthenticationPrincipal User user) throws Exception {
+
+        ApiResponseDto response = userService.addSecurePin(user,securePinDto);
+        return new ResponseEntity<>(response,HttpStatus.OK);
+    }
+
+    @PutMapping("api/user/reset-secure-pin")
+    public ResponseEntity<ApiResponseDto> resetSecurePin(@Valid @RequestBody SecurePinDto securePinDto
+            , @AuthenticationPrincipal User user) throws Exception {
+
+        ApiResponseDto response = userService.resetSecurePin(user,securePinDto);
+        return new ResponseEntity<>(response,HttpStatus.OK);
+    }
+
+
 }

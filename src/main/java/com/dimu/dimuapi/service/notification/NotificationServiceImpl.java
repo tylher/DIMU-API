@@ -4,6 +4,7 @@ import com.dimu.dimuapi.Enum.MessageStatus;
 import com.dimu.dimuapi.Enum.NotificationType;
 import com.dimu.dimuapi.dto.ApiResponseDto;
 import com.dimu.dimuapi.exceptionshandling.CustomException;
+import com.dimu.dimuapi.model.Agreement;
 import com.dimu.dimuapi.model.Notification;
 import com.dimu.dimuapi.model.User;
 import com.dimu.dimuapi.repository.NotificationRepository;
@@ -23,19 +24,23 @@ public class NotificationServiceImpl implements NotificationService{
 
 
     @Override
-    public void saveNotification(String subject, String content, User user) {
+    public void saveNotification(String subject, String content, User user, Agreement agreement,String party) {
         try{
             Notification notification = new Notification();
             notification.setSubject(subject);
             notification.setContent(content);
             notification.setUser(user);
             notification.setType(NotificationType.TRANSACTION);
+            notification.setAgreementId(agreement.getAgreementId());
+            notification.setParty(party);
+            notification.setAgreementAccepted(agreement.isApproved());
             notificationRepository.save(notification);
         }catch (Exception e){
             throw new CustomException(e.getMessage());
         }
 
     }
+
 
     @Override
     public ApiResponseDto getNotifications(User user) {

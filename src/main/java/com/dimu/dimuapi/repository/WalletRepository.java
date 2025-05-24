@@ -14,4 +14,6 @@ public interface WalletRepository extends JpaRepository<DiimuWallet,String> {
     boolean existsByUserAndWalletType(User user, WalletType type);
 
     List<DiimuWallet> findByUser(User user);
+
+    Optional<DiimuWallet> findByWalletId(String walletId);
 }

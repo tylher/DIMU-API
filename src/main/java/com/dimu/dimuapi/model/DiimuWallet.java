@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -23,12 +24,19 @@ public class DiimuWallet extends BaseEntity{
 
     @OneToMany
     @JoinColumn(name = "walletId")
-    private List<Transaction> transactions;
+    private List<Transaction> transactions = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     private WalletType walletType;
 
     private double accessibleBalance = 0.0;
 
+    private double escrowBalance=0.0;
+
     private double ledgerBalance = 0.0;
+
+
+    public void addTransaction(Transaction transaction) {
+        this.transactions.add(transaction);
+    }
 }

@@ -2,6 +2,8 @@ package com.dimu.dimuapi.model;
 
 import com.dimu.dimuapi.Enum.PaymentType;
 import com.dimu.dimuapi.Enum.TransactionStatus;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -29,10 +31,12 @@ public class Agreement extends BaseEntity{
 
     @ManyToOne
     @JoinColumn(name = "buyerId", referencedColumnName = "userId")
+    @JsonIncludeProperties({"email","firstName","lastName","phoneNumber"})
     private User buyer;
 
     @ManyToOne
     @JoinColumn(name = "sellerId", referencedColumnName = "userId")
+    @JsonIncludeProperties({"email","firstName","lastName","phoneNumber"})
     private User seller;
 
 //    @Enumerated(EnumType.STRING)
@@ -45,6 +49,8 @@ public class Agreement extends BaseEntity{
     private boolean isApproved=false;
 
     private LocalDateTime completedAt;
+
+    private String initiatedBy;
 
 
 

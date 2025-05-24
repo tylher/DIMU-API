@@ -5,6 +5,7 @@ import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.dimu.dimuapi.Enum.AWSBucketList;
 import com.dimu.dimuapi.exceptionshandling.CustomException;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
@@ -26,10 +27,7 @@ public class S3Service {
     @Autowired
     AmazonS3 amazonS3;
 
-    @Value("${aws.s3.bucket}")
-    private String bucketName;
-
-    public String uploadFile(MultipartFile file) throws IOException {
+    public String uploadFile(MultipartFile file, String bucketName) throws IOException {
 
 
         String fileName = System.currentTimeMillis() + "_" + file.getName();

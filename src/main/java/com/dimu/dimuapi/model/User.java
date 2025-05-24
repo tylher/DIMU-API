@@ -1,13 +1,18 @@
 package com.dimu.dimuapi.model;
 
+import com.dimu.dimuapi.exceptionshandling.CustomException;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.hibernate.annotations.OnDeleteAction.CASCADE;
@@ -53,9 +58,22 @@ public class User extends BaseEntity{
 
     private String country;
 
+    @JsonIgnore
+    private String securePin;
+
+    @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT false")
+    private boolean isSecurePinSet = false;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL
+            , orphanRemoval = true, fetch = FetchType.EAGER)
+    @ToString.Exclude
+    private List<UserBankAccountInfo> bankAccountInfoList;
+
     @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT false")
     private boolean onboarded = false;
 
     @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT false")
     private boolean isVerified = false;
+
+
 }

@@ -13,7 +13,7 @@ public record EditAgreementDto(
 
         Double upfrontPayment,
 
-        @Pattern(regexp = "(GOODS_SERVICES|ELECTRONICS|FASHION|FOOD|DIGITAL_PRODUCTS)",
+        @Pattern(regexp = "^(GOODS_SERVICES|ELECTRONICS|FASHION|FOOD|DIGITAL_PRODUCTS)$",
                 message = "category should be one of the following: GOODS_SERVICES, ELECTRONICS, FASHION, FOOD, DIGITAL_PRODUCTS")
         String category,
 

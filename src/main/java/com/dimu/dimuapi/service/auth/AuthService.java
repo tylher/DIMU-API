@@ -4,4 +4,6 @@ import com.dimu.dimuapi.dto.LoginResponseDto;
 
 public interface AuthService {
     public LoginResponseDto login(String username, String password);
+
+//    public LoginResponseDto googleSignin()
 }
