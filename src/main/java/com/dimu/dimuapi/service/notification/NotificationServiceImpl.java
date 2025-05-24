@@ -33,6 +33,7 @@ public class NotificationServiceImpl implements NotificationService{
             notification.setType(NotificationType.TRANSACTION);
             notification.setAgreementId(agreement.getAgreementId());
             notification.setParty(party);
+            notification.setAgreementAccepted(agreement.isApproved());
             notificationRepository.save(notification);
         }catch (Exception e){
             throw new CustomException(e.getMessage());

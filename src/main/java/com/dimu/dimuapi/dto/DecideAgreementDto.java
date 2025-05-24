@@ -8,9 +8,6 @@ public record DecideAgreementDto(
         String agreementId,
 
         @NotNull(message=" isAccepted cannot be null")
-        boolean isAccepted,
-
-        @NotEmpty(message= "initiatedBy cannot be empty")
-        String initiatedBy
+        boolean isAccepted
 ) {
 }

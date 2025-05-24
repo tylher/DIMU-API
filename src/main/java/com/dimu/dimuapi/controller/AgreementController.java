@@ -81,7 +81,7 @@ public class AgreementController {
     @PostMapping("/make-choice")
     public ResponseEntity<ApiResponseDto> acceptOrDeclineAgreement(
             @AuthenticationPrincipal User user, @Valid @RequestBody DecideAgreementDto dto){
-        ApiResponseDto responseDto = agreementService.acceptOrDeclineAgreement(dto.agreementId(), dto.initiatedBy(),
+        ApiResponseDto responseDto = agreementService.acceptOrDeclineAgreement(dto.agreementId(),
                 dto.isAccepted(), user);
 
         return ResponseEntity.ok(responseDto);

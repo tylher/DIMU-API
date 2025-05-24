@@ -64,6 +64,12 @@ public class AgreementServiceImpl implements AgreementService {
         try {
 
             User counterparty = findCounterparty(agreementDto, initiatedBy);
+
+            if(agreementDto.sellerEmail().equalsIgnoreCase(user.getEmail())
+                    ||agreementDto.buyerEmail().equalsIgnoreCase(user.getEmail())){
+                throw new CustomException(" An agreement cannot be created between the same user");
+            }
+
             validatePhoneNumber(agreementDto, counterparty, initiatedBy);
 
             GoodServices goods = initiatedBy.equalsIgnoreCase("buyer")
@@ -96,14 +102,17 @@ public class AgreementServiceImpl implements AgreementService {
 
 
     @Override
-    public ApiResponseDto acceptOrDeclineAgreement(String agreementId, String initiatedBy, boolean isAccepted, User user) {
+    public ApiResponseDto acceptOrDeclineAgreement(String agreementId, boolean isAccepted, User user) {
         try {
             Agreement agreement = agreementRepository.findById(agreementId)
                     .orElseThrow(() -> new ResourceNotFoundException("Agreement", "id", agreementId));
 
+            String initiatedBy = agreement.getInitiatedBy();
             User counterPart = initiatedBy.equalsIgnoreCase("seller")
                     ?agreement.getBuyer():agreement.getSeller();
-            if(counterPart.equals(user)){
+            log.info(String.valueOf(counterPart));
+            log.info(user.toString());
+            if(counterPart.getUserId().equals(user.getUserId())){
                 if(agreement.isApproved()){
                     throw new CustomException("Agreement is already approved");
                 }else{
@@ -122,31 +131,38 @@ public class AgreementServiceImpl implements AgreementService {
 
                         SocketMessage message = new SocketMessage();
 
+                        String content = "We’re pleased to inform you that " + counterPart.getFirstName() + "has accepted the condition(s) of the agreement created by you" +
+                                "\n If you have any questions or need to review the agreement, please visit the link to the agreement below.";
                         SocketMessage.Metadata metadata = new SocketMessage.Metadata();
                         metadata.setAgreementId(agreementId);
                         message.setTo(counterPart.getUserId());
                         message.setSubject("Agreement Accepted");
-                        message.setContent("We’re pleased to inform you that " + counterPart.getFirstName() + "has accepted the condition(s) of the agreement created by you" +
-                                "\n If you have any questions or need to review the agreement, please visit the link to the agreement below.");
+                        message.setContent(content);
 
+                        notificationService.saveNotification("Agreement Accepted", content, counterPart
+                                ,agreement,null);
                         return new ApiResponseDto(true,"Agreement accepted by second party");
                     }
                     else{
                         agreement.setApproved(false);
 
+                        String content = "We’re sorry to inform you that " + counterPart.getFirstName() + "has declined the condition(s) of the agreement created by you" +
+                                "\n If you have any questions or need to review the agreement, please visit the link to the agreement below.";
                         SocketMessage message = new SocketMessage();
                         SocketMessage.Metadata metadata = new SocketMessage.Metadata();
                         metadata.setAgreementId(agreementId);
 
                         message.setTo(counterPart.getUserId());
                         message.setSubject("Agreement Declined");
-                        message.setContent("We’re sorry to inform you that " + counterPart.getFirstName() + "has declined the condition(s) of the agreement created by you" +
-                                "\n If you have any questions or need to review the agreement, please visit the link to the agreement below.");
+                        message.setContent(content);
+
+                        notificationService.saveNotification("Agreement Declined", content, counterPart
+                                ,agreement,null);
                         return new ApiResponseDto(true,"Agreement declined by second party");
                     }
                 }
             }else
-                throw new CustomException("You are not the seller of this agreement");
+                throw new CustomException("You are not the other party of this agreement");
         }catch (ResourceNotFoundException e) {
             throw e;
         }catch (Exception e) {
@@ -157,7 +173,7 @@ public class AgreementServiceImpl implements AgreementService {
     @Override
     public ApiResponseDto getAgreementsByUser(User user){
         try{
-            List<Agreement> agreements = agreementRepository.findAgreementsByBuyer(user,sort);
+            List<Agreement> agreements = agreementRepository.findByBuyerOrSeller(user,user,sort);
             return new ApiResponseDto(true,"List of agreements fetched successfully",agreements);
         }catch(Exception ex){
             throw new CustomException("An unexpected error occurred" +
@@ -168,7 +184,8 @@ public class AgreementServiceImpl implements AgreementService {
     @Override
     public ApiResponseDto getAgreement(User user, String agreementId) {
         try{
-            Agreement agreement = agreementRepository.findByAgreementIdAndBuyer(agreementId,user)
+            Agreement agreement = agreementRepository
+                    .findByIdAndUserIsSellerOrBuyer(agreementId,user)
                     .orElseThrow(() -> new ResourceNotFoundException("Agreement", "id", agreementId));
             return new ApiResponseDto(true,"Agreement fetched successfully",agreement);
         }catch (ResourceNotFoundException e){
@@ -182,7 +199,7 @@ public class AgreementServiceImpl implements AgreementService {
     @Override
     public ApiResponseDto editAgreement(User user, String agreementId, EditAgreementDto agreementDto) {
         try{
-            Agreement agreement = agreementRepository.findByAgreementIdAndBuyer(agreementId,user)
+            Agreement agreement = agreementRepository.findByIdAndUserIsSellerOrBuyer(agreementId,user)
                     .orElseThrow(() -> new ResourceNotFoundException("Agreement", "id", agreementId));
 //            if(agreement.getTransaction()!=null){
 //                throw new CustomException("Agreement is already approved and cannot be edited");
@@ -249,6 +266,13 @@ public class AgreementServiceImpl implements AgreementService {
             Transaction transaction = transactionRepository.findByTransactionId(transactionId)
                     .orElseThrow(() -> new ResourceNotFoundException("Transaction", "id", transactionId));
 
+            Agreement agreement = agreementRepository.findByTransaction(transaction)
+                    .orElseThrow(() -> new ResourceNotFoundException("Agreement", "transaction id", transactionId));
+
+            User seller = agreement.getSeller();
+
+            DiimuWallet sellerWallet = walletRepository.findByUserAndWalletType(seller,WalletType.CUSTOMER)
+                    .orElseThrow(() -> new ResourceNotFoundException("User", "user Id", seller.getUserId()));
             // Check if already paid
             if (isAlreadyPaid(transaction)) {
                 throw new CustomException("Transaction has already been paid for");
@@ -274,7 +298,9 @@ public class AgreementServiceImpl implements AgreementService {
                         transaction.getStatus() == TransactionStatus.PENDING) {
                     wallet.setAccessibleBalance(wallet.getAccessibleBalance()
                             - transaction.getAmount());
-                    walletRepository.save(wallet);
+                    wallet.setEscrowBalance(wallet.getEscrowBalance()+transaction.getAmount());
+                    sellerWallet.setEscrowBalance(sellerWallet.getEscrowBalance()+transaction.getAmount());
+                    walletRepository.saveAll(List.of(wallet,sellerWallet));
                     holdInEscrow(transaction);
                     return new ApiResponseDto(true, "Transaction paid for successfully", transaction);
                 } else {
@@ -397,9 +423,11 @@ public class AgreementServiceImpl implements AgreementService {
         messagingTemplate.convertAndSendToUser(sellerMsg.getFrom(), "/queue/notifications", sellerMsg);
         messagingTemplate.convertAndSendToUser(buyerMsg.getTo(), "/queue/notifications", buyerMsg);
 
-        notificationService.saveNotification(sellerMsg.getSubject(), sellerMsg.getContent(), agreement.getSeller()
+        notificationService.saveNotification(initiatedBy.equalsIgnoreCase("seller")?sellerMsg.getSubject():"New Agreement Received"
+                , sellerMsg.getContent(), agreement.getSeller()
                 ,agreement,initiatedBy.equalsIgnoreCase("seller")?"initiator":"recipient");
-        notificationService.saveNotification(buyerMsg.getSubject(), buyerMsg.getContent(), agreement.getBuyer()
+        notificationService.saveNotification(initiatedBy.equalsIgnoreCase("buyer")?buyerMsg.getSubject():"New Agreement Received"
+                , buyerMsg.getContent(), agreement.getBuyer()
                 ,agreement,initiatedBy.equalsIgnoreCase("buyer")?"initiator":"recipient");
     }
 
@@ -436,7 +464,6 @@ public class AgreementServiceImpl implements AgreementService {
         metadata.setAgreementId(savedAgreement.getAgreementId());
 
         baseMessage.setData(metadata);
-        String cta = "To approve or decline the agreement, kindly click the button below";
 
         SocketMessage sellerMessage = new SocketMessage(baseMessage);
         SocketMessage buyerMessage = new SocketMessage(baseMessage);
@@ -446,16 +473,14 @@ public class AgreementServiceImpl implements AgreementService {
                     + savedAgreement.getSeller().getFirstName() );
 
 
-            buyerMessage.setContent("The agreement between " + savedAgreement.getBuyer().getFirstName() + " and "
-                    + savedAgreement.getSeller().getFirstName() + " has been created successfully by "
-                    + savedAgreement.getSeller().getFirstName() + cta);
+            buyerMessage.setContent("The seller has sent an agreement for your review. " +
+                    "Please go through the details and accept to proceed with the transaction.");
 
 
         }
         else{
-            sellerMessage.setContent("The agreement between " + savedAgreement.getBuyer().getFirstName() + " and "
-                    + savedAgreement.getSeller().getFirstName() + " has been created successfully by "
-                    + savedAgreement.getBuyer().getFirstName() + cta);
+            sellerMessage.setContent("The buyer has sent an agreement for your review." +
+                    " Please go through the details and accept to proceed with the transaction.");
 
             buyerMessage.setContent("The agreement between " + savedAgreement.getBuyer().getFirstName() + " and "
                     + savedAgreement.getSeller().getFirstName() + " has been created successfully by "
