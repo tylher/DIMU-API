@@ -11,4 +11,6 @@ import java.util.Optional;
 
 public interface GoodServiceService {
     public ApiResponseDto createGoodService(CreateGoodServiceDto createGoodServiceDto);
+
+    public ApiResponseDto updateDeliveryStatus(String goodServiceId, String deliveryStatus);
 }

@@ -2,6 +2,7 @@ package com.dimu.dimuapi.controller;
 
 import com.dimu.dimuapi.dto.ApiResponseDto;
 import com.dimu.dimuapi.dto.CreateGoodServiceDto;
+import com.dimu.dimuapi.dto.UpdateDeliveryStatusDto;
 import com.dimu.dimuapi.exceptionshandling.CustomException;
 import com.dimu.dimuapi.model.User;
 import com.dimu.dimuapi.service.goodservice.GoodServiceService;
@@ -49,5 +50,15 @@ public class GoodServicesController {
     }
 
 
+    @PutMapping("/update")
+    public ResponseEntity<ApiResponseDto> updateGoodServices(@AuthenticationPrincipal User user,
+                                                             @Valid @RequestBody UpdateDeliveryStatusDto updateDeliveryStatusDto
+
+    ){
+
+        ApiResponseDto apiResponseDto = goodServiceService.updateDeliveryStatus(updateDeliveryStatusDto.goodServicesId()
+                ,updateDeliveryStatusDto.deliveryStatus());
+        return ResponseEntity.ok(apiResponseDto);
+    }
 
 }

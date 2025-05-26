@@ -131,7 +131,7 @@ public class AgreementServiceImpl implements AgreementService {
 
                         SocketMessage message = new SocketMessage();
 
-                        String content = "We’re pleased to inform you that " + counterPart.getFirstName() + "has accepted the condition(s) of the agreement created by you" +
+                        String content = "We’re pleased to inform you that " + counterPart.getFirstName() + " has accepted the condition(s) of the agreement created by you." +
                                 "\n If you have any questions or need to review the agreement, please visit the link to the agreement below.";
                         SocketMessage.Metadata metadata = new SocketMessage.Metadata();
                         metadata.setAgreementId(agreementId);
@@ -146,7 +146,7 @@ public class AgreementServiceImpl implements AgreementService {
                     else{
                         agreement.setApproved(false);
 
-                        String content = "We’re sorry to inform you that " + counterPart.getFirstName() + "has declined the condition(s) of the agreement created by you" +
+                        String content = "We’re sorry to inform you that " + counterPart.getFirstName() + " has declined the condition(s) of the agreement created by you." +
                                 "\n If you have any questions or need to review the agreement, please visit the link to the agreement below.";
                         SocketMessage message = new SocketMessage();
                         SocketMessage.Metadata metadata = new SocketMessage.Metadata();

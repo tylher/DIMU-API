@@ -31,6 +31,7 @@ public class SocketMessage {
     public static class Metadata{
         private String agreementId;
         private String transactionId;
+        private String goodServiceId;
     }
 
 

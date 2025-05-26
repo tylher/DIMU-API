@@ -1,9 +1,6 @@
 package com.dimu.dimuapi.model;
 
-import com.dimu.dimuapi.Enum.DeliveryMethod;
-import com.dimu.dimuapi.Enum.ItemCategory;
-import com.dimu.dimuapi.Enum.ItemCondition;
-import com.dimu.dimuapi.Enum.ItemType;
+import com.dimu.dimuapi.Enum.*;
 import com.dimu.dimuapi.exceptionshandling.CustomException;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.google.gson.Gson;
@@ -47,7 +44,8 @@ public class GoodServices extends BaseEntity{
     @Enumerated(EnumType.STRING)
     private ItemCondition itemCondition = ItemCondition.NEW;
     private String deliveryAddress;
-    private String deliveryStatus;
+    @Enumerated(EnumType.STRING)
+    private DeliveryStatus deliveryStatus = DeliveryStatus.PENDING;
     private int inspectionPeriod;
     @Enumerated(EnumType.STRING)
     private DeliveryMethod deliveryMethod;
