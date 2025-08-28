@@ -1,0 +1,4 @@
+package com.dimu.dimuapi.dto;
+
+public record UserPresenceDto() {
+}

@@ -87,5 +87,11 @@ public class AgreementController {
         return ResponseEntity.ok(responseDto);
     }
 
+    @PutMapping("/{agreementId}/complete")
+    public ResponseEntity<ApiResponseDto> completeAgreement(@PathVariable String agreementId, @AuthenticationPrincipal User user){
+        ApiResponseDto result = agreementService.completeTransaction(user,agreementId);
+        return ResponseEntity.ok(result);
+    }
+
 
 }

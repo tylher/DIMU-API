@@ -1,0 +1,55 @@
+package com.dimu.dimuapi.configuration;
+
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.connection.RedisPassword;
+import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
+import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
+
+@Configuration
+@Slf4j
+public class RedisConfig {
+    @Value("${spring.redis.host}")
+    private String redisHost;
+
+    @Value("${spring.redis.port}")
+    private String redisPort;
+
+    @Value("${spring.redis.password}")
+    private String redisPassword;
+
+
+    @Bean
+    public LettuceConnectionFactory redisConnectionFactory() {
+
+        log.info(redisHost);
+        log.info(redisPassword);
+        log.info(redisPort);
+        RedisStandaloneConfiguration redisStandaloneConfiguration =
+                new RedisStandaloneConfiguration(redisHost, Integer.parseInt(redisPort));
+        if(redisPassword != null && !redisPassword.isEmpty()) {
+            redisStandaloneConfiguration
+                    .setPassword(redisPassword);
+        }
+
+        return new LettuceConnectionFactory(redisStandaloneConfiguration);
+    }
+
+    @Bean
+    RedisTemplate<String,String> redisTemplate() {
+        LettuceConnectionFactory connectionFactory = redisConnectionFactory();
+        connectionFactory.afterPropertiesSet();
+
+        RedisTemplate<String, String> template = new RedisTemplate<>();
+        template.setConnectionFactory(connectionFactory);
+        template.setDefaultSerializer(StringRedisSerializer.UTF_8);
+        template.afterPropertiesSet();
+
+        return  template;
+    }
+
+}

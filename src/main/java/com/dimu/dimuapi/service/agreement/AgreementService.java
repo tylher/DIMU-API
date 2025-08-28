@@ -17,4 +17,5 @@ public interface AgreementService {
     public ApiResponseDto editAgreement(User user, String agreementId, EditAgreementDto agreementDto);
     public ApiResponseDto payForAgreement( String transactionId,String paymentType, String walletId,User user);
     public ApiResponseDto acceptOrDeclineAgreement(String agreementId, boolean isAccepted, User user);
+    public ApiResponseDto completeTransaction(User user, String agreementId);
 }

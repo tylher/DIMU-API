@@ -55,6 +55,11 @@ public class GoodServices extends BaseEntity{
     @Column(columnDefinition = "BOOLEAN DEFAULT FALSE")
     private boolean proofOfAuthenticationExists;
 
+    @Column(columnDefinition = "BOOLEAN DEFAULT FALSE")
+    private boolean deliveryConfirmed = false;
+
+    private String riderNumber;
+
 
 
 //    public List<String> getAdditionalItems(){

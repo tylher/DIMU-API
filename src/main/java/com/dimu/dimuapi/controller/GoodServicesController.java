@@ -11,6 +11,7 @@ import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -57,8 +58,13 @@ public class GoodServicesController {
     ){
 
         ApiResponseDto apiResponseDto = goodServiceService.updateDeliveryStatus(updateDeliveryStatusDto.goodServicesId()
-                ,updateDeliveryStatusDto.deliveryStatus());
+                ,updateDeliveryStatusDto.deliveryStatus(),updateDeliveryStatusDto.riderNumber());
         return ResponseEntity.ok(apiResponseDto);
+    }
+
+    @PutMapping("/confirm-delivery")
+    public ResponseEntity<ApiResponseDto> confirmDelivery(@RequestParam String goodServiceId, @AuthenticationPrincipal User user){
+        return new ResponseEntity<>(goodServiceService.confirmDelivery(goodServiceId,user), HttpStatus.OK);
     }
 
 }
