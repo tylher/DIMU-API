@@ -27,10 +27,10 @@ jobs:
             ${{ runner.os }}-maven-
 
       - name: Build with maven
-        uses: mvn clean compile -B
+        run: mvn clean compile -B
 
       - name: run test
-        uses: mvn test -B
+        run: mvn test -B
 
       - name: Package app
-        uses: mvn package -B
+        run: mvn package -B
