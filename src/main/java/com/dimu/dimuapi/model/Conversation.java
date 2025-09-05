@@ -21,19 +21,13 @@ public class Conversation extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.UUID)
     private String conversationId;
 
-    @ManyToMany
-    @JoinTable(name = "conversation_participants"
-            ,joinColumns = @JoinColumn(name = "conversationId")
-            ,inverseJoinColumns = @JoinColumn(name = "userId",referencedColumnName = "userId")
-    )
-    private List<User> participants;
+    @OneToMany(mappedBy = "conversation", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ConversationParticipants> participants;
 
     private Integer unreadCount;
 
     private String lastMessage;
 
     private Instant lastMessageTime;
-
-
 
 }

@@ -5,12 +5,15 @@ import com.dimu.dimuapi.dto.ApiResponseDto;
 import com.dimu.dimuapi.dto.MessageDto;
 import com.dimu.dimuapi.dto.MessageStatusDto;
 import com.dimu.dimuapi.dto.SeenDto;
+import com.dimu.dimuapi.exceptionshandling.CustomException;
 import com.dimu.dimuapi.exceptionshandling.ResourceNotFoundException;
 import com.dimu.dimuapi.model.ChatMessage;
 import com.dimu.dimuapi.model.Conversation;
+import com.dimu.dimuapi.model.ConversationParticipants;
 import com.dimu.dimuapi.model.User;
 import com.dimu.dimuapi.repository.ChatMessageRepository;
 import com.dimu.dimuapi.repository.ConversationRepository;
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -33,27 +36,29 @@ public class ChatMessageServiceImpl implements ChatMessageService{
     @Autowired
     SimpMessagingTemplate messagingTemplate;
 
+    @Transactional
     @Override
     public void sendChatMessage(MessageDto messageDto) throws Exception {
         try{
             Conversation conversation = getConversationById(messageDto.conversationId());
 
-            User user = conversation.getParticipants().stream()
-                    .filter(p -> p.getUserId().equals(messageDto.senderId()))
+            ConversationParticipants participant = conversation.getParticipants().stream()
+                    .filter(p -> p.getUser().getUserId().equals(messageDto.senderId()))
                     .findFirst()
                     .orElseThrow(() -> new ResourceNotFoundException("User", "id", messageDto.senderId()));
 
+            User user = participant.getUser();
             ChatMessage chatMessage = ChatMessage.builder()
                     .sender(user)
                     .content(messageDto.content())
                     .conversation(conversation)
-                    .createdAt(Instant.now())
+                    .createdDate(Instant.now())
                     .build();
 
             chatMessageRepository.save(chatMessage);
 
             conversation.setLastMessage(chatMessage.getContent());
-            conversation.setLastMessageTime(chatMessage.getCreatedAt());
+            conversation.setLastMessageTime(chatMessage.getCreatedDate());
             conversation.setUnreadCount(conversation.getUnreadCount() + 1);
 
             conversationRepository.save(conversation);
@@ -65,7 +70,7 @@ public class ChatMessageServiceImpl implements ChatMessageService{
 
         catch (Exception ex){
             log.error("An unexpected error occurred, "+ex.getMessage());
-            throw new Exception("An unexpected error occurred");
+            throw new CustomException("An unexpected error occurred");
         }
 
     }
@@ -91,8 +96,8 @@ public class ChatMessageServiceImpl implements ChatMessageService{
 
         chatMessageRepository.save(message);
 
-        messagingTemplate.convertAndSendToUser(message.getSender().getUserId(), "/queue/messages", new MessageStatusDto(messageStatusDto.messageId()
-                , message.getStatus().toString(), null, messageStatusDto.conversationId()));
+        messagingTemplate.convertAndSendToUser(message.getSender().getUserId(), "/queue/messages", new MessageStatusDto(messageStatusDto.conversationId(),
+                message.getChatMessageId(), message.getStatus().toString(), null));
     }
 
     }
@@ -109,8 +114,8 @@ public class ChatMessageServiceImpl implements ChatMessageService{
         conversationRepository.save(conversation);
         for (ChatMessage chatMessage : chatMessages) {
             messagingTemplate.convertAndSendToUser(chatMessage.getSender().getUserId(),
-                    "/queue/messages", new MessageStatusDto(chatMessage.getChatMessageId()
-                            , chatMessage.getStatus().toString(), null,conversation.getConversationId()));
+                    "/queue/messages", new MessageStatusDto(seenDto.conversationId(),
+                            chatMessage.getChatMessageId(), chatMessage.getStatus().toString(), null));
         }
 
 

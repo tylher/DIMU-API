@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import static com.dimu.dimuapi.constant.ApplicationConstants.*;
 
@@ -38,6 +39,12 @@ public class DiimuToken {
     private User user;
 
     public static String generateRandomToken(TokenType tokenType,TokenFormat tokenFormat) {
+
+        // Special case: use UUID for refresh tokens
+        if (tokenType == TokenType.REFRESH) {
+            return UUID.randomUUID().toString().replace("-", ""); // 32 chars without hyphens
+        }
+
         SecureRandom random = new SecureRandom();
         String characters;
         StringBuilder str = new StringBuilder(tokenType.getLength());

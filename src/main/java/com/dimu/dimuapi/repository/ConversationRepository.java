@@ -13,14 +13,29 @@ import java.util.Optional;
 @Repository
 public interface ConversationRepository extends JpaRepository<Conversation,String> {
     @Query("""
-            SELECT c FROM Conversation c JOIN c.participants p1
-            JOIN c.participants p2 WHERE p1.userId = :userAId AND p2.userId = :userBId
-            GROUP BY c.conversationId HAVING COUNT(c.participants) = 2
-           """)
-    Optional<Conversation> getConversationByParticipants(@Param("userAId") String userAId
-            , @Param("userBId") String userBId);
+    SELECT c 
+    FROM Conversation c 
+    JOIN c.participants p 
+    WHERE p.user.userId IN (:userAId, :userBId)
+    GROUP BY c
+    HAVING COUNT(DISTINCT p.user.userId) = 2
+""")
+    Optional<Conversation> getConversationByParticipants(@Param("userAId") String userAId,
+                                                         @Param("userBId") String userBId);
+
 
     @Query("SELECT DISTINCT u FROM Conversation c JOIN c.participants p JOIN c.participants u " +
             "WHERE p.id = :userId AND u.id <> :userId")
     List<User> findConversationPartners(@Param("userId") String userId);
+
+    @Query("""
+   SELECT DISTINCT c 
+   FROM Conversation c
+   JOIN c.participants p
+   WHERE p.user.userId = :userId
+   ORDER BY c.updatedAt DESC
+""")
+    List<Conversation> findDistinctByUserIdOrderByUpdatedAtDesc(@Param("userId") String userId);
+
+
 }

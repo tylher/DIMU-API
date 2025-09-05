@@ -1,30 +1,33 @@
 package com.dimu.dimuapi.model;
 
-import com.dimu.dimuapi.Enum.MessageStatus;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.Instant;
-
 @Entity
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class ChatMessage  extends BaseEntity{
+public class ConversationParticipants {
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private String chatMessageId;
-    @ManyToOne
-    @JoinColumn(name = "userId")
-    private User sender;
+    private String id;
+
     @ManyToOne
     @JoinColumn(name = "conversationId")
+    @JsonIgnore
     private Conversation conversation;
-    private MessageStatus status = MessageStatus.SENT;
-    private String content;
-    private Instant createdDate;
+
+    @ManyToOne
+    @JoinColumn( name = "userId")
+    private User user;
+
+    @Column(columnDefinition = "INT DEFAULT 0")
+    private int unreadCount = 0;
 }
