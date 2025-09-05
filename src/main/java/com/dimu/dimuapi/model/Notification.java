@@ -26,5 +26,8 @@ public class Notification extends BaseEntity{
     private NotificationType type;
     @Enumerated(EnumType.STRING)
     private MessageStatus status = MessageStatus.UNREAD;
-
+    private String agreementId;
+    private  String party;
+    @Column(columnDefinition = "BOOLEAN DEFAULT FALSE")
+    private boolean agreementAccepted;
 }

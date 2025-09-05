@@ -1,21 +1,25 @@
 package com.dimu.dimuapi.service;
 
-import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.model.CannedAccessControlList;
-import com.amazonaws.services.s3.model.DeleteObjectRequest;
-import com.amazonaws.services.s3.model.ObjectMetadata;
-import com.amazonaws.services.s3.model.PutObjectRequest;
+
+import com.dimu.dimuapi.Enum.AWSBucketList;
 import com.dimu.dimuapi.exceptionshandling.CustomException;
+import jakarta.annotation.PostConstruct;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import software.amazon.awssdk.auth.credentials.DefaultCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.s3.presigner.S3Presigner;
-import software.amazon.awssdk.services.s3.presigner.model.GetObjectPresignRequest;
-import software.amazon.awssdk.services.s3.presigner.model.PresignedGetObjectRequest;
+import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
+import software.amazon.awssdk.services.s3.model.ObjectCannedACL;
+import software.amazon.awssdk.services.s3.model.PutObjectRequest;
+//import software.amazon.awssdk.regions.Region;
+//import software.amazon.awssdk.services.s3.presigner.S3Presigner;
+//import software.amazon.awssdk.services.s3.presigner.model.GetObjectPresignRequest;
+//import software.amazon.awssdk.services.s3.presigner.model.PresignedGetObjectRequest;
 
 import java.io.*;
 import java.util.List;
@@ -23,26 +27,32 @@ import java.util.List;
 @Service
 @Slf4j
 public class S3Service {
+    @Value("${aws.region}")
+    private String region;
+
     @Autowired
-    AmazonS3 amazonS3;
+    private S3Client s3Client;
 
-    @Value("${aws.s3.bucket}")
-    private String bucketName;
 
-    public String uploadFile(MultipartFile file) throws IOException {
+
+    public String uploadFile(MultipartFile file, String bucketName) throws IOException {
 
 
         String fileName = System.currentTimeMillis() + "_" + file.getName();
 
-        try (InputStream inputStream = file.getInputStream()) {
-            ObjectMetadata metadata = new ObjectMetadata();
-            metadata.setContentLength(file.getSize());
-            metadata.setContentType(file.getContentType());
+        try  {
+            PutObjectRequest putObjectRequest = PutObjectRequest.builder()
+                            .key(fileName)
+                            .bucket(bucketName)
+                            .acl(ObjectCannedACL.PUBLIC_READ)
+                            .contentLength(file.getSize())
+                            .contentType(file.getContentType())
+                            .build();
 
-            amazonS3.putObject(new PutObjectRequest(bucketName, fileName, inputStream, metadata));
-            amazonS3.setObjectAcl(bucketName,fileName, CannedAccessControlList.PublicRead);
             log.info(generatePublicUrl(fileName,bucketName));
             return generatePublicUrl(fileName,bucketName);
+        } catch (Exception e) {
+            throw new CustomException(e.getMessage());
         }
 
 
@@ -51,8 +61,11 @@ public class S3Service {
     public void deleteFile(String url){
         try{
             String[] bAndFN = extractBucketAndFileName(url);
-            DeleteObjectRequest deleteObjectRequest= new DeleteObjectRequest( bAndFN[0],bAndFN[1]);
-            amazonS3.deleteObject(deleteObjectRequest);
+            DeleteObjectRequest deleteObjectRequest= DeleteObjectRequest.builder()
+                                    .bucket(bAndFN[0])
+                                    .key(bAndFN[1])
+                                    .build();
+            s3Client.deleteObject(deleteObjectRequest);
             log.info("file deleted successfully");
         } catch (Exception e) {
             throw new CustomException("An error occured: "+e.getMessage());

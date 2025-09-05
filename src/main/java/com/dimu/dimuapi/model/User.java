@@ -61,6 +61,9 @@ public class User extends BaseEntity{
     @JsonIgnore
     private String securePin;
 
+    @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT false")
+    private boolean isSecurePinSet = false;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL
             , orphanRemoval = true, fetch = FetchType.EAGER)
     @ToString.Exclude

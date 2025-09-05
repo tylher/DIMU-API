@@ -87,7 +87,7 @@ public class DiimuVerificationTokenService implements DiimuTokenService{
         try{
             String content = "Kindly verify your email using the code below\n "
                     +createToken(email);
-            Mail mail = new Mail(new String[]{email},"ayo@diimu.net"
+            Mail mail = new Mail(new String[]{email},"jummy@diimu.net"
                     ,"verify your email");
             emailService.sendSimpleMail(mail,content);
             return "Verification code sent successfully";

@@ -2,6 +2,7 @@ package com.dimu.dimuapi.service.notification;
 
 
 import com.dimu.dimuapi.dto.ApiResponseDto;
+import com.dimu.dimuapi.model.Agreement;
 import com.dimu.dimuapi.model.Notification;
 import com.dimu.dimuapi.model.User;
 
@@ -9,7 +10,7 @@ import java.util.List;
 
 
 public interface NotificationService {
-    void saveNotification(String subject, String content, User user);
+    void saveNotification(String subject, String content, User user, Agreement agreement, String party);
     ApiResponseDto getNotifications(User user);
     void markNotificationsAsRead(List<String> notificationIds);
 }

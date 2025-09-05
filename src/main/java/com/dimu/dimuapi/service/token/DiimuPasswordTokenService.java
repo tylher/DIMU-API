@@ -86,7 +86,7 @@ public class DiimuPasswordTokenService implements DiimuTokenService{
         try{
             String content = "Kindly reset your password using the code below\n "
                     +createToken(email);
-            Mail mail = new Mail(new String[]{email},"ayo@diimu.net"
+            Mail mail = new Mail(new String[]{email},"jummy@diimu.net"
                     ,"Reset Your Password");
             emailService.sendSimpleMail(mail,content);
             return "Password reset code sent successfully";
