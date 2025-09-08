@@ -40,15 +40,28 @@ jobs:
           HOSTNAME: ${{ secrets.EC2_HOST }}
           USER_NAME: ${{ secrets.EC2_USERNAME }}
         run: |
-          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
-          ssh -T -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} 'bash -s' << 'EOF'
-            set -e
+          # Set up SSH key
+          echo "$PRIVATE_KEY" > private_key
+          chmod 600 private_key
           
-            # Note: You might need to change to your project directory first
-            # cd /path/to/your/docker-compose-file/
+          # Create a deployment script
+          cat > deploy_script.sh << 'EOF'
+          #!/bin/bash
+          set -e
+          echo "--- Starting deployment on EC2 ---"
+          # IMPORTANT: Navigate to the directory containing your docker-compose.yml file
+          # cd /path/to/your/project
           
-            sudo docker compose pull
-            sudo docker compose up -d
+          # Pull the latest image and restart the services
+          sudo docker compose pull
+          sudo docker compose up -d
           
-            echo "App deployed successfully"
+          echo "--- App deployed successfully ---"
           EOF
+          
+          # Copy the script to the EC2 instance
+          scp -o StrictHostKeyChecking=no -i private_key deploy_script.sh ${USER_NAME}@${HOSTNAME}:/tmp/deploy_script.sh
+          
+          # Execute the script on the EC2 instance
+          ssh -T -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} "bash /tmp/deploy_script.sh"
+
