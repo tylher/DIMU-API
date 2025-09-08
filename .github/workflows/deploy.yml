@@ -26,23 +26,6 @@ jobs:
           platform: linux/amd64
           push: true
           tags: damolacodes/diimu-api:1.0
-#          build-args: |
-#              DB_URL: ${{ secrets.DB_DEV_URL }}
-#              DB_USERNAME: ${{ secrets.DB_USERNAME }}
-#              DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-#              DB_PROD_URL: ${{ secrets.DB_PROD_URL}}
-#              JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
-#              EMAIL_USERNAME: ${{ secrets.EMAIL_USERNAME }}
-#              EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
-#              SMTP_HOST: ${{ secrets.SMTP_HOST }}
-#              SMTP_PORT: ${{ secrets.SMTP_PORT }}
-#              AWS_KEY: ${{ secrets.AWS_KEY }}
-#              AWS_SECRET: ${{ secrets.AWS_SECRET }}
-#              AWS_REGION: ${{ secrets.AWS_REGION }}
-#              PAYSTACK_SECRET_KEY: ${{ secrets.PAYSTACK_SECRET_KEY }}
-#              PAYSTACK_PUBLIC_KEY: ${{ secrets.PAYSTACK_PUBLIC_KEY }}
-#              REDIS_HOST: ${{ secrets.REDIS_HOST }}
-#              REDIS_PORT: ${{ secrets.REDIS_PORT }}
   deploy:
     name: Deploy to EC2
     needs: build-and-push
