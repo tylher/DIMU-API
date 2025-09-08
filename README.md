@@ -91,3 +91,4 @@ This project is licensed under the MIT License - see the [LICENSE](https://githu
 Feel free to adjust any sections as per your project's specific requirements.
 
 [1]: https://github.com/NordicMuseum?utm_source=chatgpt.com "Nordic Museum - GitHub"
+Backend for DIMU Application
