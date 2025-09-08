@@ -41,11 +41,11 @@ jobs:
           USER_NAME: ${{ secrets.EC2_USERNAME }}
         run: |
           echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
-          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
+          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} << 'EOF'
             set -e
           
             sudo docker compose pull
             sudo docker compose up -d
           
             echo "App deployed successfully"
-      
+          EOF
