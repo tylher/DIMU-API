@@ -41,8 +41,11 @@ jobs:
           USER_NAME: ${{ secrets.EC2_USERNAME }}
         run: |
           echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
-          ssh -T -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} << 'EOF'
+          ssh -T -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} 'bash -s' << 'EOF'
             set -e
+          
+            # Note: You might need to change to your project directory first
+            # cd /path/to/your/docker-compose-file/
           
             sudo docker compose pull
             sudo docker compose up -d
