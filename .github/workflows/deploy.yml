@@ -3,14 +3,14 @@ name: Build and Deploy to EC2
 on:
   push:
     branches:
-      - dev # Trigger this workflow on every push to the main branch
+      - dev # Trigger this workflow on every push to the dev branch
 
 jobs:
   build-and-push:
     name: Build and Push Docker Image
     runs-on: ubuntu-latest
     steps:
-      - name: Check out code
+      - name: Checkout code
         uses: actions/checkout@v3
 
       - name: Login to Docker Hub
@@ -19,20 +19,21 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build and push docker image
+      - name: Build and push Docker image
         uses: docker/build-push-action@v4
         with:
           context: .
           platform: linux/amd64
           push: true
           tags: damolacodes/diimu-api:1.0
+
   deploy:
     name: Deploy to EC2
     needs: build-and-push
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Deploy to EC2
         env:
@@ -40,12 +41,14 @@ jobs:
           HOSTNAME: ${{ secrets.EC2_HOST }}
           USER_NAME: ${{ secrets.EC2_USERNAME }}
         run: |
-          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
-          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} << 'EOF'
-            set -e
+          # Save the private key to a file and secure it
+          echo "$PRIVATE_KEY" > private_key
+          chmod 600 private_key
+
+          # Connect to EC2 and run deployment commands
+          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME}'
           
-            sudo docker compose pull
-            sudo docker compose up -d
-          
-            echo "App deployed successfully"
-          EOF
+              sudo docker compose pull
+              sudo docker compose up -d
+              echo "App deployed successfully"
+              '
