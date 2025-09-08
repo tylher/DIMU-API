@@ -3,8 +3,7 @@ name: Build and Deploy to EC2
 on:
   push:
     branches:
-      - dev # Trigger this workflow on every push to the dev branch
-
+      - dev
 jobs:
   build-and-push:
     name: Build and Push Docker Image
@@ -41,11 +40,8 @@ jobs:
           HOSTNAME: ${{ secrets.EC2_HOST }}
           USER_NAME: ${{ secrets.EC2_USERNAME }}
         run: |
-          # Save the private key to a file and secure it
           echo "$PRIVATE_KEY" > private_key
           chmod 600 private_key
-
-          # Connect to EC2 and run deployment commands
           ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME}'
           
               sudo docker compose pull
