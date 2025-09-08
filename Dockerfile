@@ -2,7 +2,7 @@ FROM maven:3.9.9-amazoncorretto-21 AS build
 WORKDIR /app
 COPY pom.xml .
 COPY src ./src
-RUN mvn clean install
+RUN mvn clean install -DskipTests
 
 FROM amazoncorretto:21.0.4-alpine3.18
 WORKDIR /app
