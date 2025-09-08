@@ -36,13 +36,11 @@ jobs:
           HOSTNAME: ${{ secrets.EC2_HOST }}
           USER_NAME: ${{ secrets.EC2_USERNAME }}
         run: |
-          # Save the private key
           echo "$PRIVATE_KEY" > private_key
           chmod 600 private_key
-
-          # SSH and run commands on EC2
-          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} bash -s <<'EOF'
-sudo docker compose pull
-sudo docker compose up -d
-echo "App deployed successfully"
-EOF
+          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
+          
+          sudo docker compose pull
+          sudo docker compose up -d
+          echo "App deployed successfully"
+          '
