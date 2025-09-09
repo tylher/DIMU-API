@@ -26,7 +26,7 @@ jobs:
           push: true
           tags: damolacodes/diimu-api:1.0
 
-   deploy:
+  deploy:
     name: Deploy to EC2
     needs: build-and-push
     runs-on: ubuntu-latest
@@ -35,8 +35,8 @@ jobs:
         uses: easingthemes/ssh-deploy@v5.0.0
         with:
           SSH_PRIVATE_KEY: ${{ secrets.EC2_PEM_KEY }}
-          REMOTE_HOST: ${{ vars.HOST }}
-          REMOTE_USER: ${{ vars.USERNAME }}
+          REMOTE_HOST: ${{ secrets.HOST }}
+          REMOTE_USER: ${{ secrets.USERNAME }}
           SCRIPT_AFTER: |
             cd /path/to/your/project   # update this to your project path on EC2
             sudo docker compose pull
