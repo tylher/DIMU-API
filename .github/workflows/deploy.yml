@@ -26,23 +26,19 @@ jobs:
           push: true
           tags: damolacodes/diimu-api:1.0
 
-  deploy:
-    runs-on: ubuntu-latest
+   deploy:
+    name: Deploy to EC2
     needs: build-and-push
+    runs-on: ubuntu-latest
     steps:
-      - name: Deploy to EC2
-        env:
-          PRIVATE_KEY: ${{ secrets.EC2_PEM_KEY }}
-          HOSTNAME: ${{ secrets.EC2_HOST }}
-          USER_NAME: ${{ secrets.EC2_USERNAME }}
-        run: |
-          # Save the private key and set secure permissions
-          echo "$PRIVATE_KEY" > private_key
-          chmod 600 private_key
-
-          # SSH into EC2 and run all commands on the server
-          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} \
-          "sudo docker compose pull && sudo docker compose up -d && echo 'App deployed successfully on EC2'"
-
-          # Optional: remove the private key after deployment
-          rm -f private_key
+      - name: Deploy over SSH
+        uses: easingthemes/ssh-deploy@v5.0.0
+        with:
+          SSH_PRIVATE_KEY: ${{ secrets.EC2_PEM_KEY }}
+          REMOTE_HOST: ${{ vars.HOST }}
+          REMOTE_USER: ${{ vars.USERNAME }}
+          SCRIPT_AFTER: |
+            cd /path/to/your/project   # update this to your project path on EC2
+            sudo docker compose pull
+            sudo docker compose up -d
+            echo "App deployed successfully on EC2"
