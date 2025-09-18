@@ -24,8 +24,6 @@ public class Conversation extends BaseEntity{
     @OneToMany(mappedBy = "conversation", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ConversationParticipants> participants;
 
-    private Integer unreadCount;
-
     private String lastMessage;
 
     private Instant lastMessageTime;

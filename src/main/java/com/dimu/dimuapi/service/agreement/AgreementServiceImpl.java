@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -139,6 +140,8 @@ public class AgreementServiceImpl implements AgreementService {
                         message.setSubject("Agreement Accepted");
                         message.setContent(content);
 
+                        messagingTemplate.convertAndSendToUser(message.getTo(), "/queue/notifications", message);
+
                         notificationService.saveNotification("Agreement Accepted", content, counterPart
                                 ,agreement,null);
                         return new ApiResponseDto(true,"Agreement accepted by second party");
@@ -155,6 +158,8 @@ public class AgreementServiceImpl implements AgreementService {
                         message.setTo(counterPart.getUserId());
                         message.setSubject("Agreement Declined");
                         message.setContent(content);
+
+                        messagingTemplate.convertAndSendToUser(message.getTo(), "/queue/notifications", message);
 
                         notificationService.saveNotification("Agreement Declined", content, counterPart
                                 ,agreement,null);
@@ -287,6 +292,7 @@ public class AgreementServiceImpl implements AgreementService {
     }
 
     @Override
+    @Transactional
     public ApiResponseDto payForAgreement( String transactionId,String paymentType,String walletId,User user) {
         try {
             // Fetch transaction
