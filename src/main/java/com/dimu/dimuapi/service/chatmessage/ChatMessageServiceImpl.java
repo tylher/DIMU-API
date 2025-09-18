@@ -12,6 +12,7 @@ import com.dimu.dimuapi.model.Conversation;
 import com.dimu.dimuapi.model.ConversationParticipants;
 import com.dimu.dimuapi.model.User;
 import com.dimu.dimuapi.repository.ChatMessageRepository;
+import com.dimu.dimuapi.repository.ConversationParticipantsRepository;
 import com.dimu.dimuapi.repository.ConversationRepository;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
@@ -36,10 +37,14 @@ public class ChatMessageServiceImpl implements ChatMessageService{
     @Autowired
     SimpMessagingTemplate messagingTemplate;
 
+    @Autowired
+    ConversationParticipantsRepository participantsRepository;
+
     @Transactional
     @Override
     public void sendChatMessage(MessageDto messageDto) throws Exception {
         try{
+            log.info("sending message now");
             Conversation conversation = getConversationById(messageDto.conversationId());
 
             ConversationParticipants participant = conversation.getParticipants().stream()
@@ -47,19 +52,24 @@ public class ChatMessageServiceImpl implements ChatMessageService{
                     .findFirst()
                     .orElseThrow(() -> new ResourceNotFoundException("User", "id", messageDto.senderId()));
 
+            ConversationParticipants otherParticipant = conversation.getParticipants().get(0).getId()
+                    .equals(participant.getId())? conversation.getParticipants().get(1):conversation.getParticipants().get(0);
+
             User user = participant.getUser();
             ChatMessage chatMessage = ChatMessage.builder()
                     .sender(user)
                     .content(messageDto.content())
                     .conversation(conversation)
                     .createdDate(Instant.now())
+                    .status(MessageStatus.SENT)
                     .build();
 
             chatMessageRepository.save(chatMessage);
 
             conversation.setLastMessage(chatMessage.getContent());
             conversation.setLastMessageTime(chatMessage.getCreatedDate());
-            conversation.setUnreadCount(conversation.getUnreadCount() + 1);
+            otherParticipant.setUnreadCount(otherParticipant.getUnreadCount()+1);
+            participantsRepository.save(otherParticipant);
 
             conversationRepository.save(conversation);
 
@@ -106,10 +116,16 @@ public class ChatMessageServiceImpl implements ChatMessageService{
     public void markMessagesAsRead(SeenDto seenDto) {
         List<ChatMessage> chatMessages = getChatMessagesAfterLastSeenMessage(seenDto);
         Conversation conversation = getConversationById(seenDto.conversationId());
+        ConversationParticipants participant = conversation.getParticipants().stream()
+                .filter(p -> !p.getUser().getUserId().equals(seenDto.userId()))
+                .findFirst().orElseThrow(()-> new CustomException("participant not found"));
+        int count=participant.getUnreadCount();
         for (ChatMessage chatMessage : chatMessages) {
             chatMessage.setStatus(MessageStatus.READ);
-            conversation.setUnreadCount(conversation.getUnreadCount() - 1);
+            count-=1;
         }
+        participant.setUnreadCount(count);
+        participantsRepository.save(participant);
         chatMessageRepository.saveAll(chatMessages);
         conversationRepository.save(conversation);
         for (ChatMessage chatMessage : chatMessages) {

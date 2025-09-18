@@ -24,6 +24,7 @@ public class ChatMessage  extends BaseEntity{
     @ManyToOne
     @JoinColumn(name = "conversationId")
     private Conversation conversation;
+    @Enumerated(EnumType.STRING)
     private MessageStatus status = MessageStatus.SENT;
     private String content;
     private Instant createdDate;

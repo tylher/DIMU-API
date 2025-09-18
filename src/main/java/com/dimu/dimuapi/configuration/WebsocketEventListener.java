@@ -24,7 +24,7 @@ public class WebsocketEventListener {
 
         String userId = sha.getFirstNativeHeader("userId");
         if (userId != null) {
-            sessionHashMap.put(userId, sessionId);
+            sessionHashMap.put(sessionId, userId);
             messagingTemplate.convertAndSend("/topic/presence/" + userId, "ONLINE");
         }
     }
@@ -32,11 +32,9 @@ public class WebsocketEventListener {
     @EventListener
     public void handleWebSocketDisconnectListener(SessionDisconnectEvent event) {
         String sessionId = event.getSessionId();
-        String userId = sessionHashMap.get(sessionId);
+        String userId = sessionHashMap.remove(sessionId);
 
         if (userId != null) {
-            sessionHashMap.remove(sessionId);
-
             // Broadcast presence as 'offline'
             messagingTemplate.convertAndSend("/topic/presence/" + userId, "OFFLINE");
         }

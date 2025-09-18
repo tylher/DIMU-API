@@ -11,15 +11,15 @@ public class KeepAliveTask {
     private static final Logger logger = LoggerFactory.getLogger(KeepAliveTask.class);
 private final WebClient webClient = WebClient.create("http://localhost:8080");
 
-    @Scheduled(fixedRate = 120000) // every 2 minutes
-    public void pingSelf() {
-
-            webClient.get().uri("/actuator/health")
-                     .retrieve()
-                     .bodyToMono(String.class)
-                     .doOnNext(response -> logger.info("Keep-alive ping successful: {}", response))
-                     .doOnError(error-> logger.warn("Keep-alive ping failed: {}", error.getMessage()))
-                     .subscribe();
-
-    }
+//    @Scheduled(fixedRate = 120000) // every 2 minutes
+//    public void pingSelf() {
+//
+//            webClient.get().uri("/actuator/health")
+//                     .retrieve()
+//                     .bodyToMono(String.class)
+//                     .doOnNext(response -> logger.info("Keep-alive ping successful: {}", response))
+//                     .doOnError(error-> logger.warn("Keep-alive ping failed: {}", error.getMessage()))
+//                     .subscribe();
+//
+//    }
 }
